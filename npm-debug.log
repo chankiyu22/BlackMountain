@@ -1,0 +1,24 @@
+info it worked if it ends with ok
+verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'install', '-d' ]
+info using npm@1.1.4
+info using node@v0.6.19
+verbose config file /home/chankiyu22/.npmrc
+verbose config file /usr/etc/npmrc
+verbose config file /usr/share/npm/npmrc
+ERR! Couldn't read dependencies.
+ERR! Error: ENOENT, open '/home/chankiyu22/BlackMountain/package.json'
+ERR! You may report this log at:
+ERR!     <http://bugs.debian.org/npm>
+ERR! or use
+ERR!     reportbug --attach /home/chankiyu22/BlackMountain/npm-debug.log npm
+ERR! 
+ERR! System Linux 3.5.0-25-generic
+ERR! command "/usr/bin/nodejs" "/usr/bin/npm" "install" "-d"
+ERR! cwd /home/chankiyu22/BlackMountain
+ERR! node -v v0.6.19
+ERR! npm -v 1.1.4
+ERR! path /home/chankiyu22/BlackMountain/package.json
+ERR! code ENOENT
+ERR! message ENOENT, open '/home/chankiyu22/BlackMountain/package.json'
+ERR! errno {}
+verbose exit [ 1, true ]
