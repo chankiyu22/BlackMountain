@@ -1,11 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>Twitter</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <h1>Twitter Logo</h1>
+    <div id="greeting">
+      <p>Welcome To Twitter. Find out what's happening, right now, with the people and organizations you care about.</p>
+    </div>
+    <div id="login">
+      <form>
+        <input type="text" name="username"><br />
+        <input type="password" name="password">
+        <input type="submit" value="Log in"><br />
+        <input type="checkbox" name="remember" value="remember">
+          <a href="#">Remember me</a>&nbsp;.&nbsp;<a href="#">Forgot password?</a>
+      </form>
+    </div>
+    <div id="signup">
+      <form>
+        <a>New To Twitter? Sign up</a><br />
+        <input type="text" name="fullname"><br />
+        <input type="text" name="email"><br />
+        <input type="password" name="password"><br />
+        <input type="submit" value="Sign up">
+      </form>
+    </div>
   </body>
 </html>
