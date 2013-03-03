@@ -1,26 +1,56 @@
+body {
+  margin: 0px auto;
+  width: 800px;
+}
+
+table {
+  width: 800px;
+  margin-top: 200px;
+}
+
+lang {
+  float: right;
+}
+
+welcome {
+  font-size: 34px;
+}
+
 #greeting {
-  margin-top: 100px;
+  margin-top: auto;
   font-size: 20px;
   width: 400px;
-  float: left;
 }
 
 #login {
-  margin-top: 60px;
-  margin-left: 500px;
-  width: 260px;
+  margin-top: auto;
+  margin-left: auto;
+  width: 310px;
   border: 2px solid black;
   padding: 5px;
+  right: 0px;
 }
 
 #login a{
   font-size: 12px;
 }
 
+input[type="text"] {
+  width: 300px;
+}
+
 #signup {
-  margin-top:20px;
-  margin-left: 500px;
-  width: 260px;
+  margin-top: 20px;
+  width: 310px;
   border: 2px solid black;
   padding: 5px;
+  float: right;
+}
+
+#signup input[type="password"] {
+  width: 300px;
+}
+
+#signin_submit {
+  float: right;
 }

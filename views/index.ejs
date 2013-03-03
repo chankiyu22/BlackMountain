@@ -5,15 +5,22 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1>Twitter Logo</h1>
+    <a href="/">Twitter</a>
+    <lang>Language: English</lang>
+    <table>
+    <tr>
+    <td>
     <div id="greeting">
-      <p>Welcome To Twitter. Find out what's happening, right now, with the people and organizations you care about.</p>
+      <p><welcome>Welcome To Twitter.</welcome><br />
+      Find out what's happening, right now, with the people and organizations you care about.</p>
     </div>
+    </td>
+    <td>
     <div id="login">
-      <form>
+      <form name="login" action="/login" method="post">
         <input type="text" name="username"><br />
         <input type="password" name="password">
-        <input type="submit" value="Log in"><br />
+        <input type="submit" value="Sign in"><br />
         <input type="checkbox" name="remember" value="remember">
           <a href="#">Remember me</a>&nbsp;.&nbsp;<a href="#">Forgot password?</a>
       </form>
@@ -24,8 +31,11 @@
         <input type="text" name="fullname"><br />
         <input type="text" name="email"><br />
         <input type="password" name="password"><br />
-        <input type="submit" value="Sign up">
+        <input id="signin_submit" type="submit" value="Sign up for Twitter">
       </form>
     </div>
+    </td>
+    </tr>
+    </table>
   </body>
 </html>

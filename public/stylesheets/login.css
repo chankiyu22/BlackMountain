@@ -1,0 +1,33 @@
+body {
+  margin: 0px auto;
+  width: 800px;
+}
+
+lang {
+  float: right;
+}
+
+table {
+  margin-top: 30px;
+  width: 100%;
+  font-size: 14px;
+  font-family: Arial;
+  border: 1px solid #DDDDDD;
+}
+
+form {
+  margin-top: 40px;
+  margin-left: 100px;
+  margin-bottom: 20px;
+}
+
+form header {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+#other {
+  margin-top: 20px;
+  margin-left: 100px;
+  margin-bottom: 20px;
+}

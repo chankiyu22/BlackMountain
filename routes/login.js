@@ -1,3 +1,3 @@
-export.login = function(req, res){
+exports.index = function(req, res){
   res.render('login');
 };

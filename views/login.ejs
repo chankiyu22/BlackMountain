@@ -1,8 +1,32 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <title>Login</title>
+    <title>Sign in to Twitter</title>
+    <link rel='stylesheet' href='/stylesheets/login.css' />
   </head>
   <body>
-    <p>This is login page</p>
+    <a href="/" id="logo">Twitter</a>
+    <lang>Language: English</lang>
+    <table>
+      <tr>
+        <td>
+          <form>
+            <header>Sign in to Twitter</header><br />
+            <input type="text" name="username">
+            Forgot your <a href="#">username</a> ? <br />
+            <input type="password" name="password">
+            Forgot your <a href="#">password</a> ? <br/>
+            <input type="submit" value="Sign in">
+            <input type="checkbox" name="remember" value="remember"> Remember me <br />
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td style="background-color: #EEEEEE"><div id="other">
+          New to Twitter? <a href="#">Sign up now >></a><br />
+          Already using Twitter via text message? <a href="#">Activate your account >></a>
+        </div></td>
+      </tr>
+    </table>
   </body>
 </html>
