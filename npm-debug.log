@@ -1,0 +1,59 @@
+info it worked if it ends with ok
+verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'install', 'flash' ]
+info using npm@1.1.4
+info using node@v0.6.19
+verbose config file /home/chankiyu22/.npmrc
+verbose config file /usr/etc/npmrc
+verbose config file /usr/share/npm/npmrc
+verbose caching /home/chankiyu22/BlackMountain/package.json
+verbose loadDefaults application-name@0.0.1
+verbose caching /home/chankiyu22/BlackMountain/node_modules/express/package.json
+verbose loadDefaults express@3.1.0
+verbose caching /home/chankiyu22/BlackMountain/node_modules/ejs/package.json
+verbose from cache /home/chankiyu22/BlackMountain/package.json
+verbose readDependencies: using package.json deps
+verbose cache add [ 'flash', null ]
+silly cache add: name, spec, args [ undefined, 'flash', [ 'flash', null ] ]
+verbose parsed url { pathname: 'flash', path: 'flash', href: 'flash' }
+verbose addNamed [ 'flash', '' ]
+verbose addNamed [ null, '' ]
+silly name, range, hasData [ 'flash', '', false ]
+verbose raw, before any munging flash
+verbose url resolving [ 'https://registry.npmjs.org/', './flash' ]
+verbose url resolved https://registry.npmjs.org/flash
+http GET https://registry.npmjs.org/flash
+http 200 https://registry.npmjs.org/flash
+silly get cb [ 200,
+silly get cb   { vary: 'Accept',
+silly get cb     server: 'CouchDB/1.2.1 (Erlang OTP/R15B03)',
+silly get cb     etag: '"82WHL764AASHX2IYY92AJ2TBK"',
+silly get cb     date: 'Wed, 06 Mar 2013 02:46:17 GMT',
+silly get cb     'content-type': 'application/json',
+silly get cb     'content-length': '15175' } ]
+verbose mkdir (expected) error ENOENT, stat '/home/chankiyu22/.npm/flash'
+verbose mkdir done: /home/chankiyu22/.npm/flash 755
+silly name, range, hasData 2 [ 'flash', '', true ]
+silly versions [ 'flash', [] ]
+ERR! Error: No compatible version found: flash
+ERR! No valid targets found.
+ERR! Perhaps not compatible with your version of node?
+ERR!     at installTargetsError (/usr/share/npm/lib/cache.js:488:10)
+ERR!     at next_ (/usr/share/npm/lib/cache.js:438:17)
+ERR!     at next (/usr/share/npm/lib/cache.js:415:44)
+ERR!     at /usr/share/npm/lib/cache.js:408:5
+ERR!     at saved (/usr/share/npm/lib/utils/npm-registry-client/get.js:147:7)
+ERR!     at Object.oncomplete (/usr/lib/nodejs/graceful-fs.js:230:7)
+ERR! You may report this log at:
+ERR!     <http://bugs.debian.org/npm>
+ERR! or use
+ERR!     reportbug --attach /home/chankiyu22/BlackMountain/npm-debug.log npm
+ERR! 
+ERR! System Linux 3.5.0-25-generic
+ERR! command "/usr/bin/nodejs" "/usr/bin/npm" "install" "flash"
+ERR! cwd /home/chankiyu22/BlackMountain
+ERR! node -v v0.6.19
+ERR! npm -v 1.1.4
+ERR! message No compatible version found: flash
+ERR! message No valid targets found.
+ERR! message Perhaps not compatible with your version of node?
+verbose exit [ 1, true ]

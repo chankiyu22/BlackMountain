@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Twitter / Create an account</title>
+    <link rel='stylesheet' href='/stylesheets/login.css' />
+  </head>
+  <body>
+    <a href='/'><%= first %></a>
+    <lang><%= last %></lang>
+    <table>
+      <tr>
+        <td>
+          <form>
+            <header>Join Twitter today.</header>
+            <p><a>Full name</a><br />
+               <input type="text" name="name" />
+               <opt>Enter your first and last name.</opt></p><br />
+            <p><a>Email address</a><br />
+               <input type="text" name="email" /></p><br />
+            <p><a>Create a password</a><br />
+               <input type="password" name="password" /></p><br />
+            <p><a>Choose your username</a><br />
+               <input type="text" name="username" /></p><br />
+            <input type="checkbox" name="keep" />
+            <opt>Keep me signed-in on this computer.</opt><br />
+            <input type="checkbox" name="tailor" />
+            <opt>Tailor Twitter based on my recent website visits. 
+                 <a href='#'>Learn more</a>.</opt><br />
+            <input id="signup" type="submit" value="Create my account" />
+          </form>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

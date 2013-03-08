@@ -5,8 +5,8 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <a href="/">Twitter</a>
-    <lang>Language: English</lang>
+    <a href="/"><%= first %></a>
+    <lang><%= last %></lang>
     <table>
     <tr>
     <td>
@@ -26,7 +26,7 @@
       </form>
     </div>
     <div id="signup">
-      <form>
+      <form name="signup" action="/signup" method="post">
         <a>New To Twitter? Sign up</a><br />
         <input type="text" name="fullname"><br />
         <input type="text" name="email"><br />

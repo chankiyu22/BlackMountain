@@ -6,6 +6,7 @@
 var express = require('express')
   , routes = require('./routes')
   , login = require('./routes/login')
+  , signup = require('./routes/signup')
   , user = require('./routes/user')
   , http = require('http')
   , path = require('path');
@@ -31,7 +32,9 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index); 
-app.get('/login', login.index);
+app.post('/login', login.index);
+app.get('/login/captcha', login.captcha);
+app.post('/signup', signup.index);
 app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){
