@@ -9,9 +9,7 @@
     <a href="/"><%= first %></a>
     <lang><%= last %></lang>
       <% if (!login) {%>
-        <div><% include index_not_login %></div>
-      <% } else { %>
-        <div><% include index_login %></div>
+        <div><% include index_not_login %><div>
       <% } %>
   </body>
 </html>

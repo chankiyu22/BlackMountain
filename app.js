@@ -32,9 +32,10 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index); 
-app.post('/login', login.index);
-app.get('/login/captcha', login.captcha);
-app.post('/signup', signup.index);
+app.get('/login', login.index);
+app.post('/login/captcha', login.captcha);
+app.get('/signup', signup.index);
+app.post('/signup/addUser', signup.createUser);
 app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){
