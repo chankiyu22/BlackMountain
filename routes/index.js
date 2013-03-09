@@ -4,7 +4,7 @@
  */
 
 exports.index = function(req, res){
-  res.render('index', {first: 'Twitter',
+  res.render('signup', {first: 'Twitter',
                        last: 'Language: English'});
   console.log("Basic Index Page");
 };
