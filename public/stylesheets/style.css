@@ -1,3 +1,17 @@
+div {
+  font-family: Arial;
+}
+
+a {
+  text-decoration:none;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+}
+
 body {
   margin: 0px auto;
   width: 800px;
@@ -53,4 +67,31 @@ input[type="text"] {
 
 #signin_submit {
   float: right;
+}
+
+.topbar {
+  border-style: solid;
+  border-width: 2px;
+  width: auto;
+}
+
+.align-right {
+   float:right;
+}
+
+.topbar-button {
+  text-decoration: none;
+  font-size: 1.8em;
+  padding: 5px;
+  color: blue;
+  font-weight: bold;
+}
+
+.who-to-follow {
+}
+
+.trends {
+}
+
+.navigation {
 }

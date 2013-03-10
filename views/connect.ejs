@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Twitter</title>
+    <title>Twitter / Interactions</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel='stylesheet' href='/stylesheets/home.css' />
+    <link rel='stylesheet' href='/stylesheets/connect.css' />
   </head>
   <body>
     <div id="doc">
@@ -12,11 +12,11 @@
       </div>
       <div id="page-container" class="page">
         <div id='dashboard' class="dashboard">
-          <% include mini_profile_module %>
+          <% include connect_nav_module %>
           <% include who_to_follow_module %>
           <% include trends_module %>
         </div>
-        <% include tweet_timeline %>
+        <% include interactions_timeline %>
       </div>
     </div>
   </body>

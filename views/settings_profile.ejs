@@ -3,7 +3,7 @@
   <head>
     <title>Twitter</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel='stylesheet' href='/stylesheets/home.css' />
+    <link rel='stylesheet' href='/stylesheets/settings.css' />
   </head>
   <body>
     <div id="doc">
@@ -13,10 +13,9 @@
       <div id="page-container" class="page">
         <div id='dashboard' class="dashboard">
           <% include mini_profile_module %>
-          <% include who_to_follow_module %>
-          <% include trends_module %>
+          <% include settings_nav_module %>
         </div>
-        <% include tweet_timeline %>
+        <% include settings_profile_module %>
       </div>
     </div>
   </body>

@@ -1,7 +1,17 @@
 var users = require('../lib/users');
 
 exports.index = function(req, res){
-  res.render('login', {errmsg: ''});
+  req.session.username = req.body.username;
+  req.session.password = req.body.password;
+  req.session.login = true;
+  res.redirect("/");
+};
+
+exports.logout = function(req, res){
+  req.session.username = null;
+  req.session.password = null;
+  req.session.login = false;
+  res.redirect("/");
 };
 
 exports.captcha = function(req, res) {

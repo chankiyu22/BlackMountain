@@ -10,15 +10,16 @@
     <table>
       <tr>
         <td>
-          <form>
+          <form action="/login" method="post">
             <header>Join Twitter today.</header>
             <p><a>Full name</a><br />
-               <input type="text" name="name" />
+               <input type="text" name="name" value="<%= name %>"></input>
                <opt>Enter your first and last name.</opt></p><br />
             <p><a>Email address</a><br />
-               <input type="text" name="email" /></p><br />
+               <input type="text" name="email" value="<%= email %>" /></p><br ></input>
             <p><a>Create a password</a><br />
-               <input type="password" name="password" /></p><br />
+               <input type="password" name="password" value="<%= password %>" ></input>
+            </p><br />
             <p><a>Choose your username</a><br />
                <input type="text" name="username" /></p><br />
             <input type="checkbox" name="keep" />

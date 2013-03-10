@@ -1,0 +1,20 @@
+.dashboard {
+	float: left;
+}
+
+.module {
+	border-style: solid;
+	border-width: 2px;
+	margin: 1em;
+	width: 200px;
+	height: 200px;
+}
+
+.mini-profile {
+}
+
+.tweet-timeline {
+	float: right;
+	width: 300px;
+	height: 1000px;
+}

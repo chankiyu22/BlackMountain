@@ -2,6 +2,9 @@ var users = require('../lib/users');
 
 exports.index = function(req, res){
   res.render('signup', {first: 'Twitter',
+  						name: req.body.name,
+  						email: req.body.email,
+  						password: req.body.password,
                         last: 'Have an account? Sign in'});
 };
 

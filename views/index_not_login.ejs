@@ -1,3 +1,5 @@
+    <a href="/"><%= first %></a>
+    <lang><%= last %></lang>
     <table>
     <tr>
     <td>
@@ -8,20 +10,20 @@
     </td>
     <td>
     <div id="login">
-      <form name="login" action="/login/captcha" method="post">
-        <input type="text" name="username"><br />
-        <input type="password" name="password">
+      <form name="login" action="/login" method="post">
+        <input type="text" placeholder="Username or email" name="username"><br />
+        <input type="password" placeholder="Password" name="password">
         <input type="submit" value="Sign in"><br />
         <input type="checkbox" name="remember" value="remember">
           <a href="#">Remember me</a>&nbsp;.&nbsp;<a href="#">Forgot password?</a>
       </form>
     </div>
     <div id="signup">
-      <form name="signup" action="/signup/addUser" method="post">
+      <form name="signup" action="/signup" method="post">
         <a>New To Twitter? Sign up</a><br />
-        <input type="text" name="fullname"><br />
-        <input type="text" name="email"><br />
-        <input type="password" name="password"><br />
+        <input type="text" placeholder="Full name" name="name"><br />
+        <input type="text" placeholder="Email" name="email"><br />
+        <input type="password" placeholder="Password" name="password"><br />
         <input id="signin_submit" type="submit" value="Sign up for Twitter">
       </form>
     </div>

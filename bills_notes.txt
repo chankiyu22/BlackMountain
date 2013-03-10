@@ -76,6 +76,8 @@ following.ejs - /<username>/following route
 following_timeline.ejs - main timeline for following
 followers.ejs - /<username>/followers route
 followers_timeline.ejs - main timeline for followers
+favorites.ejs - /<username>/favorites route
+favorites_timeline.ejs - main timeline for favorites
 settings_profile.ejs - /settings/profile route
 settings_nav_module.ejs - [Account Password Profile] list
 settings_profile_module.ejs - main profile edit form

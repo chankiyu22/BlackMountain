@@ -1,0 +1,32 @@
+.dashboard {
+	float: left;
+}
+
+.module {
+	border-style: solid;
+	border-width: 2px;
+	margin: 1em;
+	width: 200px;
+	height: 200px;
+}
+
+.mini-profile {
+}
+
+.settings_profile_module {
+	float: right;
+	width: 300px;
+	height: 1000px;
+}
+
+.settings_account_module {
+	float: right;
+	width: 300px;
+	height: 1000px;
+}
+
+.settings_password_module {
+	float: right;
+	width: 300px;
+	height: 1000px;
+}
