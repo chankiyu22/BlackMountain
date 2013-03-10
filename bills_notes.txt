@@ -1,0 +1,85 @@
+bill's notes
+- Do we need?: 
+  language
+  account activation
+  password recovery
+
+routes that twitter uses
+/ - index for logging in or showing home tweets
+/signup - provide details for creating an account
+/resend_password - get email to change password
+/connect - shows interations such as who is following you
+/mentions - tweets that mention you
+/discover - tweets tailored for you
+/activity - what the people you're following have recently done
+/who_to_follow/suggestions - suggestions on who to follow
+/who_to_follow/friends - friends from other networks (contacts, etc.)
+/who_to_follow/categories - sports, entertainment, music, etc.
+/<username> - Avatar, tweets, ability to tweet user
+/<username>/following - tweets from following
+/<username>/follower - tweets from followers
+/<username>/favorites - favorite tweets
+/<username>/lists - don't know what lists are
+/settings - settings for those listed below
+/settings/account
+/settings/password
+/settings/devices
+/settings/notifications
+/settings/profile
+/settings/design
+/settings/applications
+/settings/widgets
+
+routes that I think we should do
+/
+/signup
+/connect
+/mentions
+/discover
+/activity
+/<username>
+/<username>/following
+/<username>/followers
+/<username>/favorites
+/settings/account
+/settings/password
+/settings/profile
+
+views
+index.ejs - / route
+index_logged_out.ejs - / route when logged out
+index_logged_in.ejs - / route when logged in
+signup.ejs - /signup route
+topbar.ejs - header bar on top displaying [Home Connect Discover Me]
+mini_profile_module.ejs - profile module on top left of index_logged_in.ejs
+who_to_follow_module.ejs - module under mini-profile
+trends_module.ejs - module under who_to_follow displaying popular hashtags
+tweet_timeline.ejs - main tweet timeline on index_logged_in
+tweet_element.ejs - individual tweet element
+connect.ejs - /connect route
+connect_nav_module.ejs - [Interactions Mentions] list
+interactions_timelime.ejs - main timelime for /connect
+interaction_element.ejs - individual interaction element
+mentions.ejs - /mentions route
+mentions_timelime.ejs - main timelime for /mentions
+mention_element.ejs - individual mention element
+discover.ejs - /discover route
+discover_timelime.ejs - main discover timelime
+discover_element.ejs - individual element
+activity.ejs - /activity route
+activity_timeline.ejs - main activity timelime
+activity_element.ejs - individual activity element
+profile.ejs - /<username> route
+profile_nav_module.ejs - [Tweets Following Followers] list
+profile_card_module.ejs - profile card
+following.ejs - /<username>/following route
+following_timeline.ejs - main timeline for following
+followers.ejs - /<username>/followers route
+followers_timeline.ejs - main timeline for followers
+settings_profile.ejs - /settings/profile route
+settings_nav_module.ejs - [Account Password Profile] list
+settings_profile_module.ejs - main profile edit form
+settings_account.ejs - /settings/account route
+settings_account_module.ejs - main account edit form
+settings_password.ejs - /settings/password route
+settings_password_module.ejs - main password edit form
