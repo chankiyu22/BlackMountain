@@ -1,3 +1,18 @@
 <div class="following_timeline module">
+	<div class="following-header">
     Following
+    </div>
+    <ul>
+	<% for(var i=following_data.length-1; i>=0; i--) {%>
+	  	<li>
+	  		<div>
+		   		<a href="/<%= following_data[i].username %>">
+		   			<div>
+		   				<%= following_data[i].fullname %><small> @<%= following_data[i].username %></small>
+		   			</div>
+		   		</a>
+		   	</div>
+	   	</li>
+	<% } %>
+	</ul>
 </div>

@@ -26,15 +26,6 @@ textarea {
 .account-summary {
 }
 
-.fullname {
-	color:black;
-}
-
-.fullname:hover {
-	color:blue;
-	text-decoration:underline;
-}
-
 .account-stats {
 	padding-top: 5px;
 }

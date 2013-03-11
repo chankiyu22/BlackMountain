@@ -122,3 +122,12 @@ input[type="text"] {
   color:blue;
   text-decoration:underline;
 }
+
+.fullname {
+  color:black;
+}
+
+.fullname:hover {
+  color:blue;
+  text-decoration:underline;
+}

@@ -1,0 +1,7 @@
+{
+    "name" : "tweets",
+    "version" : "0.0.1",
+    "author" : "Black Mountain",
+    "description" : "a library adding follower relationships",
+    "main" : "./followers.js"
+}
