@@ -3,12 +3,12 @@
     Following
     </div>
     <ul>
-	<% for(var i=following_data.length-1; i>=0; i--) {%>
+	<% for(var i=following.length-1; i>=0; i--) {%>
 	  	<li>
 	  		<div>
-		   		<a href="/<%= following_data[i].username %>">
+		   		<a href="/<%= following[i].username %>">
 		   			<div>
-		   				<%= following_data[i].fullname %><small> @<%= following_data[i].username %></small>
+		   				<%= following[i].fullname %><small> @<%= following[i].username %></small>
 		   			</div>
 		   		</a>
 		   	</div>

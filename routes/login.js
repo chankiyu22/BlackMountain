@@ -1,6 +1,10 @@
 var userdb = require('../lib/user');
 
-//Login validation
+/*
+ * POST /login form.
+ *
+ * Preform login validation and initialize user sesison.
+ */
 exports.index = function(req, res){
   var username = req.body.username;
   var password = req.body.password;
@@ -23,7 +27,11 @@ exports.index = function(req, res){
   res.redirect("/"); 
 };
 
-//Clear current session login data
+/*
+ * GET /logout.
+ *
+ * Clear current session login data
+ */
 exports.logout = function(req, res){
   req.session.username = null;
   req.session.password = null;
@@ -31,7 +39,11 @@ exports.logout = function(req, res){
   res.redirect("/");
 };
 
-//Display an error message if bad username/pass combination
+/*
+ * GET captcha.
+ *
+ * Display an error message if bad username/pass combination
+ */
 exports.captcha = function(req, res) {
   var name = req.body.username;
   for (var i = 0; i < users.length; i++) {

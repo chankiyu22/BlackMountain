@@ -3,6 +3,8 @@ var user = require('../lib/user');
 var followers = require('../lib/followers');
 
 /*
+ * GET /<username> page.
+ *
  * Populate main page of user profile
  * username = User
  * num_tweets = How many teets User's made, total
@@ -31,6 +33,8 @@ exports.profile = function(req, res){
 };
 
 /*
+ * GET /<username>/following page.
+ *
  * Populate "Following" subsection of user profile
  * username = User
  * num_tweets = How many teets User's made, total
@@ -51,12 +55,13 @@ exports.following = function(req, res){
   res.render('following', {user: user.getUser(req.session.username),
                	num_tweets: tweets.getTweetCountByUser(req.session.username),
   				      tweets: [],
-                following: following_users,
-                following_data: following_user_data,
+                following: following_user_data,
                 followers: followed_by_users});
 };
 
 /*
+ * GET /<username>/followers page.
+ *
  * Populate "Followers" subsection of user profile
  * username = User
  * num_tweets = How many teets User's made, total
@@ -78,11 +83,12 @@ exports.followers = function(req, res){
                	num_tweets: tweets.getTweetCountByUser(req.session.username),
   				      tweets: [],
                following: following_users,
-               followers: followed_by_users,
-               follower_data: followed_by_user_data});
+               followers: followed_by_user_data});
 };
 
 /*
+ * GET /<username>/favorites page.
+ *
  * Populate "Favorites" subsection of user profile
  * username = User
  * num_tweets = How many teets User's made, total

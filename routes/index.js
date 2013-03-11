@@ -3,9 +3,8 @@ var user = require('../lib/user');
 var followers = require('../lib/followers');
 
 /*
- * GET home page.
+ * GET / page.
  */
-
 exports.index = function(req, res){
   //Tweets to display
   var tweet_array = [];
@@ -17,7 +16,6 @@ exports.index = function(req, res){
   //Populate tweets array with tweets from followed users
   for (var i=0; i<following_users.length; i++)
   {
-    console.log(following_users[i]);
     tweets.getTweetsByUser(following_users[i], -1, function(error, tweetobjs){
     	tweet_array = tweet_array.concat(tweetobjs);
     });
@@ -53,6 +51,5 @@ exports.index = function(req, res){
                last: 'Language: English',
                following: following_users,
                followers: followed_by_users});
-  console.log("Basic Index Page");
 };
 

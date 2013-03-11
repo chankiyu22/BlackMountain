@@ -45,7 +45,6 @@ app.post('/login/captcha', login.captcha);
 app.get('/signup', signup.index);
 app.post('/signup', signup.index);
 app.post('/signup/addUser', signup.createUser);
-app.get('/users', user.list);
 app.post('/follow', user.follow);
 app.post('/publish_tweet', tweets.publish_tweet);
 app.get('/connect', connect.connect);
