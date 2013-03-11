@@ -1,5 +1,6 @@
 var users = require('../lib/user');
 
+//Display signup information
 exports.index = function(req, res){
   res.render('signup', {first: 'Twitter',
   						name: (req.body.name ? req.body.name : ""),
@@ -9,7 +10,9 @@ exports.index = function(req, res){
                         last: 'Have an account? Sign in'});
 };
 
-function createUser(req, res) {
+//Generate a new user based on signup information and log them in,
+//or display an error.
+exports.createUser = function(req, res) {
   var fullname = req.body.name;
   var email = req.body.email;
   var username = req.body.username;
@@ -36,4 +39,3 @@ function createUser(req, res) {
   });
 }
 
-exports.createUser = createUser;

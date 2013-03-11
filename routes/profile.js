@@ -2,6 +2,14 @@ var tweets = require('../lib/tweets');
 var user = require('../lib/user');
 var followers = require('../lib/followers');
 
+/*
+ * Populate main page of user profile
+ * username = User
+ * num_tweets = How many teets User's made, total
+ * tweets = Array of user's tweets
+ * following = number of users following username
+ * followed = number of users following username
+*/
 exports.profile = function(req, res){
   var username = req.param('username');
   var tweet_array = undefined;
@@ -22,6 +30,15 @@ exports.profile = function(req, res){
                 followers: followed_by_users});
 };
 
+/*
+ * Populate "Following" subsection of user profile
+ * username = User
+ * num_tweets = How many teets User's made, total
+ * tweets = Empty, for this view
+ * following = number of users following username
+ * following_data = Users that User is following
+ * followed = number of users following username
+*/
 exports.following = function(req, res){
   var username = req.param('username');
   var following_users = followers.getFollowedUsers(username);
@@ -39,6 +56,15 @@ exports.following = function(req, res){
                 followers: followed_by_users});
 };
 
+/*
+ * Populate "Followers" subsection of user profile
+ * username = User
+ * num_tweets = How many teets User's made, total
+ * tweets = Empty, for this view
+ * following = number of users following username
+ * followed = number of users following username
+ * follower_data = Users following User
+*/
 exports.followers = function(req, res){
   var username = req.param('username');
   var following_users = followers.getFollowedUsers(username);
@@ -56,6 +82,14 @@ exports.followers = function(req, res){
                follower_data: followed_by_user_data});
 };
 
+/*
+ * Populate "Favorites" subsection of user profile
+ * username = User
+ * num_tweets = How many teets User's made, total
+ * tweets = Currently nonfunctional, will contain tweets user has favorited
+ * following = number of users following username
+ * followed = number of users following username
+*/
 exports.favorites = function(req, res){
   var username = req.param('username');
   var following_users = followers.getFollowedUsers(username);
