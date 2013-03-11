@@ -10,7 +10,7 @@
     <table>
       <tr>
         <td>
-          <form action="/login" method="post">
+          <form action="/signup/addUser" method="post">
             <header>Join Twitter today.</header>
             <p><a>Full name</a><br />
                <input type="text" name="name" value="<%= name %>"></input>
@@ -28,6 +28,9 @@
             <opt>Tailor Twitter based on my recent website visits. 
                  <a href='#'>Learn more</a>.</opt><br />
             <input id="signup" type="submit" value="Create my account" />
+            <% if(error) { %>
+              <div><%= error %></div>
+            <% } %>
           </form>
         </td>
       </tr>

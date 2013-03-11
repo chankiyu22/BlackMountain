@@ -1,9 +1,21 @@
-var users = require('../lib/users');
+var userdb = require('../lib/user');
 
 exports.index = function(req, res){
-  req.session.username = req.body.username;
-  req.session.password = req.body.password;
-  req.session.login = true;
+  var username = req.body.username;
+  var password = req.body.password;
+  userdb.lookup(username, password, function(error, userobj) {
+    if (userobj)
+    {
+      req.session.username = userobj.username;
+      req.session.password = userobj.password;
+      req.session.login_error = null;
+      req.session.login = true;
+    }
+    else
+    {
+      req.session.login_error = error;
+    }
+  });
   res.redirect("/");
 };
 

@@ -1,0 +1,7 @@
+{
+    "name"     : "user",
+    "verstion" : "0.0.1",
+    "author"   : "Black Mountain",
+    "description" : "a library for accessing users",
+    "main": "./user.js"
+}

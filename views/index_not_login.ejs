@@ -11,11 +11,14 @@
     <td>
     <div id="login">
       <form name="login" action="/login" method="post">
-        <input type="text" placeholder="Username or email" name="username"><br />
-        <input type="password" placeholder="Password" name="password">
+        <input type="text" placeholder="Username or email" name="username" value="test"><br />
+        <input type="password" placeholder="Password" name="password" value="123">
         <input type="submit" value="Sign in"><br />
         <input type="checkbox" name="remember" value="remember">
           <a href="#">Remember me</a>&nbsp;.&nbsp;<a href="#">Forgot password?</a>
+        <% if(error) { %>
+          <div><%= error %></div>
+        <% } %>
       </form>
     </div>
     <div id="signup">

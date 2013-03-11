@@ -41,6 +41,7 @@ app.get('/', routes.index);
 app.post('/login', login.index);
 app.get('/logout', login.logout);
 app.post('/login/captcha', login.captcha);
+app.get('/signup', signup.index);
 app.post('/signup', signup.index);
 app.post('/signup/addUser', signup.createUser);
 app.get('/users', user.list);
