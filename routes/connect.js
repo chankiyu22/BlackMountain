@@ -1,7 +1,9 @@
+var user = require('../lib/user');
+
 exports.connect = function(req, res){
-  res.render('connect', {username: req.session.username});
+  res.render('connect', {user: user.getUser(req.session.username)});
 };
 
 exports.mentions = function(req, res){
-  res.render('mentions', {username: req.session.username});
+  res.render('mentions', {user: user.getUser(req.session.username)});
 };

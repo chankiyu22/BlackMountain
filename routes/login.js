@@ -6,6 +6,8 @@ exports.index = function(req, res){
   userdb.lookup(username, password, function(error, userobj) {
     if (userobj)
     {
+      req.session.fullname = userobj.fullname;
+      req.session.email    = userobj.email;
       req.session.username = userobj.username;
       req.session.password = userobj.password;
       req.session.login_error = null;

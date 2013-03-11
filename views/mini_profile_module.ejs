@@ -1,8 +1,8 @@
 <div class="module mini-profile ">
 	<div class="account-summary">
-		<a href="/<%= username %>">
+		<a href="/<%= user.username %>">
 	        <div class="fullname">
-	          <%= username %>
+	          <%= user.fullname %><small> @<%= user.username %></small>
 	        </div>
 	        <small>
 	          Visit my profile page
@@ -22,7 +22,7 @@
 		<form method="post" action="/publish_tweet">
 			<textarea maxlength="140" wrap="physical" cols="25" rows="6" class="tweet-input" placeholder="Compose new Tweet" name="message"></textarea>
 			</br>
-			<input type="hidden" name="username" value="<%= username %>">
+			<input type="hidden" name="username" value="<%= user.username %>">
 			<input class="tweet-button" id="tweet_publish" type="submit" value="Tweet">
 		</form>
 	</div>

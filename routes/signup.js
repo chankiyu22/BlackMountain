@@ -10,12 +10,17 @@ exports.index = function(req, res){
 };
 
 function createUser(req, res) {
+  var fullname = req.body.name;
+  var email = req.body.email;
   var username = req.body.username;
   var pwd = req.body.password;
   console.log("signup " + username + " " + pwd);
-  users.signup(username, pwd, function(error, userobj){
+  users.signup(fullname, email, username, pwd, function(error, userobj){
     if (userobj !== undefined)
     {
+
+      req.session.fullname = userobj.fullname;
+      req.session.email    = userobj.email;
       req.session.username = userobj.username;
       req.session.password = userobj.password;
       req.session.signup_error = null;
