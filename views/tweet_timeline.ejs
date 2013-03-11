@@ -1,3 +1,21 @@
 <div class="tweet-timeline module">
-    Tweets
+    <div class="tweet-header">
+    	Tweets
+    </div>
+    <ul>
+	<% for(var i=tweets.length-1; i>=0; i--) {%>
+	  	<li>
+	  		<div class="tweet">
+		   		<a href="/<%= tweets[i].owner %>">
+		   			<div class="owner">
+		   				@<%= tweets[i].owner %>
+		   			</div>
+		   		</a>
+		   		<div>
+		   			<%= tweets[i].message %>
+		   		</div>
+		   	</div>
+	   	</li>
+	<% } %>
+	</ul>
  </div>

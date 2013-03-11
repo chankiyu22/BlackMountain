@@ -95,3 +95,30 @@ input[type="text"] {
 
 .navigation {
 }
+
+.tweet-header {
+    font-size: 20px;
+  padding: 5px;
+  font-weight: bold;
+}
+
+.tweet {
+  padding: 5px;
+  border-top-style:solid;
+  border-bottom-style:solid;
+  border-top-width:1px;
+  border-bottom-width:0.5px;
+}
+
+.tweet:hover {
+  background-color:#E0E0E0;
+}
+
+.owner {
+  color:black;
+}
+
+.owner:hover {
+  color:blue;
+  text-decoration:underline;
+}

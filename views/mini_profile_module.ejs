@@ -1,3 +1,29 @@
-<div class="mini-profile module">
-	Mini Profile
+<div class="module mini-profile ">
+	<div class="account-summary">
+		<a href="/<%= username %>">
+	        <div class="fullname">
+	          <%= username %>
+	        </div>
+	        <small>
+	          Visit my profile page
+	        </small>
+      	</a>
+    </div>
+    <div class="account-stats">
+    	<table border="1" cellspacing=0>
+			<tr>
+			<td><%= num_tweets %> tweets</td>
+			<td>0 following</td>
+			<td>0 followers</td>
+			</tr>
+		</table>
+	</div>
+	<div class="tweet-box">
+		<form method="post" action="/publish_tweet">
+			<textarea maxlength="140" wrap="physical" cols="25" rows="6" class="tweet-input" placeholder="Compose new Tweet" name="message"></textarea>
+			</br>
+			<input type="hidden" name="username" value="<%= username %>">
+			<input class="tweet-button" id="tweet_publish" type="submit" value="Tweet">
+		</form>
+	</div>
 </div>

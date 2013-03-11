@@ -12,6 +12,7 @@ var express = require('express')
   , settings = require('./routes/settings')
   , signup = require('./routes/signup')
   , user = require('./routes/user')
+  , tweets = require('./routes/tweets')
   , http = require('http')
   , path = require('path');
 
@@ -45,6 +46,7 @@ app.get('/signup', signup.index);
 app.post('/signup', signup.index);
 app.post('/signup/addUser', signup.createUser);
 app.get('/users', user.list);
+app.post('/publish_tweet', tweets.publish_tweet);
 app.get('/connect', connect.connect);
 app.get('/mentions', connect.mentions);
 app.get('/discover', discover.discover);
