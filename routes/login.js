@@ -2,7 +2,6 @@ var userdb = require('../lib/user');
 
 /*
  * POST /login form.
- *
  * Preform login validation and initialize user sesison.
  */
 exports.index = function(req, res){
@@ -29,7 +28,6 @@ exports.index = function(req, res){
 
 /*
  * GET /logout.
- *
  * Clear current session login data
  */
 exports.logout = function(req, res){
