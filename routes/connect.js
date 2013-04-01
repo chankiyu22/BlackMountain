@@ -8,7 +8,8 @@ var util = require('../lib/util');
  * Render interactions (new follows, replies)
  */
 exports.connect = function(req, res){
-  res.render('connect', {user: user.getUser(req.session.username)});
+  res.render('connect', {user: user.getUser(req.session.username),
+  						  timeline_header: "Interactions"});
 };
 
 /*
@@ -21,5 +22,6 @@ exports.mentions = function(req, res){
   var tweet_array = tweets.getTweetsThatMention(theuser.username);
   util.initTweets(tweet_array);
   res.render('mentions', {user: theuser,
-  						  tweets: tweet_array});
+  						  tweets: tweet_array,
+  						  timeline_header: "Mentions"});
 };

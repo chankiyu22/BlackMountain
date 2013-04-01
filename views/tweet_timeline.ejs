@@ -1,6 +1,10 @@
 <div class="timeline module">
     <div class="tweet-header">
-    	Tweets
+    	<% if(typeof(timeline_header) != "undefined") {%>
+    		<%= timeline_header %>
+    	<% } else { %>
+    		Tweets
+    	<% } %>
     </div>
     <ul>
 	<% for(var i=tweets.length-1; i>=0; i--) {%>
@@ -11,9 +15,7 @@
 		   				<%= tweets[i].userdata.fullname %><small> @<%= tweets[i].owner %></small>
 		   			</div>
 		   		</a>
-		   		<div>
-		   			<%= tweets[i].message %>
-		   		</div>
+		   		<%- tweets[i].html %>
 		   	</div>
 	   	</li>
 	<% } %>
