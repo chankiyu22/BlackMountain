@@ -1,34 +1,26 @@
 var tweets = require('../lib/tweets');
 var user = require('../lib/user');
 var followers = require('../lib/followers');
+var util = require('../lib/util');
 
 /*
  * GET / page.
  */
 exports.index = function(req, res){
-  //Tweets to display
-  var tweet_array = [];
   //Users the currently-logged-in person follows
   var following_users = followers.getFollowedUsers(req.session.username);
+
   //Users following the person currently logged in
   var followed_by_users = followers.getUsersFollowing(req.session.username);
-  
-  //Populate tweets array with tweets from followed users
-  for (var i=0; i<following_users.length; i++)
-  {
-    tweets.getTweetsByUser(following_users[i], -1, function(error, tweetobjs){
-    	tweet_array = tweet_array.concat(tweetobjs);
-    });
-  }
+
+  //Tweets to display
+  var tweet_array = tweets.getTweetsByUsers(following_users);
   
   //Current user
   var theuser = user.getUser(req.session.username);
   
-  //Attach username to each tweet
-  for (var i=0; i<tweet_array.length; i++)
-  {
-    tweet_array[i].userdata = user.getUser(tweet_array[i].owner);
-  }
+  // init tweet data
+  util.initTweets(tweet_array);
   
   /*
    * Populate the main page with above information:

@@ -8,24 +8,6 @@ table {
 	margin-top: 0px;
 }
 
-.RHS {
-	width: 60%;
-	float:right;
-}
-
-.LHS {
-	width: 38%;
-	float:left;
-}
-
-.module {
-	border-style: solid;
-	border-width: 2px;
-	margin: 1em;
-	width: auto;
-	height: 200px;
-}
-
 .profile-card {
 	width: auto;
 	height: auto;
@@ -34,26 +16,6 @@ table {
 
 .account-stats {
 	padding-top: 5px;
-}
-
-.profile_timeline {
-	width: auto;
-	height: 1000px;
-}
-
-.following_timeline {
-	width: auto;
-	height: 1000px;
-}
-
-.followers_timeline {
-	width: auto;
-	height: 1000px;
-}
-
-.favorites_timeline {
-	width: auto;
-	height: 1000px;
 }
 
 ul {

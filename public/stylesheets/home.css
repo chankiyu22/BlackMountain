@@ -5,22 +5,14 @@ table {
 
 textarea {
    resize: none;
+   width: auto;
 }
 
 .dashboard {
-	float: left;
-}
-
-.module {
-	border-style: solid;
-	border-width: 2px;
-	margin: 1em;
-	width: auto;
-	height: auto;
-	padding: 5px;
 }
 
 .mini-profile {
+	width: auto;
 }
 
 .account-summary {
@@ -41,11 +33,4 @@ textarea {
 .tweet-button {
 	height: 30px;
 	margin-top: 5px;
-}
-
-.tweet-timeline {
-	padding: 0px;
-	float: right;
-	width: 300px;
-	height: 1000px;
 }

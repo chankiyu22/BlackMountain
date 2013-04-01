@@ -1,6 +1,7 @@
 var tweets = require('../lib/tweets');
 var user = require('../lib/user');
 var followers = require('../lib/followers');
+var util = require('../lib/util');
 
 /*
  * GET /<username> page.
@@ -15,14 +16,8 @@ var followers = require('../lib/followers');
 exports.profile = function(req, res){
   var username = req.param('username');
   var tweet_array = undefined;
-  tweets.getTweetsByUser(username, -1, function(error, tweetobjs){
-  	tweet_array = tweetobjs;
-  });
-  var tweet_owners = [];
-  for (var i=0; i<tweet_array.length; i++)
-  {
-    tweet_array[i].userdata = user.getUser(tweet_array[i].owner);
-  }
+  tweet_array = tweets.getTweetsByUser(username, -1);
+  util.initTweets(tweet_array);
   var following_users = followers.getFollowedUsers(username);
   var followed_by_users = followers.getUsersFollowing(username);
   res.render('profile', {user: user.getUser(username),

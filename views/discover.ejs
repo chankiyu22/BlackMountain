@@ -11,12 +11,14 @@
         <% include topbar %>
       </div>
       <div id="page-container" class="page">
-        <div id='dashboard' class="dashboard">
+        <div id='dashboard' class="dashboard LHS">
           <% include discover_nav_module %>
           <% include who_to_follow_module %>
           <% include trends_module %>
         </div>
-        <% include discover_timeline %>
+        <div class="RHS">
+          <% include discover_timeline %>
+        </div>
       </div>
     </div>
   </body>
