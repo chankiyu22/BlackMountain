@@ -2,38 +2,48 @@
 <html>
   <head>
     <title>Twitter / Create an account</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/stylesheets/login.css' />
   </head>
   <body>
-    <a href='/'><%= first %></a>
-    <lang><%= last %></lang>
-    <table>
-      <tr>
-        <td>
-          <form action="/signup/addUser" method="post">
-            <header>Join Twitter today.</header>
-            <p><a>Full name</a><br />
-               <input type="text" name="name" value="<%= name %>"></input>
-               <opt>Enter your first and last name.</opt></p><br />
-            <p><a>Email address</a><br />
-               <input type="text" name="email" value="<%= email %>" /></p><br ></input>
-            <p><a>Create a password</a><br />
-               <input type="password" name="password" value="<%= password %>" ></input>
-            </p><br />
-            <p><a>Choose your username</a><br />
-               <input type="text" name="username" /></p><br />
-            <input type="checkbox" name="keep" />
-            <opt>Keep me signed-in on this computer.</opt><br />
-            <input type="checkbox" name="tailor" />
-            <opt>Tailor Twitter based on my recent website visits. 
-                 <a href='#'>Learn more</a>.</opt><br />
-            <input id="signup" type="submit" value="Create my account" />
-            <% if(error) { %>
-              <div><%= error %></div>
-            <% } %>
-          </form>
-        </td>
-      </tr>
-    </table>
+    <div>
+      <div id="doc">
+        <div class="topbar">
+          <div class="topbar_contents">
+            <a href="/" ><img width="40" height="40" src="../images/twitter-bird-light-bgs.png"></img></a>
+          </div>
+        </div>
+        <div class="page">
+          <table>
+            <tr>
+              <td>
+                <form action="/signup/addUser" method="post">
+                  <header>Join Twitter today.</header>
+                  <p><a>Full name</a><br />
+                     <input type="text" name="name" value="<%= name %>"></input>
+                     <opt>Enter your first and last name.</opt></p><br />
+                  <p><a>Email address</a><br />
+                     <input type="text" name="email" value="<%= email %>" /></p><br ></input>
+                  <p><a>Create a password</a><br />
+                     <input type="password" name="password" value="<%= password %>" ></input>
+                  </p><br />
+                  <p><a>Choose your username</a><br />
+                     <input type="text" name="username" /></p><br />
+                  <input type="checkbox" name="keep" />
+                  <opt>Keep me signed-in on this computer.</opt><br />
+                  <input type="checkbox" name="tailor" />
+                  <opt>Tailor Twitter based on my recent website visits. 
+                       <a href='#'>Learn more</a>.</opt><br />
+                  <input id="signup" type="submit" value="Create my account" />
+                  <% if(error) { %>
+                    <div><%= error %></div>
+                  <% } %>
+                </form>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

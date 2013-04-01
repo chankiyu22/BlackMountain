@@ -1,5 +1,10 @@
-    <a href="/"><%= first %></a>
-    <lang><%= last %></lang>
+<div id="doc">
+  <div class="topbar">
+    <div class="topbar_contents">
+      <a href="/" ><img width="40" height="40" src="../images/twitter-bird-light-bgs.png"></img></a>
+    </div>
+  </div>
+  <div class="page">
     <table>
     <tr>
     <td>
@@ -9,7 +14,7 @@
     </div>
     </td>
     <td>
-    <div id="login">
+    <div id="login" class="module">
       <form name="login" action="/login" method="post">
         <input type="text" placeholder="Username or email" name="username" value="test"><br />
         <input type="password" placeholder="Password" name="password" value="123">
@@ -21,7 +26,7 @@
         <% } %>
       </form>
     </div>
-    <div id="signup">
+    <div id="signup" class="module">
       <form name="signup" action="/signup" method="post">
         <a>New To Twitter? Sign up</a><br />
         <input type="text" placeholder="Full name" name="name"><br />
@@ -33,3 +38,5 @@
     </td>
     </tr>
     </table>
+  </div>
+</div>

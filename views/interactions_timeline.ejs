@@ -1,3 +1,14 @@
 <div class="timeline module">
-    Interactions
+    <div class="tweet-header">
+    	Interactions
+    </div>
+    <ul>
+	<% for(var i=interactions.length-1; i>=0; i--) {%>
+	  	<li>
+	  		<div class="tweet">
+		   		<%- interactions[i] %>
+		   	</div>
+	   	</li>
+	<% } %>
+	</ul>
  </div>

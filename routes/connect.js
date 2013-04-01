@@ -8,8 +8,10 @@ var util = require('../lib/util');
  * Render interactions (new follows, replies)
  */
 exports.connect = function(req, res){
-  res.render('connect', {user: user.getUser(req.session.username),
-  						  timeline_header: "Interactions"});
+  var theuser = user.getUser(req.session.username);
+  var interactions = util.getInteractions(theuser.username);
+  res.render('connect', {user: theuser,
+  						  interactions: interactions});
 };
 
 /*
