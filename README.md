@@ -16,3 +16,14 @@ Additions that we made for this project:
 
 3. Interactions
    - lib/util/util.js: added functionality to get all messages for a given user to be put in the interactions timeline
+
+4. Groups
+   - lib/groups/groupdb.js: functionality for creating groups, checking if a user is a member, getting members of a group, and adding members
+   - routes/profile.js: added route for group 
+   - views/group_profile.ejs: html for group profiles
+
+5. Functional Spec
+   - added TwitterFunctionalSpecification.pdb to public folder, with extensions details and scenario added
+
+6. Documentation
+   - added documentation to missing areas and new additions
