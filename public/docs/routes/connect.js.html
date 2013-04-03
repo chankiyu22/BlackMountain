@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/site/BlackMountain/routes/connectjs", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/chankiyu22/BlackMountain/routes/connectjs", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
 </head>
@@ -18,6 +18,18 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+      <div class="heading h2">
+        <a href="#function-connect-req--res-">Function connect(req, res)</a>
+      </div>
+      <div class="heading h4">
+        <a href="#render">Render</a>
+      </div>
+      <div class="heading h2">
+        <a href="#function-mentions-req--res-">Function mentions(req, res)</a>
+      </div>
+      <div class="heading h4">
+        <a href="#render">Render</a>
+      </div>
     </div>
   </div>
   <div id="sidebar-toggle"></div>
@@ -46,14 +58,31 @@
         </td>
       </tr>
       <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="function-connect-req--res-">
+  <h2>
+    <a href="#function-connect-req--res-" class="pilcrow">&#182;</a>
+    Function connect(req, res)<br />
+  </h2>
 </div>
-<div class="dox">
-  <div class="summary"><p>GET /connect page.</p>
+
+
+<p>Routing /connect</p>
   </div>
-  <div class="body"><p>Render interactions (new follows, replies)</p>
+  <div class="body">
+<div class="pilwrap" id="render">
+  <h4>
+    <a href="#render" class="pilcrow">&#182;</a>
+    Render
+  </h4>
+</div>
+
+
+<ol>
+<li>Current User<br /></li>
+<li>Interactions to current user</li>
+</ol>
   </div>
 </div>
         </td>
@@ -70,14 +99,31 @@
         </td>
       </tr>
       <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="function-mentions-req--res-">
+  <h2>
+    <a href="#function-mentions-req--res-" class="pilcrow">&#182;</a>
+    Function mentions(req, res)<br />
+  </h2>
 </div>
-<div class="dox">
-  <div class="summary"><p>GET /mentions page.</p>
+
+
+<p>Routing /mentions</p>
   </div>
-  <div class="body"><p>Render mentions</p>
+  <div class="body">
+<div class="pilwrap" id="render">
+  <h4>
+    <a href="#render" class="pilcrow">&#182;</a>
+    Render
+  </h4>
+</div>
+
+
+<ol>
+<li>Current User<br /></li>
+<li>An array of tweet mentioning the user</li>
+</ol>
   </div>
 </div>
         </td>

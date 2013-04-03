@@ -3,9 +3,12 @@ var tweets = require('../lib/tweets');
 var util = require('../lib/util');
 
 /*
- * GET /connect page.
- *
- * Render interactions (new follows, replies)
+ * ## Function connect(req, res)<br />
+ * Routing /connect
+ * 
+ * #### Render
+ * 1. Current User<br />
+ * 2. Interactions to current user
  */
 exports.connect = function(req, res){
   var theuser = user.getUser(req.session.username);
@@ -15,9 +18,12 @@ exports.connect = function(req, res){
 };
 
 /*
- * GET /mentions page.
+ * ## Function mentions(req, res)<br />
+ * Routing /mentions
  *
- * Render mentions
+ * #### Render
+ * 1. Current User<br />
+ * 2. An array of tweet mentioning the user
  */
 exports.mentions = function(req, res){
   var theuser = user.getUser(req.session.username);

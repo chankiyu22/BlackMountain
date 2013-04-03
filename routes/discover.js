@@ -1,18 +1,21 @@
 var user = require('../lib/user');
 
 /*
- * GET /discover page.
+ * ## Function discover(req, res)
+ * Routing /discover
  *
- * Render tweets
+ * #### Render
+ * 
  */
 exports.discover = function(req, res){
   res.render('discover', {user: user.getUser(req.session.username)});
 };
 
 /*
- * GET /activity page.
+ * ## Function activity(req, res)
+ * Routing /activity
  *
- * Render activity
+ * #### Render
  */
 exports.activity = function(req, res){
   res.render('activity', {user: user.getUser(req.session.username)});

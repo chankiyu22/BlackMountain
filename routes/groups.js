@@ -4,9 +4,12 @@ var tweets = require('../lib/tweets');
 var group = require('../lib/groups');
 
 /*
- * GET /groups page.
+ * ## Function groups(req, res)
+ * Routing /groups
  * 
- * Displays all tweets that mention any group that the user is a member of.
+ * #### Render
+ * 1. Groups which current user belongs to
+ * 2. Tweets of group members
  */
 exports.groups = function(req, res){
 	var myGroups = group.getGroupWithMember(req.session.username);
@@ -22,9 +25,10 @@ exports.groups = function(req, res){
 };
 
 /*
- * GET /groups/create page.
+ * ## Function create(req, res)
+ * Routing /groups/create
  * 
- * Displays a form to register a new group
+ * #### Render
  */
 exports.create = function(req, res){
   	res.render('groups_create', {user: user.getUser(req.session.username),
@@ -32,9 +36,11 @@ exports.create = function(req, res){
 };
 
 /*
- * GET /groups/discover page.
+ * ## Function discover(req, res)
+ * Routing /groups/discover
  * 
- * Displays all tweets that mention any group that the user is a member of.
+ * #### Render
+ * 1. All groups
  */
 exports.discover = function(req, res){
 	var theGroups = util.getInitializedGroups(req.session.username);
@@ -43,9 +49,11 @@ exports.discover = function(req, res){
 };
 
 /*
- * Post /groups/join page.
+ * ## Function join(req, res)
+ * Routing /groups/join [POST]
  * 
- * user joins a new group
+ * #### Action
+ * 1. Add user to dest group
  */
 exports.join = function(req, res){
 	group.addNewMember(req.body.group_id, req.body.username);
@@ -60,9 +68,11 @@ exports.join = function(req, res){
 };
 
 /*
- * Post /groups/create page.
+ * ## Function register(req, res)
+ * Routing /groups/register [POST]
  * 
- * Registers a new group
+ * #### Action
+ * 1. Create a new group
  */
 exports.register = function(req, res){
 	user.registerGroup(req.body.fullname, req.body.username, function(error, userobj) {

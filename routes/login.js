@@ -1,8 +1,12 @@
 var userdb = require('../lib/user');
 
 /*
- * POST /login form.
+ * ## Function index(req, res)
+ * Routing /login [POST]
+ *
+ * #### Action
  * Preform login validation and initialize user sesison.
+ * If success
  */
 exports.index = function(req, res){
   var username = req.body.username;
