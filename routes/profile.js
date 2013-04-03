@@ -2,6 +2,8 @@ var tweets = require('../lib/tweets');
 var user = require('../lib/user');
 var followers = require('../lib/followers');
 var util = require('../lib/util');
+var groups = require('../lib/groups');
+
 
 /*
  * GET /<username> page.
@@ -20,6 +22,15 @@ exports.profile = function(req, res, next){
   {
     next();
   }
+  else if (theuser.isgroup)
+  {
+    var group = groups.getGroupByName(username);
+    res.render('group_profile', {user: theuser,
+                                  group: group,
+                                  isMember: groups.isMember(group.id, req.session.username),
+                                  session: req.session,
+                                  members: groups.getMembersForGroup(group.id)});
+  }
   else
   {
     var tweet_array = undefined;
@@ -27,7 +38,7 @@ exports.profile = function(req, res, next){
     util.initTweets(tweet_array);
     var following_users = followers.getFollowedUsers(username);
     var followed_by_users = followers.getUsersFollowing(username);
-    res.render('profile', {user: user.getUser(username),
+    res.render('profile', {user: theuser,
                   num_tweets: tweets.getTweetCountByUser(username),
                   tweets: tweet_array,
                   following: following_users,

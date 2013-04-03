@@ -18,3 +18,13 @@ table {
 .result_fail {
 	color: red;
 }
+
+.profile-card {
+	width: auto;
+	height: auto;
+	padding: 5px;
+}
+
+.account-stats {
+	padding-top: 5px;
+}

@@ -1,0 +1,26 @@
+<div align="center" class="profile-card module">
+	<div class="profile-header">
+	    <div>
+	      <%= user.fullname %><small> @<%= user.username %></small>
+	    </div>
+    </div>
+    <div class="account-stats">
+    	<table border="1" cellspacing=0>
+			<tr>
+			<td><%= members.length %> Members</td>
+			</tr>
+		</table>
+		<div>
+			<% if(isMember == false) {%>
+				<form method="post" action="/groups/join">
+					<input type="hidden" name="group_id" value="<%= group.id%>" />
+					<input type="hidden" name="username" value="<%= session.username %>" />
+					<input type="hidden" name="redirect" value="true" />
+					<input type="submit" value="Join" />
+				</form>
+			<% } else { %>
+				<button id="join_button<%= group.id %>"type="button" disabled="true">Joined</button>
+			<% } %>
+		</div>
+	</div>
+</div>

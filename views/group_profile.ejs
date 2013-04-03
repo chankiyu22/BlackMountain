@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Twitter / Group Profile</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/group.css' />
+    <script src="/javascript/jquery.js"></script>
+    <script src="/javascript/groups.js"></script>
+  </head>
+  <body>
+    <div id="doc">
+      <div>
+        <% include topbar %>
+      </div>
+      <div id="page-container" class="page">
+        <div id='dashboard' class="dashboard LHS">
+          <% include group_profile_nav_module %>
+          <% include who_to_follow_module %>
+          <% include trends_module %>
+        </div>
+        <div class="RHS">
+          <% include group_profile_card_module %>
+          <% include group_profile_member_module %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
