@@ -126,7 +126,29 @@ input[type="text"] {
 }
 
 .navigation {
-    padding: 5px;
+}
+
+.navigation-item {
+    font-size: 1.1em;
+    padding-left: 5px;
+}
+
+.navigation-item:hover {
+    color: black;
+    background-color: #D0D0D0;
+}
+
+.navigation-item a {
+  color: #4169E1;
+}
+
+.navigation-item a:hover {
+    color: black;
+}
+
+.separator {
+  border-top-style:solid;
+  border-top-width:1px;
 }
 
 .timeline {
@@ -183,4 +205,9 @@ input[type="text"] {
 
 .mention:hover {
   text-decoration:underline;
+}
+
+.join_group {
+  float: right; 
+  margin: auto;
 }

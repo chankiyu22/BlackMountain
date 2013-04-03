@@ -1,0 +1,23 @@
+<div class="timeline module">
+	<div class="tweet-header">
+    	Discover Groups
+    </div>
+    <ul>
+	<% for(var i=0; i<groups.length; i++) {%>
+	  	<li>
+	  		<div class="tweet">
+    			<a href="/<%= groups[i].username %>">
+		  			<span class="fullname">
+				        <%= groups[i].userdata.fullname %><small> @<%= groups[i].username %></small>
+				    </span>
+			    </a>
+			   	<% if(groups[i].isMember == false) {%>
+	            	<button id="join_button<%= i %>" onclick="Groups.join_group(<%= groups[i].id %>, '<%= user.username %>');" class="join_group" type="button">Join</button>
+			   	<% } else { %>
+			   		<button id="join_button<%= i %>" class="join_group" type="button" disabled="true">Joined</button>
+			   	<% } %>
+		   	</div>
+	   	</li>
+	<% } %>
+	</ul>
+</div>

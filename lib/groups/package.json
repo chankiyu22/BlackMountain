@@ -1,0 +1,7 @@
+{
+    "name"     : "groups",
+    "verstion" : "0.0.1",
+    "author"   : "Black Mountain",
+    "description" : "a library for useful functions",
+    "main": "./groupdb.js"
+}

@@ -13,18 +13,26 @@ var util = require('../lib/util');
  * following = number of users following username
  * followed = number of users following username
 */
-exports.profile = function(req, res){
+exports.profile = function(req, res, next){
   var username = req.param('username');
-  var tweet_array = undefined;
-  tweet_array = tweets.getTweetsByUser(username, -1);
-  util.initTweets(tweet_array);
-  var following_users = followers.getFollowedUsers(username);
-  var followed_by_users = followers.getUsersFollowing(username);
-  res.render('profile', {user: user.getUser(username),
-               	num_tweets: tweets.getTweetCountByUser(username),
-  				      tweets: tweet_array,
-                following: following_users,
-                followers: followed_by_users});
+  var theuser = user.getUser(username);
+  if (theuser == undefined)
+  {
+    next();
+  }
+  else
+  {
+    var tweet_array = undefined;
+    tweet_array = tweets.getTweetsByUser(username, -1);
+    util.initTweets(tweet_array);
+    var following_users = followers.getFollowedUsers(username);
+    var followed_by_users = followers.getUsersFollowing(username);
+    res.render('profile', {user: user.getUser(username),
+                  num_tweets: tweets.getTweetCountByUser(username),
+                  tweets: tweet_array,
+                  following: following_users,
+                  followers: followed_by_users});
+  }
 };
 
 /*

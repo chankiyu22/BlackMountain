@@ -8,6 +8,7 @@ var express = require('express')
   , login = require('./routes/login')
   , connect = require('./routes/connect')
   , discover = require('./routes/discover')
+  , groups = require('./routes/groups')
   , profile = require('./routes/profile')
   , settings = require('./routes/settings')
   , signup = require('./routes/signup')
@@ -38,9 +39,6 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/docs/', function(req, res){res.sendfile('./public/docs/app.js.html');});
-app.get('/docs/:file', function(req, res){res.sendfile('./public/docs/' + req.params.file);});
-
 app.get('/', routes.index); 
 app.post('/login', login.index);
 app.get('/logout', login.logout);
@@ -54,6 +52,10 @@ app.get('/connect', connect.connect);
 app.get('/mentions', connect.mentions);
 app.get('/discover', discover.discover);
 app.get('/activity', discover.activity);
+app.get('/groups', groups.groups);
+app.get('/groups/create', groups.create);
+app.get('/groups/discover', groups.discover);
+app.post('/groups/join', groups.join);
 app.get('/:username', profile.profile);
 app.get('/:username/following', profile.following);
 app.get('/:username/followers', profile.followers);

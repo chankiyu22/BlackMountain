@@ -1,0 +1,13 @@
+Groups
+
+- Groups should get a new tab at the top.
+- Groups are treated as users (@groupname)
+- If you are in a group you can see mentions of that group.
+- If you want to tweet to a group just mention it.
+
+Group Pages
+- Groups (/groups): Shows all tweets that mention the groups you've joined.
+- Create Group (/groups/create): Allows you to register a new group name. 
+- Find Group (/groups/discover): Lists off a bunch of groups to join. 
+- Profile (/<groupname>): Shows group mentions
+- Members (/<groupname>/members): Shows group members
