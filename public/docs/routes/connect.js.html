@@ -38,6 +38,8 @@
 
         </td>
         <td class="code highlight"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">user</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../lib/user&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">tweets</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../lib/tweets&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">util</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../lib/util&#39;</span><span class="p">);</span>
 
 
 </pre></div>
@@ -57,7 +59,10 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nx">exports</span><span class="p">.</span><span class="nx">connect</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
-  <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;connect&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">user</span><span class="o">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span><span class="p">)});</span>
+  <span class="kd">var</span> <span class="nx">theuser</span> <span class="o">=</span> <span class="nx">user</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">interactions</span> <span class="o">=</span> <span class="nx">util</span><span class="p">.</span><span class="nx">getInteractions</span><span class="p">(</span><span class="nx">theuser</span><span class="p">.</span><span class="nx">username</span><span class="p">);</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;connect&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">user</span><span class="o">:</span> <span class="nx">theuser</span><span class="p">,</span>
+                <span class="nx">interactions</span><span class="o">:</span> <span class="nx">interactions</span><span class="p">});</span>
 <span class="p">};</span>
 
 
@@ -78,7 +83,12 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nx">exports</span><span class="p">.</span><span class="nx">mentions</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
-  <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;mentions&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">user</span><span class="o">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span><span class="p">)});</span>
+  <span class="kd">var</span> <span class="nx">theuser</span> <span class="o">=</span> <span class="nx">user</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">tweet_array</span> <span class="o">=</span> <span class="nx">tweets</span><span class="p">.</span><span class="nx">getTweetsThatMention</span><span class="p">(</span><span class="nx">theuser</span><span class="p">.</span><span class="nx">username</span><span class="p">);</span>
+  <span class="nx">util</span><span class="p">.</span><span class="nx">initTweets</span><span class="p">(</span><span class="nx">tweet_array</span><span class="p">);</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;mentions&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">user</span><span class="o">:</span> <span class="nx">theuser</span><span class="p">,</span>
+                <span class="nx">tweets</span><span class="o">:</span> <span class="nx">tweet_array</span><span class="p">,</span>
+                <span class="nx">timeline_header</span><span class="o">:</span> <span class="s2">&quot;Mentions&quot;</span><span class="p">});</span>
 <span class="p">};</span>
 </pre></div>
         </td>

@@ -6,9 +6,9 @@ var groups = require('../lib/groups');
 
 
 /*
- * GET /<username> page.
+ * GET /username page.
  *
- * Populate main page of user profile
+ * Populate main page of user profile<br/>
  * username = User
  * num_tweets = How many teets User's made, total
  * tweets = Array of user's tweets
@@ -47,7 +47,7 @@ exports.profile = function(req, res, next){
 };
 
 /*
- * GET /<username>/following page.
+ * GET /username/following page.
  *
  * Populate "Following" subsection of user profile
  * username = User
@@ -74,7 +74,7 @@ exports.following = function(req, res){
 };
 
 /*
- * GET /<username>/followers page.
+ * GET /username/followers page.
  *
  * Populate "Followers" subsection of user profile
  * username = User
@@ -101,7 +101,7 @@ exports.followers = function(req, res){
 };
 
 /*
- * GET /<username>/favorites page.
+ * GET /username/favorites page.
  *
  * Populate "Favorites" subsection of user profile
  * username = User

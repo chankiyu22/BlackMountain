@@ -40,6 +40,7 @@
         <td class="code highlight"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">tweets</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../lib/tweets&#39;</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">user</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../lib/user&#39;</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">followers</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../lib/followers&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">util</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../lib/util&#39;</span><span class="p">);</span>
 
 
 </pre></div>
@@ -68,10 +69,11 @@
 <div class="pilwrap">
   <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
 </div>
-<p>Tweets to display</p>
+<p>Users the currently-logged-in person follows</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="kd">var</span> <span class="nx">tweet_array</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="kd">var</span> <span class="nx">following_users</span> <span class="o">=</span> <span class="nx">followers</span><span class="p">.</span><span class="nx">getFollowedUsers</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span><span class="p">);</span>
+
 
 </pre></div>
         </td>
@@ -81,10 +83,11 @@
 <div class="pilwrap">
   <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
 </div>
-<p>Users the currently-logged-in person follows</p>
+<p>Users following the person currently logged in</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="kd">var</span> <span class="nx">following_users</span> <span class="o">=</span> <span class="nx">followers</span><span class="p">.</span><span class="nx">getFollowedUsers</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">followed_by_users</span> <span class="o">=</span> <span class="nx">followers</span><span class="p">.</span><span class="nx">getUsersFollowing</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span><span class="p">);</span>
+
 
 </pre></div>
         </td>
@@ -94,10 +97,10 @@
 <div class="pilwrap">
   <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
 </div>
-<p>Users following the person currently logged in</p>
+<p>Tweets to display</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="kd">var</span> <span class="nx">followed_by_users</span> <span class="o">=</span> <span class="nx">followers</span><span class="p">.</span><span class="nx">getUsersFollowing</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">tweet_array</span> <span class="o">=</span> <span class="nx">tweets</span><span class="p">.</span><span class="nx">getTweetsByUsers</span><span class="p">(</span><span class="nx">following_users</span><span class="p">);</span>
   
 
 </pre></div>
@@ -107,25 +110,6 @@
         <td class="docs">
 <div class="pilwrap">
   <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
-</div>
-<p>Populate tweets array with tweets from followed users</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">following_users</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="nx">tweets</span><span class="p">.</span><span class="nx">getTweetsByUser</span><span class="p">(</span><span class="nx">following_users</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">tweetobjs</span><span class="p">){</span>
-      <span class="nx">tweet_array</span> <span class="o">=</span> <span class="nx">tweet_array</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">tweetobjs</span><span class="p">);</span>
-    <span class="p">});</span>
-  <span class="p">}</span>
-  
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
 </div>
 <p>Current user</p>
         </td>
@@ -139,15 +123,12 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
 </div>
-<p>Attach username to each tweet</p>
+<p>init tweet data</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">tweet_array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="nx">tweet_array</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">userdata</span> <span class="o">=</span> <span class="nx">user</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">tweet_array</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">owner</span><span class="p">);</span>
-  <span class="p">}</span>
+  <span class="nx">util</span><span class="p">.</span><span class="nx">initTweets</span><span class="p">(</span><span class="nx">tweet_array</span><span class="p">);</span>
   
 
 </pre></div>
@@ -156,7 +137,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
 </div>
 <div class="dox">
   <div class="summary"><p>Populate the main page with above information:

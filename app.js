@@ -39,6 +39,9 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+app.get('/docs/', function(req, res){res.sendfile('./public/docs/app.js.html');});
+app.get('/docs/:file', function(req, res){res.sendfile('./public/docs/' + req.params.file);});
+
 app.get('/', routes.index); 
 app.post('/login', login.index);
 app.get('/logout', login.logout);

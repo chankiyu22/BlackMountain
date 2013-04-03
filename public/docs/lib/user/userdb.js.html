@@ -30,6 +30,9 @@
       <div class="heading h2">
         <a href="#register-a-new-user">register a new user</a>
       </div>
+      <div class="heading h2">
+        <a href="#register-a-group-name">register a group name</a>
+      </div>
     </div>
   </div>
   <div id="sidebar-toggle"></div>
@@ -60,11 +63,12 @@
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="kd">function</span> <span class="nx">User</span><span class="p">(</span><span class="nx">fullname</span><span class="p">,</span> <span class="nx">email</span><span class="p">,</span> <span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">)</span> <span class="p">{</span>
+<span class="kd">function</span> <span class="nx">User</span><span class="p">(</span><span class="nx">fullname</span><span class="p">,</span> <span class="nx">email</span><span class="p">,</span> <span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">,</span> <span class="nx">isgroup</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">fullname</span> <span class="o">=</span> <span class="nx">fullname</span><span class="p">;</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">email</span> <span class="o">=</span> <span class="nx">email</span><span class="p">;</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">username</span> <span class="o">=</span> <span class="nx">username</span><span class="p">;</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">password</span> <span class="o">=</span> <span class="nx">password</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">isgroup</span> <span class="o">=</span> <span class="nx">isgroup</span><span class="p">;</span>
 <span class="p">}</span>
 
 
@@ -80,9 +84,14 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="kd">var</span> <span class="nx">userdb</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="s1">&#39;Mc Testington&#39;</span><span class="p">,</span> <span class="s1">&#39;tester@umass.com&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span>   <span class="s1">&#39;123&#39;</span><span class="p">),</span>
-  <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="s1">&#39;Bill Crane&#39;</span><span class="p">,</span> <span class="s1">&#39;wcrane@student.umass.edu&#39;</span><span class="p">,</span> <span class="s1">&#39;argo15&#39;</span><span class="p">,</span> <span class="s1">&#39;billz&#39;</span><span class="p">),</span>
-  <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="s1">&#39;Steve Jobs&#39;</span><span class="p">,</span> <span class="s1">&#39;sjobs@apple.com&#39;</span><span class="p">,</span> <span class="s1">&#39;sjobs&#39;</span><span class="p">,</span> <span class="s1">&#39;abc&#39;</span><span class="p">)</span>
+  <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="s1">&#39;Mc Testington&#39;</span><span class="p">,</span> <span class="s1">&#39;tester@umass.com&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span>   <span class="s1">&#39;123&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">),</span>
+  <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="s1">&#39;Bill Crane&#39;</span><span class="p">,</span> <span class="s1">&#39;wcrane@student.umass.edu&#39;</span><span class="p">,</span> <span class="s1">&#39;argo15&#39;</span><span class="p">,</span> <span class="s1">&#39;billz&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">),</span>
+  <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="s1">&#39;Steve Jobs&#39;</span><span class="p">,</span> <span class="s1">&#39;sjobs@apple.com&#39;</span><span class="p">,</span> <span class="s1">&#39;sjobs&#39;</span><span class="p">,</span> <span class="s1">&#39;abc&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">),</span>
+  <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="s1">&#39;Tweeters&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;Tweeters&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">),</span>
+  <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="s1">&#39;Umass Computer Science&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;UmassCS&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">),</span>
+  <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="s1">&#39;Programmers&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;Programmers&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">),</span>
+  <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="s1">&#39;Testers&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;Testers&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">),</span>
+  <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="s1">&#39;Bill\&#39;s Group&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;bill&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
 <span class="p">];</span>
 
 
@@ -103,11 +112,11 @@
 signature cb(error, userobj).</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nx">exports</span><span class="p">.</span><span class="nx">lookup</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">lookup</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">,</span> <span class="nx">include_groups</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
   <span class="kd">var</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">userdb</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
   <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">u</span> <span class="o">=</span> <span class="nx">userdb</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">u</span><span class="p">.</span><span class="nx">username</span> <span class="o">===</span> <span class="nx">username</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="o">!</span><span class="nx">include_groups</span> <span class="o">&amp;&amp;</span> <span class="nx">u</span><span class="p">.</span><span class="nx">isgroup</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">u</span><span class="p">.</span><span class="nx">username</span> <span class="o">===</span> <span class="nx">username</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">if</span> <span class="p">(</span><span class="nx">u</span><span class="p">.</span><span class="nx">password</span> <span class="o">===</span> <span class="nx">password</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">cb</span><span class="p">(</span><span class="kc">undefined</span><span class="p">,</span> <span class="nx">u</span><span class="p">);</span>
       <span class="p">}</span>
@@ -164,10 +173,45 @@ signature cb(error, userobj).</p>
 <span class="nx">exports</span><span class="p">.</span><span class="nx">signup</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fullname</span><span class="p">,</span> <span class="nx">email</span><span class="p">,</span> <span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
   <span class="kd">var</span> <span class="nx">new_user</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
   <span class="kd">var</span> <span class="nx">signup_error</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
-  <span class="nx">exports</span><span class="p">.</span><span class="nx">lookup</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">userobj</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">exports</span><span class="p">.</span><span class="nx">lookup</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">userobj</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">error</span> <span class="o">==</span> <span class="s1">&#39;user not found&#39;</span><span class="p">)</span>
     <span class="p">{</span>
-      <span class="nx">new_user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="nx">fullname</span><span class="p">,</span> <span class="nx">email</span><span class="p">,</span> <span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">);</span>
+      <span class="nx">new_user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="nx">fullname</span><span class="p">,</span> <span class="nx">email</span><span class="p">,</span> <span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+      <span class="nx">userdb</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">new_user</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+      <span class="nx">signup_error</span> <span class="o">=</span> <span class="s1">&#39;username already exists&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+  <span class="nx">cb</span><span class="p">(</span><span class="nx">signup_error</span><span class="p">,</span> <span class="nx">new_user</span><span class="p">);</span>
+<span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="register-a-group-name">
+  <h2>
+    <a href="#register-a-group-name" class="pilcrow">&#182;</a>
+    register a group name
+  </h2>
+</div>
+
+
+<p>Invokes callback <code>cb</code> with the signature cb(error, userobj).</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">registerGroup</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fullname</span><span class="p">,</span> <span class="nx">username</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">new_user</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">signup_error</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+  <span class="nx">exports</span><span class="p">.</span><span class="nx">lookup</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">userobj</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span> <span class="o">==</span> <span class="s1">&#39;user not found&#39;</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="nx">new_user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="nx">fullname</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nx">username</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
       <span class="nx">userdb</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">new_user</span><span class="p">);</span>
     <span class="p">}</span>
     <span class="k">else</span>
