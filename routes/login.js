@@ -31,8 +31,12 @@ exports.index = function(req, res){
 };
 
 /*
- * GET /logout.
- * Clear current session login data
+ * ## Function logout(req, res)
+ * Routing /logout
+ *
+ * #### Action
+ * 1. Clear current session login data
+ * 2. Go to main page
  */
 exports.logout = function(req, res){
   req.session.username = null;
@@ -42,9 +46,12 @@ exports.logout = function(req, res){
 };
 
 /*
- * GET captcha.
+ * ## Function captcha(req, res)
+ * Routing /captcha
  *
- * Display an error message if bad username/pass combination
+ * #### Render
+ * 1. Error Message corresponding to the type of error
+ *
  */
 exports.captcha = function(req, res) {
   var name = req.body.username;

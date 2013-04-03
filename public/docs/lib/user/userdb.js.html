@@ -24,14 +24,47 @@
       <div class="heading h2">
         <a href="#user-objects">User Objects</a>
       </div>
-      <div class="heading h2">
-        <a href="#lookup-function">lookup function</a>
+      <div class="heading h4">
+        <a href="#parameters">Parameters</a>
       </div>
       <div class="heading h2">
-        <a href="#register-a-new-user">register a new user</a>
+        <a href="#fake-database">Fake Database</a>
       </div>
       <div class="heading h2">
-        <a href="#register-a-group-name">register a group name</a>
+        <a href="#function-lookup">Function lookup</a>
+      </div>
+      <div class="heading h4">
+        <a href="#parameters">Parameters</a>
+      </div>
+      <div class="heading h4">
+        <a href="#action">Action</a>
+      </div>
+      <div class="heading h2">
+        <a href="#function-getuser">Function getUser</a>
+      </div>
+      <div class="heading h4">
+        <a href="#parameters">Parameters</a>
+      </div>
+      <div class="heading h4">
+        <a href="#returns">Returns</a>
+      </div>
+      <div class="heading h2">
+        <a href="#function-signup">Function signup</a>
+      </div>
+      <div class="heading h4">
+        <a href="#parameters">Parameters</a>
+      </div>
+      <div class="heading h4">
+        <a href="#actions">Actions</a>
+      </div>
+      <div class="heading h2">
+        <a href="#function-registergroup">Function registerGroup</a>
+      </div>
+      <div class="heading h4">
+        <a href="#parameters">Parameters</a>
+      </div>
+      <div class="heading h4">
+        <a href="#actions">Actions</a>
       </div>
     </div>
   </div>
@@ -53,7 +86,8 @@
         </td>
       </tr>
       <tr>
-        <td class="docs">
+        <td class="docs"><div class="dox">
+  <div class="summary">
 <div class="pilwrap" id="user-objects">
   <h2>
     <a href="#user-objects" class="pilcrow">&#182;</a>
@@ -61,6 +95,27 @@
   </h2>
 </div>
 
+
+<p>Object Constructor</p>
+  </div>
+  <div class="body">
+<div class="pilwrap" id="parameters">
+  <h4>
+    <a href="#parameters" class="pilcrow">&#182;</a>
+    Parameters
+  </h4>
+</div>
+
+
+<ol>
+<li>fullname</li>
+<li>email</li>
+<li>username</li>
+<li>password</li>
+<li>isgroup</li>
+</ol>
+  </div>
+</div>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="kd">function</span> <span class="nx">User</span><span class="p">(</span><span class="nx">fullname</span><span class="p">,</span> <span class="nx">email</span><span class="p">,</span> <span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">,</span> <span class="nx">isgroup</span><span class="p">)</span> <span class="p">{</span>
@@ -76,11 +131,19 @@
         </td>
       </tr>
       <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="fake-database">
+  <h2>
+    <a href="#fake-database" class="pilcrow">&#182;</a>
+    Fake Database
+  </h2>
 </div>
-<p>This is our stub database until we look at a real database!</p>
+
+  </div>
+  <div class="body">
+  </div>
+</div>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="kd">var</span> <span class="nx">userdb</span> <span class="o">=</span> <span class="p">[</span>
@@ -100,11 +163,38 @@
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="lookup-function">
+<div class="pilwrap" id="function-lookup">
   <h2>
-    <a href="#lookup-function" class="pilcrow">&#182;</a>
-    lookup function
+    <a href="#function-lookup" class="pilcrow">&#182;</a>
+    Function lookup
   </h2>
+</div>
+
+
+<p>Lookup user's information</p>
+
+
+<div class="pilwrap" id="parameters">
+  <h4>
+    <a href="#parameters" class="pilcrow">&#182;</a>
+    Parameters
+  </h4>
+</div>
+
+
+<ol>
+<li>username</li>
+<li>password</li>
+<li>include_groups</li>
+<li>cb</li>
+</ol>
+
+
+<div class="pilwrap" id="action">
+  <h4>
+    <a href="#action" class="pilcrow">&#182;</a>
+    Action
+  </h4>
 </div>
 
 
@@ -135,10 +225,39 @@ signature cb(error, userobj).</p>
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+<div class="pilwrap" id="function-getuser">
+  <h2>
+    <a href="#function-getuser" class="pilcrow">&#182;</a>
+    Function getUser
+  </h2>
 </div>
-<p>gets a user by name, returns undefined otherwise</p>
+
+
+
+<div class="pilwrap" id="parameters">
+  <h4>
+    <a href="#parameters" class="pilcrow">&#182;</a>
+    Parameters
+  </h4>
+</div>
+
+
+<ol>
+<li>username</li>
+</ol>
+
+
+<div class="pilwrap" id="returns">
+  <h4>
+    <a href="#returns" class="pilcrow">&#182;</a>
+    Returns
+  </h4>
+</div>
+
+
+<ol>
+<li>Information of the user</li>
+</ol>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nx">exports</span><span class="p">.</span><span class="nx">getUser</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">username</span><span class="p">)</span> <span class="p">{</span>
@@ -158,11 +277,39 @@ signature cb(error, userobj).</p>
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="register-a-new-user">
+<div class="pilwrap" id="function-signup">
   <h2>
-    <a href="#register-a-new-user" class="pilcrow">&#182;</a>
-    register a new user
+    <a href="#function-signup" class="pilcrow">&#182;</a>
+    Function signup
   </h2>
+</div>
+
+
+<p>Register a new user</p>
+
+
+<div class="pilwrap" id="parameters">
+  <h4>
+    <a href="#parameters" class="pilcrow">&#182;</a>
+    Parameters
+  </h4>
+</div>
+
+
+<ol>
+<li>fullname</li>
+<li>email</li>
+<li>username</li>
+<li>password</li>
+<li>cb</li>
+</ol>
+
+
+<div class="pilwrap" id="actions">
+  <h4>
+    <a href="#actions" class="pilcrow">&#182;</a>
+    Actions
+  </h4>
 </div>
 
 
@@ -194,11 +341,37 @@ signature cb(error, userobj).</p>
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="register-a-group-name">
+<div class="pilwrap" id="function-registergroup">
   <h2>
-    <a href="#register-a-group-name" class="pilcrow">&#182;</a>
-    register a group name
+    <a href="#function-registergroup" class="pilcrow">&#182;</a>
+    Function registerGroup
   </h2>
+</div>
+
+
+<p>Register a a new group</p>
+
+
+<div class="pilwrap" id="parameters">
+  <h4>
+    <a href="#parameters" class="pilcrow">&#182;</a>
+    Parameters
+  </h4>
+</div>
+
+
+<ol>
+<li>fullname</li>
+<li>username</li>
+<li>cb</li>
+</ol>
+
+
+<div class="pilwrap" id="actions">
+  <h4>
+    <a href="#actions" class="pilcrow">&#182;</a>
+    Actions
+  </h4>
 </div>
 
 
