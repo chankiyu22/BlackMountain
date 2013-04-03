@@ -7,7 +7,7 @@ var userdb = require('../lib/user');
 exports.index = function(req, res){
   var username = req.body.username;
   var password = req.body.password;
-  userdb.lookup(username, password, function(error, userobj) {
+  userdb.lookup(username, password, false, function(error, userobj) {
     if (userobj)
     {
       req.session.fullname = userobj.fullname;

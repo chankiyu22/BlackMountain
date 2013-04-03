@@ -56,6 +56,7 @@ app.get('/groups', groups.groups);
 app.get('/groups/create', groups.create);
 app.get('/groups/discover', groups.discover);
 app.post('/groups/join', groups.join);
+app.post('/groups/create', groups.register);
 app.get('/:username', profile.profile);
 app.get('/:username/following', profile.following);
 app.get('/:username/followers', profile.followers);

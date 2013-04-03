@@ -27,7 +27,7 @@ exports.groups = function(req, res){
  * Displays a form to register a new group
  */
 exports.create = function(req, res){
-  	res.render('groups', {user: user.getUser(req.session.username),
+  	res.render('groups_create', {user: user.getUser(req.session.username),
   						tweets: []});
 };
 
@@ -45,9 +45,28 @@ exports.discover = function(req, res){
 /*
  * Post /groups/join page.
  * 
- * Displays all tweets that mention any group that the user is a member of.
+ * user joins a new group
  */
 exports.join = function(req, res){
 	group.addNewMember(req.body.group_id, req.body.username);
 	res.send("success");
+};
+
+/*
+ * Post /groups/create page.
+ * 
+ * Registers a new group
+ */
+exports.register = function(req, res){
+	user.registerGroup(req.body.fullname, req.body.username, function(error, userobj) {
+		if (userobj !== undefined)
+		{
+			group.addGroup(req.body.username);
+			res.send("success");
+		}
+		else
+		{
+			res.send("Username unavailable");
+		}
+	});
 };

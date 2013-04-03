@@ -1,0 +1,20 @@
+table {
+  	margin-top: 0px;
+  	width: auto;
+}
+
+.create_form {
+	padding: 5px;
+}
+
+.create_input {
+	padding: 5px;
+}
+
+.result_success {
+	color: green;
+}
+
+.result_fail {
+	color: red;
+}
