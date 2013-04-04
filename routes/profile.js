@@ -5,16 +5,14 @@ var util = require('../lib/util');
 var groups = require('../lib/groups');
 
 
-/*
- * GET /username page.
- *
- * Populate main page of user profile<br/>
- * username = User
- * num_tweets = How many teets User's made, total
- * tweets = Array of user's tweets
- * following = number of users following username
- * followed = number of users following username
-*/
+ // ## GET /<username> page.<br>
+ // Gets the following info for main page of a user profile display<br>
+ // username = User<br>
+ // theuser = the current logged in user<br>
+ // group = group that user is a member of<br>
+ // tweet_array = Array of user's tweets<br>
+ // following_users = users following username<br>
+ // followed_by_users = users followed by username<br>
 exports.profile = function(req, res, next){
   var username = req.param('username');
   var theuser = user.getUser(username);
@@ -22,6 +20,7 @@ exports.profile = function(req, res, next){
   {
     next();
   }
+ // If theuser is a member of a group, finds group info
   else if (theuser.isgroup)
   {
     var group = groups.getGroupByName(username);
@@ -46,22 +45,19 @@ exports.profile = function(req, res, next){
   }
 };
 
-/*
- * GET /username/following page.
- *
- * Populate "Following" subsection of user profile
- * username = User
- * num_tweets = How many teets User's made, total
- * tweets = Empty, for this view
- * following = number of users following username
- * following_data = Users that User is following
- * followed = number of users following username
-*/
+// ## GET /<username>/following page.<br>
+// Gets the info to display on a user's "Following" page
+// username = User<br>
+// following_users = users following username<br>
+// followed_by_users = users following username<br>
+// following_user_data = users that username is following<br>
 exports.following = function(req, res){
   var username = req.param('username');
   var following_users = followers.getFollowedUsers(username);
   var followed_by_users = followers.getUsersFollowing(username);
   var following_user_data = [];
+
+// Finds all users that username is following<br>
   for (var i=0; i<following_users.length; i++)
   {
     following_user_data.push(user.getUser(following_users[i]));
@@ -73,22 +69,19 @@ exports.following = function(req, res){
                 followers: followed_by_users});
 };
 
-/*
- * GET /username/followers page.
- *
- * Populate "Followers" subsection of user profile
- * username = User
- * num_tweets = How many teets User's made, total
- * tweets = Empty, for this view
- * following = number of users following username
- * followed = number of users following username
- * follower_data = Users following User
-*/
+// ## GET /<username>/followers page.<br>
+// Gets the info to display on a user's "Followers" pages<br>
+// username = User<br>
+// following_users = users following username<br>
+// followed_by_users = users following username<br>
+// followed_by_user_data = users following username<br>
 exports.followers = function(req, res){
   var username = req.param('username');
   var following_users = followers.getFollowedUsers(username);
   var followed_by_users = followers.getUsersFollowing(username);
   var followed_by_user_data = [];
+
+// Finds all users followed by username
   for (var i=0; i<followed_by_users.length; i++)
   {
     followed_by_user_data.push(user.getUser(followed_by_users[i]));
@@ -100,20 +93,16 @@ exports.followers = function(req, res){
                followers: followed_by_user_data});
 };
 
-/*
- * GET /username/favorites page.
- *
- * Populate "Favorites" subsection of user profile
- * username = User
- * num_tweets = How many teets User's made, total
- * tweets = Currently nonfunctional, will contain tweets user has favorited
- * following = number of users following username
- * followed = number of users following username
-*/
+// ## GET /<username>/favorites page.<br>
+// Gets the info to display on a user's "Favorites" page<br>
+// username = User<br>
+// following_users = users following username<br>
+// followed_by_users = users following username<br>
 exports.favorites = function(req, res){
   var username = req.param('username');
   var following_users = followers.getFollowedUsers(username);
   var followed_by_users = followers.getUsersFollowing(username);
+
   res.render('favorites', {user: user.getUser(req.session.username),
                	num_tweets: tweets.getTweetCountByUser(req.session.username),
   				      tweets: [],
