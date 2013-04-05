@@ -64,12 +64,24 @@ exports.logout = function(req, res){
  */
 exports.captcha = function(req, res) {
   var username = req.query.username_or_email;
-  res.render('login', {username_or_email: username,
+  if(username === undefined) {
+    res.render('login', {username_or_email: '',
+                           errmsg: ''});
+  }
+  else {
+    res.render('login', {username_or_email: username,
                            errmsg: 'We gonna check...Are you human?'});
+  }
 };
 
 exports.error = function(req, res) {
   var username = req.query.username_or_email;
-  res.render('login', {username_or_email: username,
-                                  errmsg: 'Wrong Username/Email and password combination'});
+  if (username === undefined) {
+    res.render('login', {username_or_email: '',
+                           errmsg: ''});
+  }
+  else {
+    res.render('login', {username_or_email: username,
+                  errmsg: 'Wrong Username/Email and password combination'});
+  }
 };
