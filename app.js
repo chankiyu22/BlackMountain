@@ -43,7 +43,10 @@ app.get('/docs/', function(req, res){res.sendfile('./public/docs/app.js.html');}
 app.get('/docs/:file', function(req, res){res.sendfile('./public/docs/' + req.params.file);});
 
 app.get('/', routes.index); 
-app.post('/login', login.index);
+app.get('/login', login.index);
+app.post('/login', login.verify);
+app.get('/login/captcha', login.captcha);
+app.get('/login/error', login.error);
 app.get('/logout', login.logout);
 app.post('/login/captcha', login.captcha);
 app.get('/signup', signup.index);
