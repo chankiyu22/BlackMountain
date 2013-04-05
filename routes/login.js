@@ -8,7 +8,12 @@ var userdb = require('../lib/user');
  * Preform login validation and initialize user sesison.
  * If success
  */
-exports.index = function(req, res){
+exports.index = function(req, res) {
+  res.render('login', {username_or_email: '',
+                       errmsg: ''});
+};
+
+exports.verify = function(req, res){
   var username = req.body.username;
   var password = req.body.password;
   userdb.lookup(username, password, false, function(error, userobj) {
@@ -20,14 +25,18 @@ exports.index = function(req, res){
       req.session.password = userobj.password;
       req.session.login_error = null;
       req.session.login = true;
+      res.redirect("/"); 
     }
     else
     {
-      req.session.login_error = error;
+      if (error === 'captcha'){
+        res.redirect('/login/captcha?username_or_email=' + username);
+      }
+      else if (error === 'error') {
+        res.redirect('/login/error?username_or_email=' + username);
+      }
     }
   });
-  //Return to index and rerender; index is conditional on login status
-  res.redirect("/"); 
 };
 
 /*
@@ -54,13 +63,13 @@ exports.logout = function(req, res){
  *
  */
 exports.captcha = function(req, res) {
-  var name = req.body.username;
-  for (var i = 0; i < users.length; i++) {
-    if (name === users[i].username) {
-      msg = "Wrong Username/Email and password combination.";
-      res.render('login', {errmsg: msg});
-    }
-  }
-  msg = "We gotta check... are you human?";
-  res.render('login', {errmsg: msg});
+  var username = req.query.username_or_email;
+  res.render('login', {username_or_email: username,
+                           errmsg: 'We gonna check...Are you human?'});
+};
+
+exports.error = function(req, res) {
+  var username = req.query.username_or_email;
+  res.render('login', {username_or_email: username,
+                                  errmsg: 'Wrong Username/Email and password combination'});
 };

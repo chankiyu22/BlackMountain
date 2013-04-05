@@ -15,9 +15,9 @@
       </tr>
       <tr>
         <td>
-          <form>
+          <form method="post" action='/login'>
             <header>Sign in to Twitter</header><br />
-            <input type="text" name="username">
+            <input type="text" name="username" value=<%= username_or_email %>>
             Forgot your <a href="#">username</a> ? <br /><br />
             <input type="password" name="password">
             Forgot your <a href="#">password</a> ? <br /><br />
