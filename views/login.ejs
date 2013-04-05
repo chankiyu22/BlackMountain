@@ -2,17 +2,25 @@
 <html>
   <head>
     <title>Sign in to Twitter</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/stylesheets/login.css' />
   </head>
   <body>
-    <a href="/" id="logo">Twitter</a>
-    <lang>Language: English</lang>
+  <div class="topbar">
+    <div class="topbar_contents">
+      <a href="/" ><img width="40" height="40" src="../images/twitter-bird-light-bgs.png"></img></a>
+      <lang>Language: English</lang>
+    </div>
+  </div>
+  <div class='login'>
+    <% if (errmsg != '') {%>
+    <div class='alert-messages'>
+      <div class='message'>
+        <p id='the-message' align='center'><%= errmsg %></p>
+      </div>
+    </div>
+    <% } %>
     <table>
-      <tr>
-        <td>
-          <div><%= errmsg %></div>
-        </td>
-      </tr>
       <tr>
         <td>
           <form method="post" action='/login'>
@@ -29,10 +37,11 @@
       </tr>
       <tr>
         <td style="background-color: #EEEEEE"><div id="other">
-          New to Twitter? <a href="#">Sign up now >></a><br />
+          New to Twitter? <a href="/signup">Sign up now >></a><br />
           Already using Twitter via text message? <a href="#">Activate your account >></a>
         </div></td>
       </tr>
     </table>
+    </div>
   </body>
 </html>
