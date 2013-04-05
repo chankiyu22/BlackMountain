@@ -76,6 +76,7 @@ exports.captcha = function(req, res) {
 
 exports.error = function(req, res) {
   var username = req.query.username_or_email;
+<<<<<<< HEAD
   if (username === undefined) {
     res.render('login', {username_or_email: '',
                            errmsg: ''});
@@ -84,4 +85,8 @@ exports.error = function(req, res) {
     res.render('login', {username_or_email: username,
                   errmsg: 'Wrong Username/Email and password combination'});
   }
+=======
+  res.render('login', {username_or_email: username,
+                                  errmsg: 'Wrong Username/Email and password combination'});
+>>>>>>> redirect when wrong username/password to real login page
 };

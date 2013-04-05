@@ -25,6 +25,11 @@
     <table>
       <tr>
         <td>
+          <div><%= errmsg %></div>
+        </td>
+      </tr>
+      <tr>
+        <td>
           <form method="post" action='/login'>
             <header>Sign in to Twitter</header><br />
             <input type="text" name="username" value=<%= username_or_email %>>
