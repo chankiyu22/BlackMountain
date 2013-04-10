@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>groupdb.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../", thisFile = "home/site/BlackMountain/lib/groups/groupdbjs", defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#group-library">Group Library</a>
+      </div>
+      <div class="heading h2">
+        <a href="#group-object">Group Object</a>
+      </div>
+      <div class="heading h2">
+        <a href="#group-object">Group Object</a>
+      </div>
+      <div class="heading h2">
+        <a href="#get-all-groups">Get all groups</a>
+      </div>
+      <div class="heading h2">
+        <a href="#get-group-with-member">Get group with member</a>
+      </div>
+      <div class="heading h2">
+        <a href="#get-group-by-name">Get group by name</a>
+      </div>
+      <div class="heading h2">
+        <a href="#ismember">isMember</a>
+      </div>
+      <div class="heading h2">
+        <a href="#getmembersforgroup">getMembersForGroup</a>
+      </div>
+      <div class="heading h2">
+        <a href="#add-new-member-to-groupmemberdb">Add new member to groupmemberdb</a>
+      </div>
+      <div class="heading h2">
+        <a href="#add-new-group">Add new group</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>groupdb.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">user</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../user&#39;</span><span class="p">);</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="group-library">
+  <h1>
+    <a href="#group-library" class="pilcrow">&#182;</a>
+    Group Library
+  </h1>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="group-object">
+  <h2>
+    <a href="#group-object" class="pilcrow">&#182;</a>
+    Group Object
+  </h2>
+</div>
+
+
+<p>@param id - Unique Group ID<br />
+@param username - Group Name</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="kd">function</span> <span class="nx">Group</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="nx">username</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">id</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">username</span> <span class="o">=</span> <span class="nx">username</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="group-object">
+  <h2>
+    <a href="#group-object" class="pilcrow">&#182;</a>
+    Group Object
+  </h2>
+</div>
+
+
+<p>@param id - Unique Group ID<br />
+@param username - User name</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="kd">function</span> <span class="nx">GroupMember</span><span class="p">(</span><span class="nx">group_id</span><span class="p">,</span> <span class="nx">username</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">group_id</span> <span class="o">=</span> <span class="nx">group_id</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">username</span> <span class="o">=</span> <span class="nx">username</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>Temporary db holding group names</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="kd">var</span> <span class="nx">groupdb</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="k">new</span> <span class="nx">Group</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Tweeters&#39;</span><span class="p">),</span>
+  <span class="k">new</span> <span class="nx">Group</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;UmassCS&#39;</span><span class="p">),</span>
+  <span class="k">new</span> <span class="nx">Group</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Programmers&#39;</span><span class="p">),</span>
+  <span class="k">new</span> <span class="nx">Group</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;Testers&#39;</span><span class="p">),</span>
+  <span class="k">new</span> <span class="nx">Group</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;bill&#39;</span><span class="p">)</span>
+<span class="p">];</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>This is our stub database until we look at a real database!</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="kd">var</span> <span class="nx">groupmemberdb</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="k">new</span> <span class="nx">GroupMember</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">),</span>
+  <span class="k">new</span> <span class="nx">GroupMember</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;argo15&#39;</span><span class="p">),</span>
+  <span class="k">new</span> <span class="nx">GroupMember</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;sjobs&#39;</span><span class="p">),</span>
+  <span class="k">new</span> <span class="nx">GroupMember</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">),</span>
+  <span class="k">new</span> <span class="nx">GroupMember</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;argo15&#39;</span><span class="p">),</span>
+  <span class="k">new</span> <span class="nx">GroupMember</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;argo15&#39;</span><span class="p">),</span>
+  <span class="k">new</span> <span class="nx">GroupMember</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;sjobs&#39;</span><span class="p">),</span>
+  <span class="k">new</span> <span class="nx">GroupMember</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">),</span>
+  <span class="k">new</span> <span class="nx">GroupMember</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;sjobs&#39;</span><span class="p">)</span>
+<span class="p">];</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="get-all-groups">
+  <h2>
+    <a href="#get-all-groups" class="pilcrow">&#182;</a>
+    Get all groups
+  </h2>
+</div>
+
+
+<p>@return - array of all the Groups in the database.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">getAllGroups</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">groupdb</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="get-group-with-member">
+  <h2>
+    <a href="#get-group-with-member" class="pilcrow">&#182;</a>
+    Get group with member
+  </h2>
+</div>
+
+
+<p>@param username - member whose groups we're interested in<br />
+@return - array of Groups that member <code>username</code> belongs to</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">getGroupWithMember</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">username</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">groups</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">groupmemberdb</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">groupmemberdb</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">username</span> <span class="o">==</span> <span class="nx">username</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="nx">groups</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">groupdb</span><span class="p">[</span><span class="nx">groupmemberdb</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">group_id</span><span class="p">]);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">groups</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="get-group-by-name">
+  <h2>
+    <a href="#get-group-by-name" class="pilcrow">&#182;</a>
+    Get group by name
+  </h2>
+</div>
+
+
+<p>@param username - Group to look up<br />
+@return - Group with the name <code>username</code></p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">getGroupByName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">username</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">groupdb</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">groupdb</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">username</span> <span class="o">==</span> <span class="nx">username</span><span class="p">)</span>
+    <span class="p">{</span>
+     <span class="k">return</span> <span class="nx">groupdb</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="kc">undefined</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="ismember">
+  <h2>
+    <a href="#ismember" class="pilcrow">&#182;</a>
+    isMember
+  </h2>
+</div>
+
+
+<p>@param group_id - ID number for group we're checking<br />
+@param username - Member we're checking<br />
+@return - true if <code>username</code> is member of <code>group_id</code></p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">isMember</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">group_id</span><span class="p">,</span> <span class="nx">username</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">groupmemberdb</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">groupmemberdb</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">username</span> <span class="o">==</span> <span class="nx">username</span> <span class="o">&amp;&amp;</span> <span class="nx">groupmemberdb</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">group_id</span> <span class="o">==</span> <span class="nx">group_id</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="getmembersforgroup">
+  <h2>
+    <a href="#getmembersforgroup" class="pilcrow">&#182;</a>
+    getMembersForGroup
+  </h2>
+</div>
+
+
+<p>@param group_id - ID of group we're interested in<br />
+@return - an array of user objects who are members of <code>group_id</code></p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">getMembersForGroup</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">group_id</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">users</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">groupmemberdb</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">groupmemberdb</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">group_id</span> <span class="o">==</span> <span class="nx">group_id</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="nx">users</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">user</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">groupmemberdb</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">username</span><span class="p">));</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">users</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="add-new-member-to-groupmemberdb">
+  <h2>
+    <a href="#add-new-member-to-groupmemberdb" class="pilcrow">&#182;</a>
+    Add new member to groupmemberdb
+  </h2>
+</div>
+
+
+<p>@param group_id - Group to add to<br />
+@param username - User to add to group</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">addNewMember</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">group_id</span><span class="p">,</span> <span class="nx">username</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">groupmemberdb</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">new</span> <span class="nx">GroupMember</span><span class="p">(</span><span class="nx">group_id</span><span class="p">,</span> <span class="nx">username</span><span class="p">));</span>
+<span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="add-new-group">
+  <h2>
+    <a href="#add-new-group" class="pilcrow">&#182;</a>
+    Add new group
+  </h2>
+</div>
+
+
+<p>@param group_name Name of new group</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">addGroup</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">group_name</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">groupdb</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">new</span> <span class="nx">Group</span><span class="p">(</span><span class="nx">groupdb</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span> <span class="nx">group_name</span><span class="p">));</span>
+<span class="p">};</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

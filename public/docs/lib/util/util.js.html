@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>util.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../", thisFile = "home/site/BlackMountain/lib/util/utiljs", defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h3">
+        <a href="#module-dependency">Module Dependency</a>
+      </div>
+      <div class="heading h2">
+        <a href="#function-buildtweethtml">Function buildTweetHtml</a>
+      </div>
+      <div class="heading h4">
+        <a href="#parameters">Parameters</a>
+      </div>
+      <div class="heading h4">
+        <a href="#actions">Actions</a>
+      </div>
+      <div class="heading h2">
+        <a href="#function-inittweets">Function initTweets</a>
+      </div>
+      <div class="heading h4">
+        <a href="#parameters">Parameters</a>
+      </div>
+      <div class="heading h4">
+        <a href="#actions">Actions</a>
+      </div>
+      <div class="heading h2">
+        <a href="#function-getinitializedgroups">Function getInitializedGroups</a>
+      </div>
+      <div class="heading h4">
+        <a href="#parameters">Parameters</a>
+      </div>
+      <div class="heading h4">
+        <a href="#return">Return</a>
+      </div>
+      <div class="heading h2">
+        <a href="#function-getinteractions">Function getInteractions</a>
+      </div>
+      <div class="heading h4">
+        <a href="#parameters">Parameters</a>
+      </div>
+      <div class="heading h4">
+        <a href="#action">Action</a>
+      </div>
+      <div class="heading h4">
+        <a href="#return">Return</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>util.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="module-dependency">
+  <h3>
+    <a href="#module-dependency" class="pilcrow">&#182;</a>
+    Module Dependency
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">tweets</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../tweets&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">user</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../user&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">followers</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../followers&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">group</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../groups&#39;</span><span class="p">);</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="function-buildtweethtml">
+  <h2>
+    <a href="#function-buildtweethtml" class="pilcrow">&#182;</a>
+    Function buildTweetHtml
+  </h2>
+</div>
+
+
+<p>Tweet Build Helper</p>
+
+
+<div class="pilwrap" id="parameters">
+  <h4>
+    <a href="#parameters" class="pilcrow">&#182;</a>
+    Parameters
+  </h4>
+</div>
+
+
+<ol>
+<li>tweet</li>
+</ol>
+
+
+<div class="pilwrap" id="actions">
+  <h4>
+    <a href="#actions" class="pilcrow">&#182;</a>
+    Actions
+  </h4>
+</div>
+
+
+<p>Creates mention links to profiles.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">buildTweetHtml</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">tweet</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">message</span> <span class="o">=</span> <span class="nx">tweet</span><span class="p">.</span><span class="nx">message</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">done</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="nx">done</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="nx">done</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">words</span> <span class="o">=</span> <span class="nx">message</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">words</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">words</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">charAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;@&#39;</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="nx">message</span> <span class="o">=</span> <span class="nx">message</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">words</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="s2">&quot;&lt;a class=&#39;mention&#39; href=&#39;/&quot;</span> <span class="o">+</span> <span class="nx">words</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">substring</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;&#39;&gt;&quot;</span> <span class="o">+</span> <span class="nx">words</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;&lt;/a&gt;&quot;</span><span class="p">);</span>
+        <span class="nx">done</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+    <span class="nx">tweet</span><span class="p">.</span><span class="nx">html</span> <span class="o">=</span> <span class="s2">&quot;&lt;div&gt;&quot;</span><span class="o">+</span><span class="nx">message</span><span class="o">+</span><span class="s2">&quot;&lt;/div&gt;&quot;</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="function-inittweets">
+  <h2>
+    <a href="#function-inittweets" class="pilcrow">&#182;</a>
+    Function initTweets
+  </h2>
+</div>
+
+
+<p>Initialize tweets</p>
+
+
+<div class="pilwrap" id="parameters">
+  <h4>
+    <a href="#parameters" class="pilcrow">&#182;</a>
+    Parameters
+  </h4>
+</div>
+
+
+<ol>
+<li>tweet_array</li>
+</ol>
+
+
+<div class="pilwrap" id="actions">
+  <h4>
+    <a href="#actions" class="pilcrow">&#182;</a>
+    Actions
+  </h4>
+</div>
+
+
+<p>Takes an array of tweets and initializes them with data about the 
+owner and adds the html version of the tweet</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">initTweets</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">tweet_array</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">tweet_array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="nx">tweet_array</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">userdata</span> <span class="o">=</span> <span class="nx">user</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">tweet_array</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">owner</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">buildTweetHtml</span><span class="p">(</span><span class="nx">tweet_array</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="function-getinitializedgroups">
+  <h2>
+    <a href="#function-getinitializedgroups" class="pilcrow">&#182;</a>
+    Function getInitializedGroups
+  </h2>
+</div>
+
+
+<p>Gets initialize groups</p>
+
+
+<div class="pilwrap" id="parameters">
+  <h4>
+    <a href="#parameters" class="pilcrow">&#182;</a>
+    Parameters
+  </h4>
+</div>
+
+
+<ol>
+<li>user_name</li>
+</ol>
+
+
+<div class="pilwrap" id="return">
+  <h4>
+    <a href="#return" class="pilcrow">&#182;</a>
+    Return
+  </h4>
+</div>
+
+
+<p>An array of groups and initializes them with user data 
+and relationship with user</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">getInitializedGroups</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">user_name</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">group_array</span> <span class="o">=</span> <span class="nx">group</span><span class="p">.</span><span class="nx">getAllGroups</span><span class="p">();</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">group_array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="nx">group_array</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">userdata</span> <span class="o">=</span> <span class="nx">user</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">group_array</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">username</span><span class="p">);</span>
+    <span class="nx">group_array</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">isMember</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">var</span> <span class="nx">users_groups</span> <span class="o">=</span> <span class="nx">group</span><span class="p">.</span><span class="nx">getGroupWithMember</span><span class="p">(</span><span class="nx">user_name</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">users_groups</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="nx">group_array</span><span class="p">[</span><span class="nx">users_groups</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">id</span><span class="p">].</span><span class="nx">isMember</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">group_array</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="function-getinteractions">
+  <h2>
+    <a href="#function-getinteractions" class="pilcrow">&#182;</a>
+    Function getInteractions
+  </h2>
+</div>
+
+
+<p>Get interactions</p>
+
+
+<div class="pilwrap" id="parameters">
+  <h4>
+    <a href="#parameters" class="pilcrow">&#182;</a>
+    Parameters
+  </h4>
+</div>
+
+
+<ol>
+<li>username</li>
+</ol>
+
+
+<div class="pilwrap" id="action">
+  <h4>
+    <a href="#action" class="pilcrow">&#182;</a>
+    Action
+  </h4>
+</div>
+
+
+<p>Given a user, get all the messages to be put in the interactions timeline.</p>
+
+
+<div class="pilwrap" id="return">
+  <h4>
+    <a href="#return" class="pilcrow">&#182;</a>
+    Return
+  </h4>
+</div>
+
+
+<p>An array of message</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">getInteractions</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">username</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">interactions</span> <span class="o">=</span> <span class="p">[];</span>
+
+    <span class="kd">var</span> <span class="nx">mentions</span> <span class="o">=</span> <span class="nx">tweets</span><span class="p">.</span><span class="nx">getTweetsThatMention</span><span class="p">(</span><span class="nx">username</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">mentions</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">userdata</span> <span class="o">=</span> <span class="nx">user</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">mentions</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">owner</span><span class="p">);</span>
+      <span class="nx">interactions</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&quot;&lt;a class=&#39;owner&#39; href=&#39;&quot;</span> <span class="o">+</span> <span class="nx">userdata</span><span class="p">.</span><span class="nx">username</span> <span class="o">+</span> <span class="s2">&quot;&#39;&gt;&lt;b&gt;&quot;</span> <span class="o">+</span> <span class="nx">userdata</span><span class="p">.</span><span class="nx">fullname</span> <span class="o">+</span> <span class="s2">&quot;&lt;/b&gt;&lt;/a&gt; mentioned you&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="kd">var</span> <span class="nx">followed_by_users</span> <span class="o">=</span> <span class="nx">followers</span><span class="p">.</span><span class="nx">getUsersFollowing</span><span class="p">(</span><span class="nx">username</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">followed_by_users</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">userdata</span> <span class="o">=</span> <span class="nx">user</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">followed_by_users</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+      <span class="nx">interactions</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&quot;&lt;a class=&#39;owner&#39; href=&#39;&quot;</span> <span class="o">+</span> <span class="nx">userdata</span><span class="p">.</span><span class="nx">username</span> <span class="o">+</span> <span class="s2">&quot;&#39;&gt;&lt;b&gt;&quot;</span> <span class="o">+</span> <span class="nx">userdata</span><span class="p">.</span><span class="nx">fullname</span> <span class="o">+</span> <span class="s2">&quot;&lt;/b&gt;&lt;/a&gt; followed you&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">interactions</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
