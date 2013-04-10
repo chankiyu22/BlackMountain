@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>groups.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "home/site/BlackMountain/routes/groupsjs", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h2">
+        <a href="#function-groups-req--res-">Function groups(req, res)</a>
+      </div>
+      <div class="heading h4">
+        <a href="#render">Render</a>
+      </div>
+      <div class="heading h2">
+        <a href="#function-create-req--res-">Function create(req, res)</a>
+      </div>
+      <div class="heading h4">
+        <a href="#render">Render</a>
+      </div>
+      <div class="heading h2">
+        <a href="#function-discover-req--res-">Function discover(req, res)</a>
+      </div>
+      <div class="heading h4">
+        <a href="#render">Render</a>
+      </div>
+      <div class="heading h2">
+        <a href="#function-join-req--res-">Function join(req, res)</a>
+      </div>
+      <div class="heading h4">
+        <a href="#action">Action</a>
+      </div>
+      <div class="heading h2">
+        <a href="#function-register-req--res-">Function register(req, res)</a>
+      </div>
+      <div class="heading h4">
+        <a href="#action">Action</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>groups.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">user</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../lib/user&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">util</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../lib/util&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">tweets</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../lib/tweets&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">group</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../lib/groups&#39;</span><span class="p">);</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="function-groups-req--res-">
+  <h2>
+    <a href="#function-groups-req--res-" class="pilcrow">&#182;</a>
+    Function groups(req, res)
+  </h2>
+</div>
+
+
+<p>Routing /groups</p>
+  </div>
+  <div class="body">
+<div class="pilwrap" id="render">
+  <h4>
+    <a href="#render" class="pilcrow">&#182;</a>
+    Render
+  </h4>
+</div>
+
+
+<ol>
+<li>Groups which current user belongs to</li>
+<li>Tweets of group members</li>
+</ol>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">groups</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">myGroups</span> <span class="o">=</span> <span class="nx">group</span><span class="p">.</span><span class="nx">getGroupWithMember</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">groupTweets</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">myGroups</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="nx">groupTweets</span> <span class="o">=</span> <span class="nx">groupTweets</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">tweets</span><span class="p">.</span><span class="nx">getTweetsThatMention</span><span class="p">(</span><span class="nx">myGroups</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">username</span><span class="p">));</span>
+  <span class="p">}</span>
+  <span class="nx">util</span><span class="p">.</span><span class="nx">initTweets</span><span class="p">(</span><span class="nx">groupTweets</span><span class="p">);</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;groups&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">user</span><span class="o">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span><span class="p">),</span>
+              <span class="nx">tweets</span><span class="o">:</span> <span class="nx">groupTweets</span><span class="p">,</span>
+              <span class="nx">timeline_header</span><span class="o">:</span> <span class="s1">&#39;Group Mentions&#39;</span><span class="p">});</span>
+<span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="function-create-req--res-">
+  <h2>
+    <a href="#function-create-req--res-" class="pilcrow">&#182;</a>
+    Function create(req, res)
+  </h2>
+</div>
+
+
+<p>Routing /groups/create</p>
+  </div>
+  <div class="body">
+<div class="pilwrap" id="render">
+  <h4>
+    <a href="#render" class="pilcrow">&#182;</a>
+    Render
+  </h4>
+</div>
+
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">create</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;groups_create&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">user</span><span class="o">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span><span class="p">),</span>
+              <span class="nx">tweets</span><span class="o">:</span> <span class="p">[]});</span>
+<span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="function-discover-req--res-">
+  <h2>
+    <a href="#function-discover-req--res-" class="pilcrow">&#182;</a>
+    Function discover(req, res)
+  </h2>
+</div>
+
+
+<p>Routing /groups/discover</p>
+  </div>
+  <div class="body">
+<div class="pilwrap" id="render">
+  <h4>
+    <a href="#render" class="pilcrow">&#182;</a>
+    Render
+  </h4>
+</div>
+
+
+<ol>
+<li>All groups</li>
+</ol>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">discover</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">theGroups</span> <span class="o">=</span> <span class="nx">util</span><span class="p">.</span><span class="nx">getInitializedGroups</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span><span class="p">);</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;groups_discover&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">user</span><span class="o">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span><span class="p">),</span>
+              <span class="nx">groups</span><span class="o">:</span> <span class="nx">theGroups</span><span class="p">});</span>
+<span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="function-join-req--res-">
+  <h2>
+    <a href="#function-join-req--res-" class="pilcrow">&#182;</a>
+    Function join(req, res)
+  </h2>
+</div>
+
+
+<p>Routing /groups/join [POST]</p>
+  </div>
+  <div class="body">
+<div class="pilwrap" id="action">
+  <h4>
+    <a href="#action" class="pilcrow">&#182;</a>
+    Action
+  </h4>
+</div>
+
+
+<ol>
+<li>Add user to dest group</li>
+</ol>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">join</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+  <span class="nx">group</span><span class="p">.</span><span class="nx">addNewMember</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">group_id</span><span class="p">,</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">username</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">redirect</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="s1">&#39;back&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s2">&quot;success&quot;</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="function-register-req--res-">
+  <h2>
+    <a href="#function-register-req--res-" class="pilcrow">&#182;</a>
+    Function register(req, res)
+  </h2>
+</div>
+
+
+<p>Routing /groups/register [POST]</p>
+  </div>
+  <div class="body">
+<div class="pilwrap" id="action">
+  <h4>
+    <a href="#action" class="pilcrow">&#182;</a>
+    Action
+  </h4>
+</div>
+
+
+<ol>
+<li>Create a new group</li>
+</ol>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">register</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+  <span class="nx">user</span><span class="p">.</span><span class="nx">registerGroup</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">fullname</span><span class="p">,</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">username</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">userobj</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">userobj</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="nx">group</span><span class="p">.</span><span class="nx">addGroup</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">username</span><span class="p">);</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s2">&quot;success&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s2">&quot;Username unavailable&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">};</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
