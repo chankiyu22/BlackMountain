@@ -27,7 +27,7 @@ exports.createUser = function(req, res) {
   console.log("signup " + username + " " + pwd);
   users.signup(fullname, email, username, pwd, function(error, userobj){
     // If all info is present, signup is successful and redirects to '/'
-    if (userobj !== undefined)
+    if (error == undefined)
     {
 
       req.session.fullname = userobj.fullname;
