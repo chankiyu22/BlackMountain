@@ -21,7 +21,7 @@ var Tweets = {
 
 	  	this.socket.on('+Tweet', function (data) {
 	  		var tweet_html = '<div class="tweet">' +
-		   		'<a href="/<%= tweets[i].owner %>">' +
+		   		'<a href="/' + data.tweet.owner + '">' +
 		   			'<div class="owner">' +
 		   				data.tweet.userdata.fullname + 
 		   				'<small> @' + 

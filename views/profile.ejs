@@ -4,8 +4,11 @@
     <title>Twitter / Profile</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/stylesheets/profile.css' />
+    <script type="text/javascript" src="/javascript/jquery.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/javascript/profile.js"></script>
   </head>
-  <body>
+  <body onload="Profile.initialize('<%= user.username %>', <%= followers.length %>);">
     <div id="doc">
       <div>
         <% include topbar %>
