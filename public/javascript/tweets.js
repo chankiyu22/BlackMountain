@@ -3,6 +3,18 @@ var Tweets = {
 	socket: undefined,
 
 	initialize : function (username) {
+		$("#tweet_publish").attr("disabled", "disabled");
+
+		$('#message').bind('input propertychange', function() {
+		   	if($("#message").val().length){
+		   		$("#tweet_publish").removeAttr("disabled");
+		   	}
+		   	else
+		   	{
+		   		$("#tweet_publish").attr("disabled", "disabled");
+		   	}
+		});
+
 	  	this.socket = io.connect();
 
 	  	this.socket.emit('init', {username: username});
