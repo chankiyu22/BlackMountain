@@ -57,14 +57,7 @@ exports.discover = function(req, res){
  */
 exports.join = function(req, res){
 	group.addNewMember(req.body.group_id, req.body.username);
-	if (req.body.redirect !== undefined)
-	{
-		res.redirect('back');
-	}
-	else
-	{
-		res.send("success");
-	}
+	res.send("success");
 };
 
 /*
