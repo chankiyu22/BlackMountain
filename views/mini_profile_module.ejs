@@ -19,11 +19,9 @@
 		</table>
 	</div>
 	<div class="tweet-box">
-		<form method="post" action="/publish_tweet">
-			<textarea maxlength="140" wrap="physical" cols="25" rows="6" class="tweet-input" placeholder="Compose new Tweet" name="message"></textarea>
-			</br>
-			<input type="hidden" name="username" value="<%= user.username %>">
-			<input class="tweet-button" id="tweet_publish" type="submit" value="Tweet">
-		</form>
+		<textarea id="message" maxlength="140" wrap="physical" cols="25" rows="6" class="tweet-input" placeholder="Compose new Tweet" name="message"></textarea>
+		</br>
+		<input type="hidden" name="username" value="<%= user.username %>">
+		<input onclick="Tweets.post_tweet('<%= user.username %>')" class="tweet-button" id="tweet_publish" type="submit" value="Tweet">
 	</div>
 </div>
