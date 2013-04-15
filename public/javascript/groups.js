@@ -1,10 +1,35 @@
 var Groups = {
+
+	num_members: 0,
+
+	fullname: undefined,
+
+	initialize : function(num_members, fullname) {
+		this.num_members = num_members;
+		this.fullname = fullname;
+	},
+
 	join_group : function(group_id, username) {
 		$("#join_button" + group_id).attr("disabled", "disabled");
+		var that = this;
 		$.post("/groups/join",
 		  {group_id: group_id, username: username})
 		.done(function(result) {
 			$("#join_button" + group_id).text('Joined');
+			if (result == 'success')
+			{
+				that.num_members = that.num_members + 1;
+				$('#members_tab').html(that.num_members + ' members');
+				var members_html = '<li><div>' +
+			   		'<a href="/' + username + '">' +
+			   			'<div class="separator owner">' +
+			   				that.fullname +
+			   				'<small> @' + username + '</small>' +
+			   			'</div>' +
+			   		'</a>' +
+			   	'</div></li>';
+			   	$('#members-list').prepend(members_html);
+			}
 		})
 		.fail(function(err) {
 			$("#join_button" + group_id).removeAttr("disabled");
