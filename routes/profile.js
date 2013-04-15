@@ -15,16 +15,17 @@ var groups = require('../lib/groups');
  // followed_by_users = users followed by username<br>
 exports.profile = function(req, res, next){
   var username = req.param('username');
-  var theuser = user.getUser(username);
-  if (theuser == undefined)
+  var profile = user.getUser(username);
+  if (profile == undefined)
   {
     next();
   }
  // If theuser is a member of a group, finds group info
-  else if (theuser.isgroup)
+  else if (profile.isgroup)
   {
     var group = groups.getGroupByName(username);
-    res.render('group_profile', {user: theuser,
+    res.render('group_profile', {profile: profile,
+                                  user: user.getUser(req.session.username),
                                   group: group,
                                   isMember: groups.isMember(group.id, req.session.username),
                                   session: req.session,
@@ -37,7 +38,8 @@ exports.profile = function(req, res, next){
     util.initTweets(tweet_array);
     var following_users = followers.getFollowedUsers(username);
     var followed_by_users = followers.getUsersFollowing(username);
-    res.render('profile', {user: theuser,
+    res.render('profile', {profile: profile,
+                  user: user.getUser(req.session.username),
                   num_tweets: tweets.getTweetCountByUser(username),
                   tweets: tweet_array,
                   following: following_users,
@@ -62,7 +64,8 @@ exports.following = function(req, res){
   {
     following_user_data.push(user.getUser(following_users[i]));
   }
-  res.render('following', {user: user.getUser(req.session.username),
+  res.render('following', {profile: user.getUser(username),
+                user: user.getUser(req.session.username),
                	num_tweets: tweets.getTweetCountByUser(req.session.username),
   				      tweets: [],
                 following: following_user_data,
@@ -86,7 +89,8 @@ exports.followers = function(req, res){
   {
     followed_by_user_data.push(user.getUser(followed_by_users[i]));
   }
-  res.render('followers', {user: user.getUser(req.session.username),
+  res.render('followers', {profile: user.getUser(username),
+                user: user.getUser(req.session.username),
                	num_tweets: tweets.getTweetCountByUser(req.session.username),
   				      tweets: [],
                following: following_users,
@@ -103,7 +107,8 @@ exports.favorites = function(req, res){
   var following_users = followers.getFollowedUsers(username);
   var followed_by_users = followers.getUsersFollowing(username);
 
-  res.render('favorites', {user: user.getUser(req.session.username),
+  res.render('favorites', {profile: user.getUser(username),
+                user: user.getUser(req.session.username),
                	num_tweets: tweets.getTweetCountByUser(req.session.username),
   				      tweets: [],
                 following: following_users,
