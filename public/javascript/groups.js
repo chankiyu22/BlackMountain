@@ -14,7 +14,6 @@ var Groups = {
 	create_group : function(fullname, username) {
 		var fullname = $('#fullname').val();
 		var username = $('#username').val();
-		console.log(fullname + " " + username);
 		$("#create_group").attr("disabled", "disabled");
 		$.post("/groups/create",
 		  {fullname: fullname, username: username})

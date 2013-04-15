@@ -15,7 +15,8 @@ var express = require('express')
   , user = require('./routes/user')
   , tweets = require('./routes/tweets')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , sockets = require('./lib/sockets');
 
 var app = express();
 
@@ -71,6 +72,12 @@ app.get('/settings/profile', settings.profile);
 app.get('/settings/account', settings.account);
 app.get('/settings/password', settings.password);
 
-http.createServer(app).listen(app.get('port'), function(){
+var server = http.createServer(app);
+
+var io = require('socket.io', {'log level': 0}).listen(server);
+
+sockets.initSocketIo(io);
+
+server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
