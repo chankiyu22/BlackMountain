@@ -1,11 +1,15 @@
 var Groups = {
 
+<<<<<<< HEAD
 	socket: undefined,
 
+=======
+>>>>>>> Ajax: Group Profile Join Group
 	num_members: 0,
 
 	fullname: undefined,
 
+<<<<<<< HEAD
 // ## initialize groups
 //
 // @param num_members - number of members in group
@@ -40,6 +44,13 @@ var Groups = {
 //
 // @param group_id - group to join
 // @param username - user joining group
+=======
+	initialize : function(num_members, fullname) {
+		this.num_members = num_members;
+		this.fullname = fullname;
+	},
+
+>>>>>>> Ajax: Group Profile Join Group
 	join_group : function(group_id, username) {
 		$("#join_button" + group_id).attr("disabled", "disabled");
 		var that = this;
