@@ -13,6 +13,7 @@ exports.index = function(req, res){
 
   var following_users = followers.getFollowedUsers(req.session.username);
   var followed_by_users = followers.getUsersFollowing(req.session.username);
+  following_users.push(req.session.username);
   var tweet_array = tweets.getTweetsByUsers(following_users);
   var theuser = user.getUser(req.session.username);
   
