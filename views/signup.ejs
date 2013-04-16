@@ -23,22 +23,22 @@
                 <form method="post" id="submitter">
                   <header>Join Twitter today.</header>
                   <p><a>Full name</a><br />
-                     <input type="text" name="name" value="<%= name %>"></input>
+                     <input type="text" id="name" value="<%= name %>"></input>
                      <opt>Enter your first and last name.</opt></p><br />
                   <p><a>Email address</a><br />
-                     <input type="text" name="email" type="email" value="<%= email %>" /></p><br ></input>
+                     <input type="text" id="email" type="email" value="<%= email %>" /></p><br ></input>
                   <p><a>Create a password</a><br />
-                     <input type="password" name="password" value="<%= password %>" ></input>
+                     <input type="password" id="password" value="<%= password %>" ></input>
                   </p><br />
                   <p><a>Choose your username</a><br />
-                     <input type="text" name="username" /></p><br />
+                     <input type="text" id="username" /></p><br />
                   <input type="checkbox" name="keep" />
                   <opt>Keep me signed-in on this computer.</opt><br />
                   <input type="checkbox" name="tailor" />
                   <opt>Tailor Twitter based on my recent website visits. 
                        <a href='#'>Learn more</a>.</opt><br />
                   <input onclick="Signup.create_user()" class="signup button" type="submit" value="Create my account" />
-                    <div class="signup_error"></div>
+                    <div id="signup_error"></div>
                 </form>
               </td>
             </tr>
