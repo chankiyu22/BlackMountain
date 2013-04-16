@@ -70,7 +70,9 @@ theuser = current logged on user<br></p>
 
   <span class="kd">var</span> <span class="nx">following_users</span> <span class="o">=</span> <span class="nx">followers</span><span class="p">.</span><span class="nx">getFollowedUsers</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span><span class="p">);</span>
   <span class="kd">var</span> <span class="nx">followed_by_users</span> <span class="o">=</span> <span class="nx">followers</span><span class="p">.</span><span class="nx">getUsersFollowing</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span><span class="p">);</span>
+  <span class="nx">following_users</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span><span class="p">);</span>
   <span class="kd">var</span> <span class="nx">tweet_array</span> <span class="o">=</span> <span class="nx">tweets</span><span class="p">.</span><span class="nx">getTweetsByUsers</span><span class="p">(</span><span class="nx">following_users</span><span class="p">);</span>
+  <span class="nx">following_users</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
   <span class="kd">var</span> <span class="nx">theuser</span> <span class="o">=</span> <span class="nx">user</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span><span class="p">);</span>
   
 

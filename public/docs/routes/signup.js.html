@@ -106,7 +106,7 @@ pwd = user's password<br></p>
 <p>If all info is present, signup is successful and redirects to '/'</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">userobj</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span> <span class="o">==</span> <span class="kc">undefined</span><span class="p">)</span>
     <span class="p">{</span>
 
       <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">fullname</span> <span class="o">=</span> <span class="nx">userobj</span><span class="p">.</span><span class="nx">fullname</span><span class="p">;</span>
