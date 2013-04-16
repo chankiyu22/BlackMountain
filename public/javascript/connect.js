@@ -2,21 +2,15 @@ var Connect = {
 
 	socket: undefined,
 
-<<<<<<< HEAD
 	// ## Initialize Connect
 	//
 	// @param username - current logged on user
-=======
->>>>>>> new_branch_name
 	initialize : function (username) {
 	  	this.socket = io.connect();
 
 	  	this.socket.emit('init', {username: username});
 
-<<<<<<< HEAD
 	  	// socket receieves follow data
-=======
->>>>>>> new_branch_name
 	  	this.socket.on('+Follow', function (data) {
 	  		var interaction_html = '<li><div class="tweet">' +
 		   		'<a class="owner" href="/' + data.user.username + '">' +
@@ -25,7 +19,6 @@ var Connect = {
 		   	'</div></li>';
 		   	$('#interaction-list').prepend(interaction_html);
 	  	});
-<<<<<<< HEAD
 
 	  	// socket recieves mention data
 	  	this.socket.on('+Mention', function (data) {
@@ -49,7 +42,5 @@ var Connect = {
 		   	'</div>';
 		   	$('#tweet-list').prepend(tweet_html);
 	  	});
-=======
->>>>>>> new_branch_name
 	}
 };
