@@ -2,6 +2,9 @@ var Tweets = {
 
 	socket: undefined,
 
+	// ## Initialize tweets
+	// 
+	// @param username - username of current user
 	initialize : function (username) {
 		$("#tweet_publish").attr("disabled", "disabled");
 
@@ -19,6 +22,7 @@ var Tweets = {
 
 	  	this.socket.emit('init', {username: username});
 
+	  	// socket recieves tweet data
 	  	this.socket.on('+Tweet', function (data) {
 	  		var tweet_html = '<div class="tweet">' +
 		   		'<a href="/' + data.tweet.owner + '">' +
@@ -35,6 +39,9 @@ var Tweets = {
 	  	});
 	},
 
+// ## Post a tweet
+//
+// @param username - username of current user
 	post_tweet : function(username) {
 		var message = $('#message').val();
 		var data = {message: message, username: username};
