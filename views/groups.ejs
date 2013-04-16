@@ -5,8 +5,9 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script type="text/javascript" src="/javascript/jquery.js"></script>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="/javascript/groups.js"></script>
   </head>
-  <body>
+  <body onload="Groups.initialize(0, '<%= user.fullname %>', '<%= user.username %>');">
     <div id="doc">
       <div>
         <% include topbar %>
