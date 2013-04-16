@@ -8,7 +8,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="/javascript/profile.js"></script>
   </head>
-  <body onload="Profile.initialize('<%= user.username %>', <%= followers.length %>);">
+  <body onload="Profile.initialize('<%= user.username %>', <%= followers.length %>, '<%= profile.username %>');">
     <div id="doc">
       <div>
         <% include topbar %>

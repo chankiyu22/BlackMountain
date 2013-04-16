@@ -4,12 +4,28 @@ var Profile = {
 
 	num_followers: 0,
 
-	initialize: function (username, num_followers) {
+	initialize: function (username, num_followers, profileuser) {
 		this.num_followers = num_followers;
 
 	  	this.socket = io.connect();
 
 	  	this.socket.emit('init', {username: username});
+	  	this.socket.emit('watch_user', {username: username, towatch: profileuser});
+
+	  	this.socket.on('+SelfTweet', function (data) {
+	  		var tweet_html = '<div class="tweet">' +
+		   		'<a href="/' + data.tweet.owner + '">' +
+		   			'<div class="owner">' +
+		   				data.tweet.userdata.fullname + 
+		   				'<small> @' + 
+		   				data.tweet.owner +
+		   				'</small>' +
+		   			'</div>' +
+		   		'</a>' +
+		   		data.tweet.html +
+		   	'</div>';
+		   	$('#tweet-list').prepend(tweet_html);
+	  	});
 	},
 
 	follow_user: function (username, tofollow) {
