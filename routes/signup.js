@@ -36,7 +36,7 @@ exports.createUser = function(req, res) {
       req.session.password = userobj.password;
       req.session.signup_error = null;
       req.session.login = true;
-      res.redirect('/');
+      res.send('success');
     } 
     // If info is missing, it causes an error and redirects back to '/signup'
     else
@@ -44,7 +44,7 @@ exports.createUser = function(req, res) {
       req.session.signup_error = error;
       signup_error=error;
       req.session.login = false;
-      res.send('error');
+      res.send(signup_error);
       //res.redirect('/signup');
     } 
   });
