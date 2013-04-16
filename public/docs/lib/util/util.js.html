@@ -31,6 +31,15 @@
         <a href="#actions">Actions</a>
       </div>
       <div class="heading h2">
+        <a href="#function-inittweet">Function initTweet</a>
+      </div>
+      <div class="heading h4">
+        <a href="#parameters">Parameters</a>
+      </div>
+      <div class="heading h4">
+        <a href="#actions">Actions</a>
+      </div>
+      <div class="heading h2">
         <a href="#function-inittweets">Function initTweets</a>
       </div>
       <div class="heading h4">
@@ -50,6 +59,30 @@
       </div>
       <div class="heading h2">
         <a href="#function-getinteractions">Function getInteractions</a>
+      </div>
+      <div class="heading h4">
+        <a href="#parameters">Parameters</a>
+      </div>
+      <div class="heading h4">
+        <a href="#action">Action</a>
+      </div>
+      <div class="heading h4">
+        <a href="#return">Return</a>
+      </div>
+      <div class="heading h2">
+        <a href="#function-getmentionedusers">Function getMentionedUsers</a>
+      </div>
+      <div class="heading h4">
+        <a href="#parameters">Parameters</a>
+      </div>
+      <div class="heading h4">
+        <a href="#action">Action</a>
+      </div>
+      <div class="heading h4">
+        <a href="#return">Return</a>
+      </div>
+      <div class="heading h2">
+        <a href="#function-getmentionedgroups">Function getMentionedGroups</a>
       </div>
       <div class="heading h4">
         <a href="#parameters">Parameters</a>
@@ -142,9 +175,61 @@
         <span class="nx">message</span> <span class="o">=</span> <span class="nx">message</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">words</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="s2">&quot;&lt;a class=&#39;mention&#39; href=&#39;/&quot;</span> <span class="o">+</span> <span class="nx">words</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">substring</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;&#39;&gt;&quot;</span> <span class="o">+</span> <span class="nx">words</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;&lt;/a&gt;&quot;</span><span class="p">);</span>
         <span class="nx">done</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
       <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">words</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">charAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;#&#39;</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="nx">message</span> <span class="o">=</span> <span class="nx">message</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">words</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="s2">&quot;&lt;a class=&#39;mention&#39; href=&#39;/search?searchfor=%23&quot;</span> <span class="o">+</span> <span class="nx">words</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">substring</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;&#39;&gt;&quot;</span> <span class="o">+</span> <span class="nx">words</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;&lt;/a&gt;&quot;</span><span class="p">);</span>
+        <span class="nx">done</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">}</span>
     <span class="nx">tweet</span><span class="p">.</span><span class="nx">html</span> <span class="o">=</span> <span class="s2">&quot;&lt;div&gt;&quot;</span><span class="o">+</span><span class="nx">message</span><span class="o">+</span><span class="s2">&quot;&lt;/div&gt;&quot;</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="function-inittweet">
+  <h2>
+    <a href="#function-inittweet" class="pilcrow">&#182;</a>
+    Function initTweet
+  </h2>
+</div>
+
+
+<p>Initialize tweet</p>
+
+
+<div class="pilwrap" id="parameters">
+  <h4>
+    <a href="#parameters" class="pilcrow">&#182;</a>
+    Parameters
+  </h4>
+</div>
+
+
+<ol>
+<li>tweet</li>
+</ol>
+
+
+<div class="pilwrap" id="actions">
+  <h4>
+    <a href="#actions" class="pilcrow">&#182;</a>
+    Actions
+  </h4>
+</div>
+
+
+<p>Takes a single tweet and initializes it with data about the 
+owner and adds the html version of the tweet</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">initTweet</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">tweet</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">tweet</span><span class="p">.</span><span class="nx">userdata</span> <span class="o">=</span> <span class="nx">user</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">tweet</span><span class="p">.</span><span class="nx">owner</span><span class="p">);</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">buildTweetHtml</span><span class="p">(</span><span class="nx">tweet</span><span class="p">);</span>
 <span class="p">};</span>
 
 
@@ -324,6 +409,142 @@ and relationship with user</p>
       <span class="nx">interactions</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&quot;&lt;a class=&#39;owner&#39; href=&#39;&quot;</span> <span class="o">+</span> <span class="nx">userdata</span><span class="p">.</span><span class="nx">username</span> <span class="o">+</span> <span class="s2">&quot;&#39;&gt;&lt;b&gt;&quot;</span> <span class="o">+</span> <span class="nx">userdata</span><span class="p">.</span><span class="nx">fullname</span> <span class="o">+</span> <span class="s2">&quot;&lt;/b&gt;&lt;/a&gt; followed you&quot;</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="nx">interactions</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="function-getmentionedusers">
+  <h2>
+    <a href="#function-getmentionedusers" class="pilcrow">&#182;</a>
+    Function getMentionedUsers
+  </h2>
+</div>
+
+
+<p>Get Mentioned Users</p>
+
+
+<div class="pilwrap" id="parameters">
+  <h4>
+    <a href="#parameters" class="pilcrow">&#182;</a>
+    Parameters
+  </h4>
+</div>
+
+
+<ol>
+<li>tweet</li>
+</ol>
+
+
+<div class="pilwrap" id="action">
+  <h4>
+    <a href="#action" class="pilcrow">&#182;</a>
+    Action
+  </h4>
+</div>
+
+
+<p>Given a tweet, find all @username.</p>
+
+
+<div class="pilwrap" id="return">
+  <h4>
+    <a href="#return" class="pilcrow">&#182;</a>
+    Return
+  </h4>
+</div>
+
+
+<p>An array of mentioned users</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">getMentionedUsers</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">tweet</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">users</span> <span class="o">=</span> <span class="nx">user</span><span class="p">.</span><span class="nx">getAllUsers</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">mentioned_users</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">users</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">tweet</span><span class="p">.</span><span class="nx">message</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;@&quot;</span> <span class="o">+</span> <span class="nx">users</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">username</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="nx">mentioned_users</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">users</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">mentioned_users</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="function-getmentionedgroups">
+  <h2>
+    <a href="#function-getmentionedgroups" class="pilcrow">&#182;</a>
+    Function getMentionedGroups
+  </h2>
+</div>
+
+
+
+<div class="pilwrap" id="parameters">
+  <h4>
+    <a href="#parameters" class="pilcrow">&#182;</a>
+    Parameters
+  </h4>
+</div>
+
+
+<ol>
+<li>tweet</li>
+</ol>
+
+
+<div class="pilwrap" id="action">
+  <h4>
+    <a href="#action" class="pilcrow">&#182;</a>
+    Action
+  </h4>
+</div>
+
+
+<p>Given a tweet, find all group mentions</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="return">
+  <h4>
+    <a href="#return" class="pilcrow">&#182;</a>
+    Return
+  </h4>
+</div>
+
+
+<p>An array of mentioned groups</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">getMentionedGroups</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">tweet</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">groups</span> <span class="o">=</span> <span class="nx">group</span><span class="p">.</span><span class="nx">getAllGroups</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">mentioned_groups</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">groups</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">tweet</span><span class="p">.</span><span class="nx">message</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;@&quot;</span> <span class="o">+</span> <span class="nx">groups</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">username</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="nx">mentioned_groups</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">groups</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">mentioned_groups</span><span class="p">;</span>
 <span class="p">};</span>
 </pre></div>
         </td>

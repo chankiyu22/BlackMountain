@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>sockets.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../", thisFile = "home/site/BlackMountain/lib/sockets/socketsjs", defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h2">
+        <a href="#emittousername">emitToUsername</a>
+      </div>
+      <div class="heading h2">
+        <a href="#initsocketio">initSocketIo</a>
+      </div>
+      <div class="heading h2">
+        <a href="#on-init">on init</a>
+      </div>
+      <div class="heading h2">
+        <a href="#on-watch_groups">on watch_groups</a>
+      </div>
+      <div class="heading h2">
+        <a href="#on-watch_user">on watch_user</a>
+      </div>
+      <div class="heading h2">
+        <a href="#on--tweet">on +Tweet</a>
+      </div>
+      <div class="heading h2">
+        <a href="#on--follow">on +Follow</a>
+      </div>
+      <div class="heading h2">
+        <a href="#on-disconnect">on disconnect</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>sockets.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">tweets</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../tweets&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">users</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../user&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">group</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../groups&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">followers</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../followers&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">util</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../util&#39;</span><span class="p">);</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>userToSocket[username]= socket<br></p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="kd">var</span> <span class="nx">userToSocket</span> <span class="o">=</span> <span class="p">{};</span> 
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>watchingUsers[username][who_user_is_watching] = socket<br>
+allows a user to recieve another user's emits</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="kd">var</span> <span class="nx">watchingUsers</span> <span class="o">=</span> <span class="p">{};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="emittousername">
+  <h2>
+    <a href="#emittousername" class="pilcrow">&#182;</a>
+    emitToUsername
+  </h2>
+</div>
+
+
+<p>broadcasts message to user and all people watching that user<br>
+@param username - instance of the sockets.io object
+@param type - instance of the sockets.io object
+@param data - instance of the sockets.io object</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">emitToUsername</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">username</span> <span class="k">in</span> <span class="nx">userToSocket</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="nx">userToSocket</span><span class="p">[</span><span class="nx">username</span><span class="p">].</span><span class="nx">emit</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">watcher</span> <span class="k">in</span> <span class="nx">watchingUsers</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">watched_array</span> <span class="o">=</span> <span class="nx">watchingUsers</span><span class="p">[</span><span class="nx">watcher</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">username</span> <span class="k">in</span> <span class="nx">watched_array</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="nx">watchingUsers</span><span class="p">[</span><span class="nx">watcher</span><span class="p">][</span><span class="nx">username</span><span class="p">].</span><span class="nx">emit</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="initsocketio">
+  <h2>
+    <a href="#initsocketio" class="pilcrow">&#182;</a>
+    initSocketIo
+  </h2>
+</div>
+
+
+<p>registers the socket's behavior<br>
+@param io - instance of the sockets.io object</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">initSocketIo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">io</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="nx">io</span><span class="p">.</span><span class="nx">sockets</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;connection&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">socket</span><span class="p">)</span> <span class="p">{</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="on-init">
+  <h2>
+    <a href="#on-init" class="pilcrow">&#182;</a>
+    on init
+  </h2>
+</div>
+
+
+<p>create user-socket association</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;init&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">userToSocket</span><span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">username</span><span class="p">]</span> <span class="o">=</span> <span class="nx">socket</span><span class="p">;</span>
+      <span class="nx">socket</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">username</span><span class="p">);</span>
+      <span class="p">});</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="on-watch_groups">
+  <h2>
+    <a href="#on-watch_groups" class="pilcrow">&#182;</a>
+    on watch_groups
+  </h2>
+</div>
+
+
+<p>watch all the groups the user is a member of</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;watch_groups&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">groups_to_watch</span> <span class="o">=</span> <span class="nx">group</span><span class="p">.</span><span class="nx">getGroupWithMember</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">username</span><span class="p">);</span>
+      <span class="nx">socket</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">username</span><span class="p">);</span>
+      <span class="nx">watchingUsers</span><span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">username</span><span class="p">]</span> <span class="o">=</span> <span class="p">[];</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">groups_to_watch</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="nx">watchingUsers</span><span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">username</span><span class="p">][</span><span class="nx">groups_to_watch</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">username</span><span class="p">]</span> <span class="o">=</span> <span class="nx">socket</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="p">});</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="on-watch_user">
+  <h2>
+    <a href="#on-watch_user" class="pilcrow">&#182;</a>
+    on watch_user
+  </h2>
+</div>
+
+
+<p>watch a user</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;watch_user&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">socket</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">username</span><span class="p">);</span>
+      <span class="nx">watchingUsers</span><span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">username</span><span class="p">]</span> <span class="o">=</span> <span class="p">[];</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">username</span> <span class="o">!==</span> <span class="nx">data</span><span class="p">.</span><span class="nx">towatch</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="nx">watchingUsers</span><span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">username</span><span class="p">][</span><span class="nx">data</span><span class="p">.</span><span class="nx">towatch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">socket</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="p">});</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="on--tweet">
+  <h2>
+    <a href="#on--tweet" class="pilcrow">&#182;</a>
+    on +Tweet
+  </h2>
+</div>
+
+
+<p>broadcast tweet to all the user's followers</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;+Tweet&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">tweet</span> <span class="o">=</span> <span class="p">{</span><span class="nx">message</span><span class="o">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">message</span><span class="p">,</span> <span class="nx">owner</span><span class="o">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">username</span><span class="p">};</span>
+        <span class="nx">util</span><span class="p">.</span><span class="nx">initTweet</span><span class="p">(</span><span class="nx">tweet</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">users_following</span> <span class="o">=</span> <span class="nx">followers</span><span class="p">.</span><span class="nx">getUsersFollowing</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">username</span><span class="p">);</span>
+        <span class="nx">users_following</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">username</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">users_following</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+          
+          <span class="nx">exports</span><span class="p">.</span><span class="nx">emitToUsername</span><span class="p">(</span><span class="nx">users_following</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="s1">&#39;+Tweet&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">tweet</span><span class="o">:</span> <span class="nx">tweet</span><span class="p">});</span>
+        <span class="p">}</span>
+        <span class="nx">exports</span><span class="p">.</span><span class="nx">emitToUsername</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">username</span><span class="p">,</span> <span class="s1">&#39;+SelfTweet&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">tweet</span><span class="o">:</span> <span class="nx">tweet</span><span class="p">});</span>
+
+        <span class="kd">var</span> <span class="nx">mentioned_users</span> <span class="o">=</span> <span class="nx">util</span><span class="p">.</span><span class="nx">getMentionedUsers</span><span class="p">(</span><span class="nx">tweet</span><span class="p">);</span>
+        <span class="nx">mentioned_users</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">util</span><span class="p">.</span><span class="nx">getMentionedGroups</span><span class="p">(</span><span class="nx">tweet</span><span class="p">));</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">mentioned_users</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+          <span class="nx">exports</span><span class="p">.</span><span class="nx">emitToUsername</span><span class="p">(</span><span class="nx">mentioned_users</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">username</span><span class="p">,</span> <span class="s1">&#39;+Mention&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">tweet</span><span class="o">:</span> <span class="nx">tweet</span><span class="p">});</span>
+        <span class="p">}</span>
+      <span class="p">});</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="on--follow">
+  <h2>
+    <a href="#on--follow" class="pilcrow">&#182;</a>
+    on +Follow
+  </h2>
+</div>
+
+
+<p>notify other user that someone has followed them</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;+Follow&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">user</span> <span class="o">=</span> <span class="nx">users</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">username</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">tofollow</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">tofollow</span><span class="p">;</span>
+        <span class="nx">exports</span><span class="p">.</span><span class="nx">emitToUsername</span><span class="p">(</span><span class="nx">tofollow</span><span class="p">,</span> <span class="s1">&#39;+Follow&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">user</span><span class="o">:</span> <span class="nx">user</span><span class="p">});</span>
+        <span class="nx">exports</span><span class="p">.</span><span class="nx">emitToUsername</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span> <span class="s1">&#39;+Following&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">user</span><span class="o">:</span> <span class="nx">tofollow</span><span class="p">});</span>
+      <span class="p">});</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="on-disconnect">
+  <h2>
+    <a href="#on-disconnect" class="pilcrow">&#182;</a>
+    on disconnect
+  </h2>
+</div>
+
+
+<p>remove user from socket list</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;disconnect&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">socket</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span>  <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">username</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">username</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span>
+          <span class="p">{</span>
+            <span class="k">delete</span> <span class="nx">userToSocket</span><span class="p">[</span><span class="nx">username</span><span class="p">];</span>
+            <span class="k">delete</span> <span class="nx">watchingUsers</span><span class="p">[</span><span class="nx">username</span><span class="p">];</span>
+          <span class="p">}</span>
+        <span class="p">});</span>
+      <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
