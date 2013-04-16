@@ -1,12 +1,33 @@
 var Groups = {
 
+	socket: undefined,
+
 	num_members: 0,
 
 	fullname: undefined,
 
-	initialize : function(num_members, fullname) {
+	initialize : function(num_members, fullname, username) {
 		this.num_members = num_members;
 		this.fullname = fullname;
+
+	  	this.socket = io.connect();
+
+	  	this.socket.emit('watch_groups', {username: username});
+
+	  	this.socket.on('+Mention', function (data) {
+	  		var tweet_html = '<div class="tweet">' +
+		   		'<a href="/' + data.tweet.owner + '">' +
+		   			'<div class="owner">' +
+		   				data.tweet.userdata.fullname + 
+		   				'<small> @' + 
+		   				data.tweet.owner +
+		   				'</small>' +
+		   			'</div>' +
+		   		'</a>' +
+		   		data.tweet.html +
+		   	'</div>';
+		   	$('#tweet-list').prepend(tweet_html);
+	  	});
 	},
 
 	join_group : function(group_id, username) {

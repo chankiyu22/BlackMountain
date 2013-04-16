@@ -8,7 +8,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="/javascript/groups.js"></script>
   </head>
-  <body onload="Groups.initialize(<%= members.length %>, '<%= user.fullname %>');">
+  <body onload="Groups.initialize(<%= members.length %>, '<%= user.fullname %>', '<%= user.username %>');">
     <div id="doc">
       <div>
         <% include topbar %>
