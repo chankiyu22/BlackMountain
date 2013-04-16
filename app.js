@@ -14,6 +14,7 @@ var express = require('express')
   , signup = require('./routes/signup')
   , user = require('./routes/user')
   , tweets = require('./routes/tweets')
+  , search = require('./routes/search')
   , http = require('http')
   , path = require('path')
   , sockets = require('./lib/sockets');
@@ -71,6 +72,7 @@ app.get('/:username/favorites', profile.favorites);
 app.get('/settings/profile', settings.profile);
 app.get('/settings/account', settings.account);
 app.get('/settings/password', settings.password);
+app.get('/search', search.search);
 
 var server = http.createServer(app);
 
