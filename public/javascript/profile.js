@@ -26,6 +26,18 @@ var Profile = {
 		   	'</div>';
 		   	$('#tweet-list').prepend(tweet_html);
 	  	});
+
+	  	this.socket.on('+Follow', function (data) {
+	  		var follow_html = '<li><div>' +
+			   		'<a href="/' + data.user.username + '">' +
+			   			'<div class="separator owner">' +
+			   				data.user.fullname +
+			   				'<small> @' + data.user.username + '</small>' +
+			   			'</div>' +
+			   		'</a>' +
+			   	'</div></li>';
+			   	$('#followers-list').prepend(follow_html);
+	  	});
 	},
 
 	follow_user: function (username, tofollow) {
