@@ -15,6 +15,7 @@ exports.index = function(req, res){
   var followed_by_users = followers.getUsersFollowing(req.session.username);
   following_users.push(req.session.username);
   var tweet_array = tweets.getTweetsByUsers(following_users);
+  following_users.pop();
   var theuser = user.getUser(req.session.username);
   
   // Initialize tweet data<br>
