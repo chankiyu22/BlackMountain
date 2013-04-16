@@ -10,6 +10,7 @@ Additions that we made for this project:
    - Follow User button no longer refreshes page
    - Join Group button no longer refreshes page
    - Post Tweet button no longer refreshes page
+   - Signup will validate username and password without refreshing
 
 2. Websockets
    - Tweet feed is immediately updated with new tweets
@@ -23,6 +24,10 @@ Additions that we made for this project:
    - Search 
       - routes/search.js: new route for search page that gets all tweets from the query string
       - lib/tweets/tweetdb.js: added getTweetsContaining function that is used for the search
+
+4. Relevant Files
+   - lib/sockets/sockets.js for server side sockets
+   - public/javascript/*.js for client side sockets and ajax
 
 ## Project Assignment 3
 Additions that we made for this project:

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>profile.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "home/site/BlackMountain/routes/profilejs", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h2">
+        <a href="#get---page.">GET / page.</a>
+      </div>
+      <div class="heading h2">
+        <a href="#get---following-page.">GET //following page.</a>
+      </div>
+      <div class="heading h2">
+        <a href="#get---followers-page.">GET //followers page.</a>
+      </div>
+      <div class="heading h2">
+        <a href="#get---favorites-page.">GET //favorites page.</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>profile.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">tweets</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../lib/tweets&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">user</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../lib/user&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">followers</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../lib/followers&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">util</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../lib/util&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">groups</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../lib/groups&#39;</span><span class="p">);</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="get---page.">
+  <h2>
+    <a href="#get---page." class="pilcrow">&#182;</a>
+    GET /<username> page.<br>
+  </h2>
+</div>
+
+
+<p>Gets the following info for main page of a user profile display<br>
+username = User<br>
+theuser = the current logged in user<br>
+group = group that user is a member of<br>
+tweet_array = Array of user's tweets<br>
+following_users = users following username<br>
+followed_by_users = users followed by username<br></p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">profile</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">username</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">param</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">profile</span> <span class="o">=</span> <span class="nx">user</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">username</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">profile</span> <span class="o">==</span> <span class="kc">undefined</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="nx">next</span><span class="p">();</span>
+  <span class="p">}</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>If theuser is a member of a group, finds group info</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">profile</span><span class="p">.</span><span class="nx">isgroup</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">group</span> <span class="o">=</span> <span class="nx">groups</span><span class="p">.</span><span class="nx">getGroupByName</span><span class="p">(</span><span class="nx">username</span><span class="p">);</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;group_profile&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">profile</span><span class="o">:</span> <span class="nx">profile</span><span class="p">,</span>
+                                  <span class="nx">user</span><span class="o">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span><span class="p">),</span>
+                                  <span class="nx">group</span><span class="o">:</span> <span class="nx">group</span><span class="p">,</span>
+                                  <span class="nx">isMember</span><span class="o">:</span> <span class="nx">groups</span><span class="p">.</span><span class="nx">isMember</span><span class="p">(</span><span class="nx">group</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span><span class="p">),</span>
+                                  <span class="nx">session</span><span class="o">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">,</span>
+                                  <span class="nx">members</span><span class="o">:</span> <span class="nx">groups</span><span class="p">.</span><span class="nx">getMembersForGroup</span><span class="p">(</span><span class="nx">group</span><span class="p">.</span><span class="nx">id</span><span class="p">)});</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">tweet_array</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+    <span class="nx">tweet_array</span> <span class="o">=</span> <span class="nx">tweets</span><span class="p">.</span><span class="nx">getTweetsByUser</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+    <span class="nx">util</span><span class="p">.</span><span class="nx">initTweets</span><span class="p">(</span><span class="nx">tweet_array</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">following_users</span> <span class="o">=</span> <span class="nx">followers</span><span class="p">.</span><span class="nx">getFollowedUsers</span><span class="p">(</span><span class="nx">username</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">followed_by_users</span> <span class="o">=</span> <span class="nx">followers</span><span class="p">.</span><span class="nx">getUsersFollowing</span><span class="p">(</span><span class="nx">username</span><span class="p">);</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;profile&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">profile</span><span class="o">:</span> <span class="nx">profile</span><span class="p">,</span>
+                  <span class="nx">user</span><span class="o">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span><span class="p">),</span>
+                  <span class="nx">num_tweets</span><span class="o">:</span> <span class="nx">tweets</span><span class="p">.</span><span class="nx">getTweetCountByUser</span><span class="p">(</span><span class="nx">username</span><span class="p">),</span>
+                  <span class="nx">tweets</span><span class="o">:</span> <span class="nx">tweet_array</span><span class="p">,</span>
+                  <span class="nx">following</span><span class="o">:</span> <span class="nx">following_users</span><span class="p">,</span>
+                  <span class="nx">followers</span><span class="o">:</span> <span class="nx">followed_by_users</span><span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="get---following-page.">
+  <h2>
+    <a href="#get---following-page." class="pilcrow">&#182;</a>
+    GET /<username>/following page.<br>
+  </h2>
+</div>
+
+
+<p>Gets the info to display on a user's "Following" page
+username = User<br>
+following_users = users following username<br>
+followed_by_users = users following username<br>
+following_user_data = users that username is following<br></p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">following</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">username</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">param</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">following_users</span> <span class="o">=</span> <span class="nx">followers</span><span class="p">.</span><span class="nx">getFollowedUsers</span><span class="p">(</span><span class="nx">username</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">followed_by_users</span> <span class="o">=</span> <span class="nx">followers</span><span class="p">.</span><span class="nx">getUsersFollowing</span><span class="p">(</span><span class="nx">username</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">following_user_data</span> <span class="o">=</span> <span class="p">[];</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>Finds all users that username is following<br></p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">following_users</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="nx">following_user_data</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">user</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">following_users</span><span class="p">[</span><span class="nx">i</span><span class="p">]));</span>
+  <span class="p">}</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;following&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">profile</span><span class="o">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">username</span><span class="p">),</span>
+                <span class="nx">user</span><span class="o">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span><span class="p">),</span>
+                <span class="nx">num_tweets</span><span class="o">:</span> <span class="nx">tweets</span><span class="p">.</span><span class="nx">getTweetCountByUser</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span><span class="p">),</span>
+                <span class="nx">tweets</span><span class="o">:</span> <span class="p">[],</span>
+                <span class="nx">following</span><span class="o">:</span> <span class="nx">following_user_data</span><span class="p">,</span>
+                <span class="nx">followers</span><span class="o">:</span> <span class="nx">followed_by_users</span><span class="p">});</span>
+<span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="get---followers-page.">
+  <h2>
+    <a href="#get---followers-page." class="pilcrow">&#182;</a>
+    GET /<username>/followers page.<br>
+  </h2>
+</div>
+
+
+<p>Gets the info to display on a user's "Followers" pages<br>
+username = User<br>
+following_users = users following username<br>
+followed_by_users = users following username<br>
+followed_by_user_data = users following username<br></p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">followers</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">username</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">param</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">following_users</span> <span class="o">=</span> <span class="nx">followers</span><span class="p">.</span><span class="nx">getFollowedUsers</span><span class="p">(</span><span class="nx">username</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">followed_by_users</span> <span class="o">=</span> <span class="nx">followers</span><span class="p">.</span><span class="nx">getUsersFollowing</span><span class="p">(</span><span class="nx">username</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">followed_by_user_data</span> <span class="o">=</span> <span class="p">[];</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>Finds all users followed by username</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">followed_by_users</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="nx">followed_by_user_data</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">user</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">followed_by_users</span><span class="p">[</span><span class="nx">i</span><span class="p">]));</span>
+  <span class="p">}</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;followers&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">profile</span><span class="o">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">username</span><span class="p">),</span>
+                <span class="nx">user</span><span class="o">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span><span class="p">),</span>
+                <span class="nx">num_tweets</span><span class="o">:</span> <span class="nx">tweets</span><span class="p">.</span><span class="nx">getTweetCountByUser</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span><span class="p">),</span>
+                <span class="nx">tweets</span><span class="o">:</span> <span class="p">[],</span>
+               <span class="nx">following</span><span class="o">:</span> <span class="nx">following_users</span><span class="p">,</span>
+               <span class="nx">followers</span><span class="o">:</span> <span class="nx">followed_by_user_data</span><span class="p">});</span>
+<span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="get---favorites-page.">
+  <h2>
+    <a href="#get---favorites-page." class="pilcrow">&#182;</a>
+    GET /<username>/favorites page.<br>
+  </h2>
+</div>
+
+
+<p>Gets the info to display on a user's "Favorites" page<br>
+username = User<br>
+following_users = users following username<br>
+followed_by_users = users following username<br></p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">favorites</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">username</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">param</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">following_users</span> <span class="o">=</span> <span class="nx">followers</span><span class="p">.</span><span class="nx">getFollowedUsers</span><span class="p">(</span><span class="nx">username</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">followed_by_users</span> <span class="o">=</span> <span class="nx">followers</span><span class="p">.</span><span class="nx">getUsersFollowing</span><span class="p">(</span><span class="nx">username</span><span class="p">);</span>
+
+  <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;favorites&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">profile</span><span class="o">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">username</span><span class="p">),</span>
+                <span class="nx">user</span><span class="o">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span><span class="p">),</span>
+                <span class="nx">num_tweets</span><span class="o">:</span> <span class="nx">tweets</span><span class="p">.</span><span class="nx">getTweetCountByUser</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span><span class="p">),</span>
+                <span class="nx">tweets</span><span class="o">:</span> <span class="p">[],</span>
+                <span class="nx">following</span><span class="o">:</span> <span class="nx">following_users</span><span class="p">,</span>
+                <span class="nx">followers</span><span class="o">:</span> <span class="nx">followed_by_users</span><span class="p">});</span>
+<span class="p">};</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

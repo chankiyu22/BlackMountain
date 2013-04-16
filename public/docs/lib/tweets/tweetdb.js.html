@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>tweetdb.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../", thisFile = "home/site/BlackMountain/lib/tweets/tweetdbjs", defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#tweet-library">Tweet Library</a>
+      </div>
+      <div class="heading h2">
+        <a href="#tweet-objects">Tweet Objects</a>
+      </div>
+      <div class="heading h2">
+        <a href="#publishes-a-new-tweet">Publishes a new tweet</a>
+      </div>
+      <div class="heading h2">
+        <a href="#get-tweets-owned-by-user">Get tweets owned by user</a>
+      </div>
+      <div class="heading h2">
+        <a href="#get-tweets-owned-by-any-user-in-user_array">Get tweets owned by any user in user_array</a>
+      </div>
+      <div class="heading h2">
+        <a href="#get-tweets-that-mention-user---username-">Get tweets that mention user (@username)</a>
+      </div>
+      <div class="heading h2">
+        <a href="#get-number-of-tweets-by-user">Get number of tweets by user</a>
+      </div>
+      <div class="heading h2">
+        <a href="#get-tweets-containing-a-string">Get tweets containing a string</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="tweet-library">
+  <h1>
+    <a href="#tweet-library" class="pilcrow">&#182;</a>
+    Tweet Library
+  </h1>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="tweet-objects">
+  <h2>
+    <a href="#tweet-objects" class="pilcrow">&#182;</a>
+    Tweet Objects
+  </h2>
+</div>
+
+
+<p>@param owner - User who posted tweet<br />
+@param message - Tweet text contents<br />
+@param date - Tweet timestamp</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="kd">function</span> <span class="nx">Tweet</span><span class="p">(</span><span class="nx">owner</span><span class="p">,</span> <span class="nx">message</span><span class="p">,</span> <span class="nx">date</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">owner</span> <span class="o">=</span> <span class="nx">owner</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="nx">message</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">date</span> <span class="o">=</span> <span class="nx">date</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>This is our stub database until we look at a real database!</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="kd">var</span> <span class="nx">tweetdb</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="k">new</span> <span class="nx">Tweet</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span>   <span class="s1">&#39;@argo15 This is a #test #tweet. @Tweeters&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()),</span>
+  <span class="k">new</span> <span class="nx">Tweet</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span>   <span class="s1">&#39;@UmassCS Cruel Owner Chains Bike Outside In Freezing Weather http://onion.com/XYjzYY&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()),</span>
+  <span class="k">new</span> <span class="nx">Tweet</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span>   <span class="s1">&#39;@Testers This is a #test of your emergency @sjobs tweetcast system. &#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()),</span>
+  <span class="k">new</span> <span class="nx">Tweet</span><span class="p">(</span><span class="s1">&#39;argo15&#39;</span><span class="p">,</span> <span class="s1">&#39;@Programmers I\&#39;m #bill @test&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()),</span>
+  <span class="k">new</span> <span class="nx">Tweet</span><span class="p">(</span><span class="s1">&#39;argo15&#39;</span><span class="p">,</span> <span class="s1">&#39;Tweeting @sjobs is fun @Tweeters&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()),</span>
+  <span class="k">new</span> <span class="nx">Tweet</span><span class="p">(</span><span class="s1">&#39;sjobs&#39;</span><span class="p">,</span>  <span class="s1">&#39;@Programmers I\&#39;m not dead @argo15 &#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()),</span>
+  <span class="k">new</span> <span class="nx">Tweet</span><span class="p">(</span><span class="s1">&#39;sjobs&#39;</span><span class="p">,</span>  <span class="s1">&#39;@test Boo @UmassCS&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">())</span>
+<span class="p">];</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="publishes-a-new-tweet">
+  <h2>
+    <a href="#publishes-a-new-tweet" class="pilcrow">&#182;</a>
+    Publishes a new tweet
+  </h2>
+</div>
+
+
+<p>@param owner - User who posted tweet<br />
+@param message - Tweet text contents<br />
+Invokes callback <code>cb</code> with the signature cb(error, tweetobj).</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">publish</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">owner</span><span class="p">,</span> <span class="nx">message</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">new_tweet</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Tweet</span><span class="p">(</span><span class="nx">owner</span><span class="p">,</span>  <span class="nx">message</span><span class="p">);</span>
+  <span class="nx">tweetdb</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">new_tweet</span><span class="p">);</span>
+  <span class="nx">cb</span><span class="p">(</span><span class="kc">undefined</span><span class="p">,</span> <span class="nx">new_tweet</span><span class="p">);</span>
+<span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="get-tweets-owned-by-user">
+  <h2>
+    <a href="#get-tweets-owned-by-user" class="pilcrow">&#182;</a>
+    Get tweets owned by user
+  </h2>
+</div>
+
+
+<p>@param user - User whose tweets are being retrieved<br />
+@param limit - How many tweets we're retrieving<br />
+limit = -1 means no limit<br />
+Invokes callback <code>cb</code> with the signature cb(error, tweetobjs).</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">getTweetsByUser</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span> <span class="nx">limit</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">tweetobjs</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">tweetdb</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">user</span> <span class="o">==</span> <span class="nx">tweetdb</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">owner</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="nx">tweetobjs</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">tweetdb</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">limit</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">tweetobjs</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="nx">limit</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">tweetobjs</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="get-tweets-owned-by-any-user-in-user_array">
+  <h2>
+    <a href="#get-tweets-owned-by-any-user-in-user_array" class="pilcrow">&#182;</a>
+    Get tweets owned by any user in user_array
+  </h2>
+</div>
+
+
+<p>@param user_array - List of users whose tweets are being retrieved<br />
+@param limit - Number of tweets to retrieve<br />
+limit = -1 means no limit<br />
+Invokes callback <code>cb</code> with the signature cb(error, tweetobjs).</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">getTweetsByUsers</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">user_array</span><span class="p">,</span> <span class="nx">limit</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">tweet_array</span> <span class="o">=</span> <span class="p">[];</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>Populate tweets array with tweets from user_array</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">user_array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="nx">tweet_array</span> <span class="o">=</span> <span class="nx">tweet_array</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getTweetsByUser</span><span class="p">(</span><span class="nx">user_array</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">));</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">tweet_array</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="get-tweets-that-mention-user---username-">
+  <h2>
+    <a href="#get-tweets-that-mention-user---username-" class="pilcrow">&#182;</a>
+    Get tweets that mention user (@username)
+  </h2>
+</div>
+
+
+<p>@param user - Name of user to search for<br />
+@return - Array of Tweet objects mentioning <code>user</code></p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">getTweetsThatMention</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">user</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">tweetobjs</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">tweetdb</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">tweetdb</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">message</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;@&quot;</span> <span class="o">+</span> <span class="nx">user</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="nx">tweetobjs</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">tweetdb</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">tweetobjs</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="get-number-of-tweets-by-user">
+  <h2>
+    <a href="#get-number-of-tweets-by-user" class="pilcrow">&#182;</a>
+    Get number of tweets by user
+  </h2>
+</div>
+
+
+<p>@param user - User whose tweet count is being retrieved<br />
+@return - Number of tweets <code>user</code> has posted</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">getTweetCountByUser</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">user</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">tweetobjs</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">tweetdb</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">user</span> <span class="o">==</span> <span class="nx">tweetdb</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">owner</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="nx">tweetobjs</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">tweetdb</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">tweetobjs</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="get-tweets-containing-a-string">
+  <h2>
+    <a href="#get-tweets-containing-a-string" class="pilcrow">&#182;</a>
+    Get tweets containing a string
+  </h2>
+</div>
+
+
+<p>@param searchfor - string to search for<br />
+@return - Array of tweets</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">getTweetsContaining</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">searchfor</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">tweetobjs</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">tweetdb</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">tweetdb</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">message</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">searchfor</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">())</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="nx">tweetobjs</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">tweetdb</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">tweetobjs</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

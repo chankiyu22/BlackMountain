@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>login.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "home/site/BlackMountain/routes/loginjs", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h2">
+        <a href="#function-index-req--res-">Function index(req, res)</a>
+      </div>
+      <div class="heading h4">
+        <a href="#action">Action</a>
+      </div>
+      <div class="heading h2">
+        <a href="#function-logout-req--res-">Function logout(req, res)</a>
+      </div>
+      <div class="heading h4">
+        <a href="#action">Action</a>
+      </div>
+      <div class="heading h2">
+        <a href="#function-captcha-req--res-">Function captcha(req, res)</a>
+      </div>
+      <div class="heading h4">
+        <a href="#render">Render</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>login.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">userdb</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../lib/user&#39;</span><span class="p">);</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="function-index-req--res-">
+  <h2>
+    <a href="#function-index-req--res-" class="pilcrow">&#182;</a>
+    Function index(req, res)
+  </h2>
+</div>
+
+
+<p>Routing /login [POST]</p>
+  </div>
+  <div class="body">
+<div class="pilwrap" id="action">
+  <h4>
+    <a href="#action" class="pilcrow">&#182;</a>
+    Action
+  </h4>
+</div>
+
+
+<p>Preform login validation and initialize user sesison.
+If success</p>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">index</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">username_or_email</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                       <span class="nx">errmsg</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">});</span>
+<span class="p">};</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">verify</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">username</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">username</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">password</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">password</span><span class="p">;</span>
+  <span class="nx">userdb</span><span class="p">.</span><span class="nx">lookup</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">userobj</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">userobj</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">fullname</span> <span class="o">=</span> <span class="nx">userobj</span><span class="p">.</span><span class="nx">fullname</span><span class="p">;</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">email</span>    <span class="o">=</span> <span class="nx">userobj</span><span class="p">.</span><span class="nx">email</span><span class="p">;</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span> <span class="o">=</span> <span class="nx">userobj</span><span class="p">.</span><span class="nx">username</span><span class="p">;</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">password</span> <span class="o">=</span> <span class="nx">userobj</span><span class="p">.</span><span class="nx">password</span><span class="p">;</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">login_error</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">login</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">);</span> 
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">error</span> <span class="o">===</span> <span class="s1">&#39;captcha&#39;</span><span class="p">){</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="s1">&#39;/login/captcha?username_or_email=&#39;</span> <span class="o">+</span> <span class="nx">username</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">error</span> <span class="o">===</span> <span class="s1">&#39;error&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="s1">&#39;/login/error?username_or_email=&#39;</span> <span class="o">+</span> <span class="nx">username</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="function-logout-req--res-">
+  <h2>
+    <a href="#function-logout-req--res-" class="pilcrow">&#182;</a>
+    Function logout(req, res)
+  </h2>
+</div>
+
+
+<p>Routing /logout</p>
+  </div>
+  <div class="body">
+<div class="pilwrap" id="action">
+  <h4>
+    <a href="#action" class="pilcrow">&#182;</a>
+    Action
+  </h4>
+</div>
+
+
+<ol>
+<li>Clear current session login data</li>
+<li>Go to main page</li>
+</ol>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">logout</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+  <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">username</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">password</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">login</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">);</span>
+<span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="function-captcha-req--res-">
+  <h2>
+    <a href="#function-captcha-req--res-" class="pilcrow">&#182;</a>
+    Function captcha(req, res)
+  </h2>
+</div>
+
+
+<p>Routing /captcha</p>
+  </div>
+  <div class="body">
+<div class="pilwrap" id="render">
+  <h4>
+    <a href="#render" class="pilcrow">&#182;</a>
+    Render
+  </h4>
+</div>
+
+
+<ol>
+<li>Error Message corresponding to the type of error</li>
+</ol>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">captcha</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">username</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">username_or_email</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">username</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">username_or_email</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                           <span class="nx">errmsg</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">});</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">username_or_email</span><span class="o">:</span> <span class="nx">username</span><span class="p">,</span>
+                           <span class="nx">errmsg</span><span class="o">:</span> <span class="s1">&#39;We gonna check...Are you human?&#39;</span><span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">error</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">username</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">username_or_email</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">username</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">username_or_email</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                           <span class="nx">errmsg</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">});</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">username_or_email</span><span class="o">:</span> <span class="nx">username</span><span class="p">,</span>
+                  <span class="nx">errmsg</span><span class="o">:</span> <span class="s1">&#39;Wrong Username/Email and password combination&#39;</span><span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
