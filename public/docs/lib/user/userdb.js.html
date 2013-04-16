@@ -66,6 +66,12 @@
       <div class="heading h4">
         <a href="#actions">Actions</a>
       </div>
+      <div class="heading h2">
+        <a href="#function-getallusers">Function getAllUsers</a>
+      </div>
+      <div class="heading h4">
+        <a href="#actions">Actions</a>
+      </div>
     </div>
   </div>
   <div id="sidebar-toggle"></div>
@@ -200,10 +206,31 @@
 
 <p>locates a user by <code>name</code> if it exists. Invokes callback <code>cb</code> with the
 signature cb(error, userobj).</p>
+
+<p>Returns error if username already taken
+Returns error if username length 0
+Returns error if password length &lt; 6</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nx">exports</span><span class="p">.</span><span class="nx">lookup</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">,</span> <span class="nx">include_groups</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
   <span class="kd">var</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">userdb</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>Input validifier</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">username</span><span class="p">.</span><span class="nx">length</span><span class="o">==</span><span class="s1">&#39;&#39;</span><span class="p">){</span>
+    <span class="nx">cb</span><span class="p">(</span><span class="s1">&#39;username length 0&#39;</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">password</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">){</span>
+    <span class="nx">cb</span><span class="p">(</span><span class="s1">&#39;password too short&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
   <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">u</span> <span class="o">=</span> <span class="nx">userdb</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="o">!</span><span class="nx">include_groups</span> <span class="o">&amp;&amp;</span> <span class="nx">u</span><span class="p">.</span><span class="nx">isgroup</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">u</span><span class="p">.</span><span class="nx">username</span> <span class="o">===</span> <span class="nx">username</span><span class="p">)</span> <span class="p">{</span>
@@ -211,12 +238,12 @@ signature cb(error, userobj).</p>
         <span class="nx">cb</span><span class="p">(</span><span class="kc">undefined</span><span class="p">,</span> <span class="nx">u</span><span class="p">);</span>
       <span class="p">}</span>
       <span class="k">else</span> <span class="p">{</span>
-        <span class="nx">cb</span><span class="p">(</span><span class="s1">&#39;password is not correct&#39;</span><span class="p">);</span>
+        <span class="nx">cb</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">);</span>
       <span class="p">}</span>
       <span class="k">return</span><span class="p">;</span>
     <span class="p">}</span>
   <span class="p">}</span>
-  <span class="nx">cb</span><span class="p">(</span><span class="s1">&#39;user not found&#39;</span><span class="p">);</span>
+  <span class="nx">cb</span><span class="p">(</span><span class="s1">&#39;captcha&#39;</span><span class="p">);</span>
 <span class="p">};</span>
 
 
@@ -320,17 +347,41 @@ signature cb(error, userobj).</p>
 <span class="nx">exports</span><span class="p">.</span><span class="nx">signup</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fullname</span><span class="p">,</span> <span class="nx">email</span><span class="p">,</span> <span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
   <span class="kd">var</span> <span class="nx">new_user</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
   <span class="kd">var</span> <span class="nx">signup_error</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
-  <span class="nx">exports</span><span class="p">.</span><span class="nx">lookup</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">userobj</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span> <span class="o">==</span> <span class="s1">&#39;user not found&#39;</span><span class="p">)</span>
-    <span class="p">{</span>
-      <span class="nx">new_user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="nx">fullname</span><span class="p">,</span> <span class="nx">email</span><span class="p">,</span> <span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
-      <span class="nx">userdb</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">new_user</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">else</span>
-    <span class="p">{</span>
-      <span class="nx">signup_error</span> <span class="o">=</span> <span class="s1">&#39;username already exists&#39;</span><span class="p">;</span>
-    <span class="p">}</span>
-  <span class="p">});</span>
+  
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<p>Error handling
+We don't want to use exports.lookup on a bad username, as it'll
+still create the user</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">username</span><span class="p">.</span><span class="nx">length</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">signup_error</span> <span class="o">=</span> <span class="s1">&#39;Username field empty. Please enter a username.&#39;</span><span class="p">;</span>
+    <span class="nx">cb</span><span class="p">(</span><span class="nx">signup_error</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">password</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">){</span>
+    <span class="nx">signup_error</span> <span class="o">=</span> <span class="s1">&#39;Password must be 6 characters or longer.&#39;</span><span class="p">;</span>
+    <span class="nx">cb</span><span class="p">(</span><span class="nx">signup_error</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">exports</span><span class="p">.</span><span class="nx">lookup</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">userobj</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">error</span> <span class="o">==</span> <span class="s1">&#39;captcha&#39;</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="nx">new_user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="nx">fullname</span><span class="p">,</span> <span class="nx">email</span><span class="p">,</span> <span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+        <span class="nx">userdb</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">new_user</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">else</span><span class="p">{</span>
+        <span class="nx">signup_error</span> <span class="o">=</span> <span class="s1">&#39;username already exists&#39;</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
   <span class="nx">cb</span><span class="p">(</span><span class="nx">signup_error</span><span class="p">,</span> <span class="nx">new_user</span><span class="p">);</span>
 <span class="p">};</span>
 
@@ -382,7 +433,7 @@ signature cb(error, userobj).</p>
   <span class="kd">var</span> <span class="nx">new_user</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
   <span class="kd">var</span> <span class="nx">signup_error</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
   <span class="nx">exports</span><span class="p">.</span><span class="nx">lookup</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">userobj</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span> <span class="o">==</span> <span class="s1">&#39;user not found&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span> <span class="o">==</span> <span class="s1">&#39;captcha&#39;</span><span class="p">)</span>
     <span class="p">{</span>
       <span class="nx">new_user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="nx">fullname</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nx">username</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
       <span class="nx">userdb</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">new_user</span><span class="p">);</span>
@@ -394,6 +445,36 @@ signature cb(error, userobj).</p>
   <span class="p">});</span>
   <span class="nx">cb</span><span class="p">(</span><span class="nx">signup_error</span><span class="p">,</span> <span class="nx">new_user</span><span class="p">);</span>
 <span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="function-getallusers">
+  <h2>
+    <a href="#function-getallusers" class="pilcrow">&#182;</a>
+    Function getAllUsers
+  </h2>
+</div>
+
+
+
+<div class="pilwrap" id="actions">
+  <h4>
+    <a href="#actions" class="pilcrow">&#182;</a>
+    Actions
+  </h4>
+</div>
+
+
+<p>returns an array of all users</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">getAllUsers</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">userdb</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
         </td>
       </tr>

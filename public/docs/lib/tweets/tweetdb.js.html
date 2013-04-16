@@ -39,6 +39,9 @@
       <div class="heading h2">
         <a href="#get-number-of-tweets-by-user">Get number of tweets by user</a>
       </div>
+      <div class="heading h2">
+        <a href="#get-tweets-containing-a-string">Get tweets containing a string</a>
+      </div>
     </div>
   </div>
   <div id="sidebar-toggle"></div>
@@ -92,10 +95,10 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="kd">var</span> <span class="nx">tweetdb</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="k">new</span> <span class="nx">Tweet</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span>   <span class="s1">&#39;@argo15 This is a tweet. @Tweeters&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()),</span>
+  <span class="k">new</span> <span class="nx">Tweet</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span>   <span class="s1">&#39;@argo15 This is a #test #tweet. @Tweeters&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()),</span>
   <span class="k">new</span> <span class="nx">Tweet</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span>   <span class="s1">&#39;@UmassCS Cruel Owner Chains Bike Outside In Freezing Weather http://onion.com/XYjzYY&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()),</span>
-  <span class="k">new</span> <span class="nx">Tweet</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span>   <span class="s1">&#39;@Testers This is a test of your emergency @sjobs tweetcast system. &#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()),</span>
-  <span class="k">new</span> <span class="nx">Tweet</span><span class="p">(</span><span class="s1">&#39;argo15&#39;</span><span class="p">,</span> <span class="s1">&#39;@Programmers I\&#39;m bill @test&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()),</span>
+  <span class="k">new</span> <span class="nx">Tweet</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span>   <span class="s1">&#39;@Testers This is a #test of your emergency @sjobs tweetcast system. &#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()),</span>
+  <span class="k">new</span> <span class="nx">Tweet</span><span class="p">(</span><span class="s1">&#39;argo15&#39;</span><span class="p">,</span> <span class="s1">&#39;@Programmers I\&#39;m #bill @test&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()),</span>
   <span class="k">new</span> <span class="nx">Tweet</span><span class="p">(</span><span class="s1">&#39;argo15&#39;</span><span class="p">,</span> <span class="s1">&#39;Tweeting @sjobs is fun @Tweeters&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()),</span>
   <span class="k">new</span> <span class="nx">Tweet</span><span class="p">(</span><span class="s1">&#39;sjobs&#39;</span><span class="p">,</span>  <span class="s1">&#39;@Programmers I\&#39;m not dead @argo15 &#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()),</span>
   <span class="k">new</span> <span class="nx">Tweet</span><span class="p">(</span><span class="s1">&#39;sjobs&#39;</span><span class="p">,</span>  <span class="s1">&#39;@test Boo @UmassCS&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">())</span>
@@ -261,6 +264,36 @@ Invokes callback <code>cb</code> with the signature cb(error, tweetobjs).</p>
     <span class="p">}</span>
   <span class="p">}</span>
   <span class="k">return</span> <span class="nx">tweetobjs</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="get-tweets-containing-a-string">
+  <h2>
+    <a href="#get-tweets-containing-a-string" class="pilcrow">&#182;</a>
+    Get tweets containing a string
+  </h2>
+</div>
+
+
+<p>@param searchfor - string to search for<br />
+@return - Array of tweets</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">getTweetsContaining</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">searchfor</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">tweetobjs</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">tweetdb</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">tweetdb</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">message</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">searchfor</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">())</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="nx">tweetobjs</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">tweetdb</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">tweetobjs</span><span class="p">;</span>
 <span class="p">};</span>
 </pre></div>
         </td>

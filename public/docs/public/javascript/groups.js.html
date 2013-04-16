@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>groups.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../", thisFile = "home/site/BlackMountain/public/javascript/groupsjs", defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>groups.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">Groups</span> <span class="o">=</span> <span class="p">{</span>
+
+  <span class="nx">socket</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
+
+  <span class="nx">num_members</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+
+  <span class="nx">fullname</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
+
+  <span class="nx">initialize</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">num_members</span><span class="p">,</span> <span class="nx">fullname</span><span class="p">,</span> <span class="nx">username</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">num_members</span> <span class="o">=</span> <span class="nx">num_members</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">fullname</span> <span class="o">=</span> <span class="nx">fullname</span><span class="p">;</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">socket</span> <span class="o">=</span> <span class="nx">io</span><span class="p">.</span><span class="nx">connect</span><span class="p">();</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;watch_groups&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">username</span><span class="o">:</span> <span class="nx">username</span><span class="p">});</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;+Mention&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">tweet_html</span> <span class="o">=</span> <span class="s1">&#39;&lt;div class=&quot;tweet&quot;&gt;&#39;</span> <span class="o">+</span>
+          <span class="s1">&#39;&lt;a href=&quot;/&#39;</span> <span class="o">+</span> <span class="nx">data</span><span class="p">.</span><span class="nx">tweet</span><span class="p">.</span><span class="nx">owner</span> <span class="o">+</span> <span class="s1">&#39;&quot;&gt;&#39;</span> <span class="o">+</span>
+            <span class="s1">&#39;&lt;div class=&quot;owner&quot;&gt;&#39;</span> <span class="o">+</span>
+              <span class="nx">data</span><span class="p">.</span><span class="nx">tweet</span><span class="p">.</span><span class="nx">userdata</span><span class="p">.</span><span class="nx">fullname</span> <span class="o">+</span> 
+              <span class="s1">&#39;&lt;small&gt; @&#39;</span> <span class="o">+</span> 
+              <span class="nx">data</span><span class="p">.</span><span class="nx">tweet</span><span class="p">.</span><span class="nx">owner</span> <span class="o">+</span>
+              <span class="s1">&#39;&lt;/small&gt;&#39;</span> <span class="o">+</span>
+            <span class="s1">&#39;&lt;/div&gt;&#39;</span> <span class="o">+</span>
+          <span class="s1">&#39;&lt;/a&gt;&#39;</span> <span class="o">+</span>
+          <span class="nx">data</span><span class="p">.</span><span class="nx">tweet</span><span class="p">.</span><span class="nx">html</span> <span class="o">+</span>
+        <span class="s1">&#39;&lt;/div&gt;&#39;</span><span class="p">;</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#tweet-list&#39;</span><span class="p">).</span><span class="nx">prepend</span><span class="p">(</span><span class="nx">tweet_html</span><span class="p">);</span>
+      <span class="p">});</span>
+  <span class="p">},</span>
+
+  <span class="nx">join_group</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">group_id</span><span class="p">,</span> <span class="nx">username</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#join_button&quot;</span> <span class="o">+</span> <span class="nx">group_id</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;disabled&quot;</span><span class="p">,</span> <span class="s2">&quot;disabled&quot;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s2">&quot;/groups/join&quot;</span><span class="p">,</span>
+      <span class="p">{</span><span class="nx">group_id</span><span class="o">:</span> <span class="nx">group_id</span><span class="p">,</span> <span class="nx">username</span><span class="o">:</span> <span class="nx">username</span><span class="p">})</span>
+    <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#join_button&quot;</span> <span class="o">+</span> <span class="nx">group_id</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="s1">&#39;Joined&#39;</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">result</span> <span class="o">==</span> <span class="s1">&#39;success&#39;</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="nx">that</span><span class="p">.</span><span class="nx">num_members</span> <span class="o">=</span> <span class="nx">that</span><span class="p">.</span><span class="nx">num_members</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#members_tab&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">that</span><span class="p">.</span><span class="nx">num_members</span> <span class="o">+</span> <span class="s1">&#39; members&#39;</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">members_html</span> <span class="o">=</span> <span class="s1">&#39;&lt;li&gt;&lt;div&gt;&#39;</span> <span class="o">+</span>
+            <span class="s1">&#39;&lt;a href=&quot;/&#39;</span> <span class="o">+</span> <span class="nx">username</span> <span class="o">+</span> <span class="s1">&#39;&quot;&gt;&#39;</span> <span class="o">+</span>
+              <span class="s1">&#39;&lt;div class=&quot;separator owner&quot;&gt;&#39;</span> <span class="o">+</span>
+                <span class="nx">that</span><span class="p">.</span><span class="nx">fullname</span> <span class="o">+</span>
+                <span class="s1">&#39;&lt;small&gt; @&#39;</span> <span class="o">+</span> <span class="nx">username</span> <span class="o">+</span> <span class="s1">&#39;&lt;/small&gt;&#39;</span> <span class="o">+</span>
+              <span class="s1">&#39;&lt;/div&gt;&#39;</span> <span class="o">+</span>
+            <span class="s1">&#39;&lt;/a&gt;&#39;</span> <span class="o">+</span>
+          <span class="s1">&#39;&lt;/div&gt;&lt;/li&gt;&#39;</span><span class="p">;</span>
+          <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#members-list&#39;</span><span class="p">).</span><span class="nx">prepend</span><span class="p">(</span><span class="nx">members_html</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="nx">fail</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#join_button&quot;</span> <span class="o">+</span> <span class="nx">group_id</span><span class="p">).</span><span class="nx">removeAttr</span><span class="p">(</span><span class="s2">&quot;disabled&quot;</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">},</span>
+
+  <span class="nx">create_group</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fullname</span><span class="p">,</span> <span class="nx">username</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">fullname</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#fullname&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">username</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#username&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#create_group&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;disabled&quot;</span><span class="p">,</span> <span class="s2">&quot;disabled&quot;</span><span class="p">);</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s2">&quot;/groups/create&quot;</span><span class="p">,</span>
+      <span class="p">{</span><span class="nx">fullname</span><span class="o">:</span> <span class="nx">fullname</span><span class="p">,</span> <span class="nx">username</span><span class="o">:</span> <span class="nx">username</span><span class="p">})</span>
+    <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">result</span> <span class="o">==</span> <span class="s1">&#39;success&#39;</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#create_result&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="s1">&#39;Success&#39;</span><span class="p">);</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#create_result&#39;</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;result_fail&#39;</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;result_success&#39;</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">else</span>
+      <span class="p">{</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#create_result&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="s1">&#39;Failed: &#39;</span> <span class="o">+</span> <span class="nx">result</span><span class="p">);</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#create_result&#39;</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;result_success&#39;</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;result_fail&#39;</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="nx">fail</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#create_result&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="s1">&#39;Failed: bad connection&#39;</span><span class="p">);</span>
+      <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#create_result&#39;</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;result_success&#39;</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;result_fail&#39;</span><span class="p">);</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="nx">always</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#create_group&quot;</span><span class="p">).</span><span class="nx">removeAttr</span><span class="p">(</span><span class="s2">&quot;disabled&quot;</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
