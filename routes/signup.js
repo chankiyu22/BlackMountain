@@ -4,7 +4,7 @@ var users = require('../lib/user');
 // Display information for signup page
 exports.index = function(req, res){
   res.render('signup', {first: 'Twitter',
-  						name: (req.body.name ? req.body.name : ""),
+    					name: (req.body.name ? req.body.name : ""),
   						email: (req.body.email ? req.body.email : ""),
               error: req.session.signup_error,
   						password: (req.body.password ? req.body.password : ""),
@@ -36,15 +36,17 @@ exports.createUser = function(req, res) {
       req.session.password = userobj.password;
       req.session.signup_error = null;
       req.session.login = true;
-      res.redirect('/');
+      res.send('success');
     } 
     // If info is missing, it causes an error and redirects back to '/signup'
     else
     {
       req.session.signup_error = error;
+      signup_error=error;
       req.session.login = false;
-      res.redirect('/signup');
+      res.send(signup_error);
+      //res.redirect('/signup');
     } 
   });
+  //res.send('success');
 }
-

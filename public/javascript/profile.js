@@ -4,17 +4,22 @@ var Profile = {
 
 	num_followers: 0,
 
+<<<<<<< HEAD
 // ## Initialize profile
 //
 // @param username - current user's username
 // @param num_followers - number of people following username
 // @param profileuser - user to watch
 	initialize: function (username, num_followers, profileuser) {
+=======
+	initialize: function (username, num_followers) {
+>>>>>>> new_branch_name
 		this.num_followers = num_followers;
 
 	  	this.socket = io.connect();
 
 	  	this.socket.emit('init', {username: username});
+<<<<<<< HEAD
 	  	this.socket.emit('watch_user', {username: username, towatch: profileuser});
 
 	  	// socket recieves data for self tweet
@@ -64,6 +69,10 @@ var Profile = {
 // 
 // @param username - current user's username
 // @param tofollow - user who username is going to follow
+=======
+	},
+
+>>>>>>> new_branch_name
 	follow_user: function (username, tofollow) {
 		var data = {username: username, tofollow: tofollow};
 		$("#follow_btn").attr("disabled", "disabled");
