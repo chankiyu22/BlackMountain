@@ -38,6 +38,18 @@ var Profile = {
 			   	'</div></li>';
 			   	$('#followers-list').prepend(follow_html);
 	  	});
+
+	  	this.socket.on('+Following', function (data) {
+	  		var follow_html = '<li><div>' +
+			   		'<a href="/' + data.user.username + '">' +
+			   			'<div class="separator owner">' +
+			   				data.user.fullname +
+			   				'<small> @' + data.user.username + '</small>' +
+			   			'</div>' +
+			   		'</a>' +
+			   	'</div></li>';
+			   	$('#following-list').prepend(follow_html);
+	  	});
 	},
 
 	follow_user: function (username, tofollow) {
