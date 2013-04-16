@@ -6,6 +6,11 @@ var Groups = {
 
 	fullname: undefined,
 
+// ## initialize groups
+//
+// @param num_members - number of members in group
+// @param fullname - users full name
+// @param username - current user's username
 	initialize : function(num_members, fullname, username) {
 		this.num_members = num_members;
 		this.fullname = fullname;
@@ -14,6 +19,7 @@ var Groups = {
 
 	  	this.socket.emit('watch_groups', {username: username});
 
+	  	// socket recieves Mention data
 	  	this.socket.on('+Mention', function (data) {
 	  		var tweet_html = '<div class="tweet">' +
 		   		'<a href="/' + data.tweet.owner + '">' +
@@ -30,6 +36,10 @@ var Groups = {
 	  	});
 	},
 
+// ## join group button
+//
+// @param group_id - group to join
+// @param username - user joining group
 	join_group : function(group_id, username) {
 		$("#join_button" + group_id).attr("disabled", "disabled");
 		var that = this;
@@ -57,6 +67,10 @@ var Groups = {
 		});
 	},
 
+// ## Create a new group
+// 
+// @param fullname - fullname of current user
+// @param username - username of current user
 	create_group : function(fullname, username) {
 		var fullname = $('#fullname').val();
 		var username = $('#username').val();
