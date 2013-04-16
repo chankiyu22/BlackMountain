@@ -4,6 +4,11 @@ var Profile = {
 
 	num_followers: 0,
 
+// ## Initialize profile
+//
+// @param username - current user's username
+// @param num_followers - number of people following username
+// @param profileuser - user to watch
 	initialize: function (username, num_followers, profileuser) {
 		this.num_followers = num_followers;
 
@@ -12,6 +17,7 @@ var Profile = {
 	  	this.socket.emit('init', {username: username});
 	  	this.socket.emit('watch_user', {username: username, towatch: profileuser});
 
+	  	// socket recieves data for self tweet
 	  	this.socket.on('+SelfTweet', function (data) {
 	  		var tweet_html = '<div class="tweet">' +
 		   		'<a href="/' + data.tweet.owner + '">' +
@@ -27,6 +33,7 @@ var Profile = {
 		   	$('#tweet-list').prepend(tweet_html);
 	  	});
 
+	  	// socket recieves follow data
 	  	this.socket.on('+Follow', function (data) {
 	  		var follow_html = '<li><div>' +
 			   		'<a href="/' + data.user.username + '">' +
@@ -39,6 +46,7 @@ var Profile = {
 			   	$('#followers-list').prepend(follow_html);
 	  	});
 
+	  	// socket recieves following data
 	  	this.socket.on('+Following', function (data) {
 	  		var follow_html = '<li><div>' +
 			   		'<a href="/' + data.user.username + '">' +
@@ -52,6 +60,10 @@ var Profile = {
 	  	});
 	},
 
+// ## Follow user
+// 
+// @param username - current user's username
+// @param tofollow - user who username is going to follow
 	follow_user: function (username, tofollow) {
 		var data = {username: username, tofollow: tofollow};
 		$("#follow_btn").attr("disabled", "disabled");
