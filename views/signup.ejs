@@ -4,6 +4,9 @@
     <title>Twitter / Create an account</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/stylesheets/login.css' />
+    <script type="text/javascript" src="/javascript/jquery.js"></script>
+    <script type="text/javascript" src="/javascript/signup.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
   </head>
   <body>
     <div>
@@ -17,13 +20,13 @@
           <table>
             <tr>
               <td>
-                <form action="/signup/addUser" method="post">
+                <form method="post" id="submitter">
                   <header>Join Twitter today.</header>
                   <p><a>Full name</a><br />
                      <input type="text" name="name" value="<%= name %>"></input>
                      <opt>Enter your first and last name.</opt></p><br />
                   <p><a>Email address</a><br />
-                     <input type="text" name="email" value="<%= email %>" /></p><br ></input>
+                     <input type="text" name="email" type="email" value="<%= email %>" /></p><br ></input>
                   <p><a>Create a password</a><br />
                      <input type="password" name="password" value="<%= password %>" ></input>
                   </p><br />
@@ -34,10 +37,8 @@
                   <input type="checkbox" name="tailor" />
                   <opt>Tailor Twitter based on my recent website visits. 
                        <a href='#'>Learn more</a>.</opt><br />
-                  <input id="signup" type="submit" value="Create my account" />
-                  <% if(error) { %>
-                    <div><%= error %></div>
-                  <% } %>
+                  <input onclick="Signup.create_user()" class="signup button" type="submit" value="Create my account" />
+                    <div class="signup_error"></div>
                 </form>
               </td>
             </tr>
