@@ -1,15 +1,11 @@
 var Groups = {
 
-<<<<<<< HEAD
 	socket: undefined,
 
-=======
->>>>>>> Ajax: Group Profile Join Group
 	num_members: 0,
 
 	fullname: undefined,
 
-<<<<<<< HEAD
 // ## initialize groups
 //
 // @param num_members - number of members in group
@@ -44,13 +40,30 @@ var Groups = {
 //
 // @param group_id - group to join
 // @param username - user joining group
-=======
-	initialize : function(num_members, fullname) {
+	initialize : function(num_members, fullname, username) {
 		this.num_members = num_members;
 		this.fullname = fullname;
+
+	  	this.socket = io.connect();
+
+	  	this.socket.emit('watch_groups', {username: username});
+
+	  	this.socket.on('+Mention', function (data) {
+	  		var tweet_html = '<div class="tweet">' +
+		   		'<a href="/' + data.tweet.owner + '">' +
+		   			'<div class="owner">' +
+		   				data.tweet.userdata.fullname + 
+		   				'<small> @' + 
+		   				data.tweet.owner +
+		   				'</small>' +
+		   			'</div>' +
+		   		'</a>' +
+		   		data.tweet.html +
+		   	'</div>';
+		   	$('#tweet-list').prepend(tweet_html);
+	  	});
 	},
 
->>>>>>> Ajax: Group Profile Join Group
 	join_group : function(group_id, username) {
 		$("#join_button" + group_id).attr("disabled", "disabled");
 		var that = this;
