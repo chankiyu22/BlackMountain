@@ -3,6 +3,27 @@
 ## How to Run
 Run our app using 'node app.js'. This will open a server on port 3000.
 
+## Project Assignment 4
+Additions that we made for this project:
+
+1. Ajax
+   - Follow User button no longer refreshes page
+   - Join Group button no longer refreshes page
+   - Post Tweet button no longer refreshes page
+
+2. Websockets
+   - Tweet feed is immediately updated with new tweets
+   - /mentions and /connect pages will immediately update with new information
+   - Profile pages update immediately
+   - /group will immediately update with any new tweets
+
+3. Other Additions
+   - Hashtags
+      - lib/util/util.js: updated to look for tweets that include a hashtag
+   - Search 
+      - routes/search.js: new route for search page that gets all tweets from the query string
+      - lib/tweets/tweetdb.js: added getTweetsContaining function that is used for the search
+
 ## Project Assignment 3
 Additions that we made for this project:
 
