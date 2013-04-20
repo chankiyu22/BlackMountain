@@ -3,6 +3,12 @@
 ## How to Run
 Run our app using 'node app.js'. This will open a server on port 3000.
 
+## Project Assignment 5
+Additions that we made for this project:
+
+1. Database
+   - 326.sqlite: created and filled db for users, groups, tweets, followers
+
 ## Project Assignment 4
 Additions that we made for this project:
 

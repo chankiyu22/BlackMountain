@@ -27,6 +27,11 @@ create table groupmemberdb(
 	username varchar(50)
 );
 
+create table followerdb(
+	follower varchar(50),
+	following varchar(50)
+);
+
 insert into userdb values
 	('MC Testington', 'tester@umass.com', 'test', '123', 0),
   	('Bill Crane', 'wcrane@student.umass.edu', 'argo15', 'billz', 0),
@@ -71,5 +76,13 @@ insert into groupmemberdb values
 	(2, 'sjobs'),
 	(3, 'test'),
 	(3, 'sjobs'),
-	(5, 'jsmit'),
+	(5, 'jsmith'),
 	(5, 'jstevens');
+
+insert into followerdb values
+	('test', 'argo15'),
+	('sjobs', 'test'),
+	('argo15', 'sjobs'),
+	('jstevens', 'jsmith'),
+	('scienceguy', 'sjobs'),
+	('sjobs', 'scienceguy');
