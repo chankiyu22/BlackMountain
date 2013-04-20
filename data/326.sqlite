@@ -1,0 +1,72 @@
+drop table if exists userdb;
+drop table if exists tweetdb;
+drop table if exists groupdb;
+drop table if exists groupmemberdb;
+
+create table userdb (
+	fullname varchar(50) not null,
+	email varchar(80),
+	username varchar(50) not null,
+	password varchar(12),
+	isgroup int
+);
+
+create table tweetdb(
+	owner varchar(50) not null,
+	message varchar(140) not null,
+	date date
+);
+
+create table groupdb(
+	id integer autoincrement,
+	username varchar(50)
+);
+
+create table groupmemberdb(
+	group_id integer,
+	username varchar(50)
+);
+
+insert into userdb values
+	('MC Testington', 'tester@umass.com', 'test', '123', 0),
+  	('Bill Crane', 'wcrane@student.umass.edu', 'argo15', 'billz', 0),
+  	('Steve Jobs', 'sjobs@apple.com', 'sjobs', 'abc', 0),
+  	('John Smith', 'imjsmith@gmail.com', 'jsmith', 'password', 0),
+  	('Jane Stevens', 'jane142@hotmail.com', 'jstevens', 'abc123', 0),
+  	('Bill Nye', 'bn@science.com', 'scienceguy', 0),
+  	('Tweeters', '', 'Tweeters', '', 1),
+  	('Umass Computer Science', '', 'UmassCS', '', 1),
+  	('Programmers', '', 'Programmers', '', 1),
+  	('Testers', '', 'Testers', '', 1),
+  	('Awesome Group', '', 'AwesomeGroup', '', 1),
+  	('Bill\'s Group', '', 'bill', '', 1);
+
+insert into tweetdb values
+	('test', '@argo15 This is a #test #tweet. @Tweeters', date()),
+	('test', '@UmassCS Cruel Owner Chains Bike Outside In Freezing Weather http://onion.com/XYjzYY', date()),
+	('test', '@Testers This is a #test of your emergency tweetcast system @sjobs', date()),
+	('argo15', '@Programmers I\'m #bill @test', date()),
+	('argo15', 'Tweeting @sjobs is fun @Tweeters', date()),
+	('sjobs', '@Programmers I\'m not dead @argo15', date()),
+	('sjobs', '@test Boo @UmassCS', date()),
+	('jstevens', 'Tweeting is fun! @AwesomeGroup', date()),
+	('jsmith', 'ripped the tag off my mattress #thuglife', date()),
+	('scienceguy', 'Doin a study for @Testers', date());
+
+insert into groupdb values
+	(0, 'Tweeters'),
+	(1, 'UmassCS'),
+	(2, 'Programmers'),
+	(3, 'Testers'),
+	(4, 'bill');
+
+insert into groupmemberdb values
+	(0, 'test'),
+	(0, 'sjobs'),
+	(0, 'argo15'),
+	(1, 'test'),
+	(1, 'argo15'),
+	(2, 'argo15'),
+	(2, 'sjobs'),
+	(3, 'test'),
+	(3, 'sjobs');
