@@ -2,10 +2,13 @@ var Tweets = {
 
 	socket: undefined,
 
+	tweetcount: 0,
+
 	// ## Initialize tweets
 	// 
 	// @param username - username of current user
-	initialize : function (username) {
+	initialize : function (username, count) {
+		this.tweetcount = count;
 		$("#tweet_publish").attr("disabled", "disabled");
 
 		$('#message').bind('input propertychange', function() {
@@ -51,7 +54,12 @@ var Tweets = {
 		$.post("/publish_tweet", {message: message, username: username})
 		.done(function(result) {
 			that.socket.emit('+Tweet', data);
+		  that.tweetcount = that.tweetcount + 1;
+		  $('#curr_tweet_count').html(that.tweetcount + ' tweets');
 			$('#message').val('');
+			//var tweetcount = $('#curr_tweet_count').text();
+			//$('#curr_tweet_count').text(++tweetcount);
+			
 		})
 		.always(function() {
 			$("#tweet_publish").removeAttr("disabled");

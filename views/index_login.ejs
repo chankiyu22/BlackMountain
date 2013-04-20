@@ -8,7 +8,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="/javascript/tweets.js"></script>
   </head>
-  <body onload="Tweets.initialize('<%= user.username %>');">
+  <body onload="Tweets.initialize('<%= user.username %>', <%= num_tweets %>);">
     <div id="doc">
       <% include topbar %>
       <div id="page-container" class="page">
