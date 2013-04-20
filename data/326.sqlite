@@ -58,8 +58,8 @@ insert into groupdb values
 	(1, 'UmassCS'),
 	(2, 'Programmers'),
 	(3, 'Testers'),
-	(4, 'bill');
-	(5, 'AwesomeGroup')
+	(4, 'bill'),
+	(5, 'AwesomeGroup');
 
 insert into groupmemberdb values
 	(0, 'test'),
