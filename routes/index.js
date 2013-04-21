@@ -1,5 +1,6 @@
 var tweets = require('../lib/tweets');
 var user = require('../lib/user');
+var hashtags = require('../lib/hashtags');
 var followers = require('../lib/followers');
 var util = require('../lib/util');
 

@@ -12,6 +12,7 @@ var express = require('express')
   , profile = require('./routes/profile')
   , settings = require('./routes/settings')
   , signup = require('./routes/signup')
+  , trends = require('./routes/trends')
   , user = require('./routes/user')
   , tweets = require('./routes/tweets')
   , search = require('./routes/search')
@@ -69,6 +70,7 @@ app.get('/:username', profile.profile);
 app.get('/:username/following', profile.following);
 app.get('/:username/followers', profile.followers);
 app.get('/:username/favorites', profile.favorites);
+app.get('/trends', trends.get_trends);
 app.get('/settings/profile', settings.profile);
 app.get('/settings/account', settings.account);
 app.get('/settings/password', settings.password);
