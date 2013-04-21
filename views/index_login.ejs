@@ -9,7 +9,7 @@
     <script src="/javascript/tweets.js"></script>
     <script type="text/javascript" src="/javascript/trends.js"></script>
   </head>
-  <body onload="Tweets.initialize('<%= user.username %>', <%= num_tweets %>); Trends.initialize('<%= user.username %>')">
+  <body onload="Tweets.initialize('<%= user.username %>', <%= num_tweets %>); Trends.initialize('<%= user.username %>');">
     <div id="doc">
       <% include topbar %>
       <div id="page-container" class="page">
