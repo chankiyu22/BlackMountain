@@ -32,19 +32,30 @@ create table followerdb(
 	following varchar(50)
 );
 
+create table hashtagdb(
+	message varchar(20),
+	freq integer,
+	timestamp date
+);
+
 insert into userdb values
 	('MC Testington', 'tester@umass.com', 'test', '123', 0),
   	('Bill Crane', 'wcrane@student.umass.edu', 'argo15', 'billz', 0),
   	('Steve Jobs', 'sjobs@apple.com', 'sjobs', 'abc', 0),
   	('John Smith', 'imjsmith@gmail.com', 'jsmith', 'password', 0),
   	('Jane Stevens', 'jane142@hotmail.com', 'jstevens', 'abc123', 0),
-  	('Bill Nye', 'bn@science.com', 'scienceguy', 0),
+  	('Bill Nye', 'bn@science.com', 'scienceguy', 'science' 0),
+  	('Stacy McStace', 'staceysemail@yahoo.com', 'staceym', '2468', 0),
+  	('Anonymous', 'unknown@mystery.com', 'anonymous', 'unknown', 0),
+  	('Matt Michaels', 'matt24@gmail.com', 'mattm', '1991' 0),
   	('Tweeters', '', 'Tweeters', '', 1),
   	('Umass Computer Science', '', 'UmassCS', '', 1),
   	('Programmers', '', 'Programmers', '', 1),
   	('Testers', '', 'Testers', '', 1),
   	('Awesome Group', '', 'AwesomeGroup', '', 1),
-  	('Bill\'s Group', '', 'bill', '', 1);
+  	('Bill\'s Group', '', 'bill', '', 1),
+  	('Student Group', '', 'Students', '', 1),
+  	('Working Class', '', 'Workers', '', 1);
 
 insert into tweetdb values
 	('test', '@argo15 This is a #test #tweet. @Tweeters', date()),
@@ -56,6 +67,10 @@ insert into tweetdb values
 	('sjobs', '@test Boo @UmassCS', date()),
 	('jstevens', 'Tweeting is fun! @AwesomeGroup', date()),
 	('jsmith', 'ripped the tag off my mattress #thuglife', date()),
+	('anonymous', 'Test for the @Testers find out who I am', date()),
+	('anonymous', 'I\'m a #mystery', date()),
+	('mattm', 'My first #tweet !', date()),
+	('staceym', '@Students who wants to study', date()),
 	('scienceguy', 'Doin a study for @Testers', date());
 
 insert into groupdb values
@@ -64,7 +79,9 @@ insert into groupdb values
 	(2, 'Programmers'),
 	(3, 'Testers'),
 	(4, 'bill'),
-	(5, 'AwesomeGroup');
+	(5, 'AwesomeGroup'),
+	(6, 'Students'),
+	(7, 'Workers');
 
 insert into groupmemberdb values
 	(0, 'test'),
@@ -77,12 +94,21 @@ insert into groupmemberdb values
 	(3, 'test'),
 	(3, 'sjobs'),
 	(5, 'jsmith'),
-	(5, 'jstevens');
+	(5, 'jstevens'),
+	(6, 'argo15'),
+	(6, 'staceym'),
+	(7, 'scienceguy'),
+	(7, 'sjobs');
 
 insert into followerdb values
 	('test', 'argo15'),
+	('test', 'sjobs'),
+	('test', 'staceym'),
 	('sjobs', 'test'),
 	('argo15', 'sjobs'),
+	('argo15', 'scienceguy'),
 	('jstevens', 'jsmith'),
+	('jsmith', 'anonymous'),
+	('jsmith', 'mattm'),
 	('scienceguy', 'sjobs'),
 	('sjobs', 'scienceguy');
