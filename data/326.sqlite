@@ -2,6 +2,8 @@ drop table if exists userdb;
 drop table if exists tweetdb;
 drop table if exists groupdb;
 drop table if exists groupmemberdb;
+drop table if exists followerdb;
+drop table if exists hashtagdb;
 
 create table userdb (
 	fullname varchar(50) not null,
