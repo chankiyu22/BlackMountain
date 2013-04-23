@@ -29,7 +29,8 @@ exports.profile = function(req, res, next){
                                   group: group,
                                   isMember: groups.isMember(group.id, req.session.username),
                                   session: req.session,
-                                  members: groups.getMembersForGroup(group.id)});
+                                  members: groups.getMembersForGroup(group.id),
+                                  wtf: util.getWhoToFollow(req.session.username)});
   }
   else
   {
@@ -44,7 +45,8 @@ exports.profile = function(req, res, next){
                   tweets: tweet_array,
                   following: following_users,
                   followers: followed_by_users,
-                  isFollowing: followers.isFollowing(req.session.username, username)});
+                  isFollowing: followers.isFollowing(req.session.username, username),
+                  wtf: util.getWhoToFollow(req.session.username)});
   }
 };
 
@@ -71,7 +73,8 @@ exports.following = function(req, res){
   				      tweets: [],
                 following: following_user_data,
                 followers: followed_by_users,
-                isFollowing: followers.isFollowing(req.session.username, username)});
+                isFollowing: followers.isFollowing(req.session.username, username),
+                wtf: util.getWhoToFollow(req.session.username)});
 };
 
 // ## GET /<username>/followers page.<br>
@@ -97,7 +100,8 @@ exports.followers = function(req, res){
   				      tweets: [],
                 following: following_users,
                 followers: followed_by_user_data,
-                isFollowing: followers.isFollowing(req.session.username, username)});
+                isFollowing: followers.isFollowing(req.session.username, username),
+                wtf: util.getWhoToFollow(req.session.username)});
 };
 
 // ## GET /<username>/favorites page.<br>
@@ -116,5 +120,6 @@ exports.favorites = function(req, res){
   				      tweets: [],
                 following: following_users,
                 followers: followed_by_users,
-                isFollowing: followers.isFollowing(req.session.username, username)});
+                isFollowing: followers.isFollowing(req.session.username, username),
+                wtf: util.getWhoToFollow(req.session.username)});
 };

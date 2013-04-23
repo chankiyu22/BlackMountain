@@ -22,7 +22,8 @@ exports.groups = function(req, res){
 	util.initTweets(groupTweets);
   	res.render('groups', {user: user.getUser(req.session.username),
   						tweets: groupTweets,
-  						timeline_header: 'Group Mentions'});
+  						timeline_header: 'Group Mentions',
+  						wtf: util.getWhoToFollow(req.session.username)});
 };
 
 /*
@@ -33,7 +34,8 @@ exports.groups = function(req, res){
  */
 exports.create = function(req, res){
   	res.render('groups_create', {user: user.getUser(req.session.username),
-  						tweets: []});
+  						tweets: [],
+  						wtf: util.getWhoToFollow(req.session.username)});
 };
 
 /*
@@ -46,7 +48,8 @@ exports.create = function(req, res){
 exports.discover = function(req, res){
 	var theGroups = util.getInitializedGroups(req.session.username);
   	res.render('groups_discover', {user: user.getUser(req.session.username),
-  						groups: theGroups});
+  						groups: theGroups,
+  						wtf: util.getWhoToFollow(req.session.username)});
 };
 
 /*

@@ -19,7 +19,10 @@ var Signup = {
       {
         window.location = "/";
       }
-      $('#signup_error').html(result);
+      else
+      {
+        $('#signup_error').html(result);
+      }
     });
   },
 

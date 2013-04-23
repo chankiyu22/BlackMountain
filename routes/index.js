@@ -40,6 +40,7 @@ exports.index = function(req, res){
   					   tweets: tweet_array,
                last: 'Language: English',
                following: following_users,
-               followers: followed_by_users});
+               followers: followed_by_users,
+               wtf: util.getWhoToFollow(req.session.username)});
 };
 

@@ -10,7 +10,8 @@ exports.search = function(req, res){
 	util.initTweets(tweet_array);
   	res.render('search', {user: user.getUser(req.session.username),
   						tweets: tweet_array,
-  						timeline_header: 'Search Results For ' + searchstring});
+  						timeline_header: 'Search Results For ' + searchstring,
+  						wtf: util.getWhoToFollow(req.session.username)});
 };
 
 // ## GET /search/getModule?searchfor='string'<br>
