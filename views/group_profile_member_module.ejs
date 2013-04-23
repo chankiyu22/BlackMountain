@@ -5,11 +5,11 @@
     <ul id="members-list">
 	<% for(var i=members.length-1; i>=0; i--) {%>
 	  	<li>
-	  		<div>
+	  		<div class="separator">
 		   		<a href="/<%= members[i].username %>">
-		   			<div class="separator owner">
-		   				<%= members[i].fullname %><small> @<%= members[i].username %></small>
-		   			</div>
+			   		<div class="owner">
+			   			<%= members[i].fullname %><small> @<%= members[i].username %></small>
+			   		</div>
 		   		</a>
 		   	</div>
 	   	</li>

@@ -43,7 +43,8 @@ exports.profile = function(req, res, next){
                   num_tweets: tweets.getTweetCountByUser(username),
                   tweets: tweet_array,
                   following: following_users,
-                  followers: followed_by_users});
+                  followers: followed_by_users,
+                  isFollowing: followers.isFollowing(req.session.username, username)});
   }
 };
 
@@ -69,7 +70,8 @@ exports.following = function(req, res){
                	num_tweets: tweets.getTweetCountByUser(req.session.username),
   				      tweets: [],
                 following: following_user_data,
-                followers: followed_by_users});
+                followers: followed_by_users,
+                isFollowing: followers.isFollowing(req.session.username, username)});
 };
 
 // ## GET /<username>/followers page.<br>
@@ -93,8 +95,9 @@ exports.followers = function(req, res){
                 user: user.getUser(req.session.username),
                	num_tweets: tweets.getTweetCountByUser(req.session.username),
   				      tweets: [],
-               following: following_users,
-               followers: followed_by_user_data});
+                following: following_users,
+                followers: followed_by_user_data,
+                isFollowing: followers.isFollowing(req.session.username, username)});
 };
 
 // ## GET /<username>/favorites page.<br>
@@ -112,5 +115,6 @@ exports.favorites = function(req, res){
                	num_tweets: tweets.getTweetCountByUser(req.session.username),
   				      tweets: [],
                 following: following_users,
-                followers: followed_by_users});
+                followers: followed_by_users,
+                isFollowing: followers.isFollowing(req.session.username, username)});
 };

@@ -10,11 +10,11 @@
 			<td id="members_tab"><%= members.length %> Members</td>
 			</tr>
 		</table>
-		<div>
+		<div style="padding-top: 5px;">
 			<% if(isMember == false) {%>
-				<button id="join_button<%= group.id %>"type="button" onclick="Groups.join_group(<%= group.id %>, '<%= user.username %>')">Joined</button>
+				<button class="join_btn" id="join_button<%= group.id %>"type="button" onclick="Groups.join_group(<%= group.id %>, '<%= user.username %>')">Join</button>
 			<% } else { %>
-				<button id="join_button<%= group.id %>"type="button" disabled="true">Joined</button>
+				<button class="join_btn" id="join_button<%= group.id %>"type="button" disabled="true">Joined</button>
 			<% } %>
 		</div>
 	</div>

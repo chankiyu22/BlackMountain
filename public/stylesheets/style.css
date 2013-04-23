@@ -212,7 +212,7 @@ input[type="text"] {
 }
 
 .owner:hover {
-  color:blue;
+  color: #4169E1;
   text-decoration:underline;
 }
 
@@ -221,12 +221,12 @@ input[type="text"] {
 }
 
 .fullname:hover {
-  color:blue;
+  color: #4169E1;
   text-decoration:underline;
 }
 
 .mention {
-  color:blue;
+  color: #4169E1;
 }
 
 .mention:hover {
@@ -239,9 +239,14 @@ input[type="text"] {
 }
 
 .hashtag {
-  color:blue;
+  color: #4169E1;
 }
 
 .hashtag:hover {
   text-decoration:underline;
+}
+
+.join_btn {
+  border-radius: 15px;
+  font-size: 1.1em;
 }
