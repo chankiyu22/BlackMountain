@@ -2,12 +2,9 @@
 <html>
   <head>
     <title>Twitter</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <% include global_includes %>
     <link rel='stylesheet' href='/stylesheets/home.css' />
-    <script type="text/javascript" src="/javascript/jquery.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
     <script src="/javascript/tweets.js"></script>
-    <script type="text/javascript" src="/javascript/trends.js"></script>
   </head>
   <body onload="Tweets.initialize('<%= user.username %>', <%= num_tweets %>); Trends.initialize('<%= user.username %>');">
     <div id="doc">
@@ -18,7 +15,7 @@
           <% include who_to_follow_module %>
           <% include trends_module %>
         </div>
-        <div class="RHS">
+        <div id='RHS' class="RHS">
           <% include tweet_timeline %>
         </div>
       </div>

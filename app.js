@@ -75,6 +75,7 @@ app.get('/settings/profile', settings.profile);
 app.get('/settings/account', settings.account);
 app.get('/settings/password', settings.password);
 app.get('/search', search.search);
+app.get('/search/getModule', search.getModule);
 
 var server = http.createServer(app);
 

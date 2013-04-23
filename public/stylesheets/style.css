@@ -104,11 +104,21 @@ input[type="text"] {
 .topbar_contents {
   margin: auto;
   width: 900px;
-  padding-top: 10px;
 }
 
 .align-right {
    float:right;
+}
+
+.topbar-right {
+   float:right;
+   padding-top: 10px;
+}
+
+.topbar-left {
+   float:left;
+   width: 50%;
+   padding-top: 10px;
 }
 
 .topbar-button {
@@ -117,10 +127,20 @@ input[type="text"] {
   padding: 3px;
   color: #C0C0C0;
   font-weight: bold;
+  padding-top: 10px;
 }
 
 .searchbar {
-  width: 150px;
+  width: 100px;
+}
+
+.searchinput {
+  font-size: 1.2em;
+  height: 20px; 
+  border-radius: 15px;
+  padding: 5px;
+  margin-top: 8px;
+  padding-right: 20px;
 }
 
 .who-to-follow {
@@ -216,4 +236,12 @@ input[type="text"] {
 .join_group {
   float: right; 
   margin: auto;
+}
+
+.hashtag {
+  color:blue;
+}
+
+.hashtag:hover {
+  text-decoration:underline;
 }

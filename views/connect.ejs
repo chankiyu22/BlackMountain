@@ -2,12 +2,9 @@
 <html>
   <head>
     <title>Twitter / Interactions</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <% include global_includes %>
     <link rel='stylesheet' href='/stylesheets/connect.css' />
-    <script type="text/javascript" src="/javascript/jquery.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
     <script src="/javascript/connect.js"></script>
-    <script type="text/javascript" src="/javascript/trends.js"></script>
   </head>
   <body onload="Connect.initialize('<%= user.username %>'); Trends.initialize('<%= user.username %>');">
     <div id="doc">
@@ -20,7 +17,7 @@
           <% include who_to_follow_module %>
           <% include trends_module %>
         </div>
-        <div class="RHS">
+        <div id='RHS' class="RHS">
           <% include interactions_timeline %>
         </div>
       </div>
