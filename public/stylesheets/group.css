@@ -11,14 +11,6 @@ table {
 	padding: 5px;
 }
 
-.result_success {
-	color: green;
-}
-
-.result_fail {
-	color: red;
-}
-
 .profile-card {
 	width: auto;
 	height: auto;

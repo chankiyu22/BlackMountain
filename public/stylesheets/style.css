@@ -250,3 +250,11 @@ input[type="text"] {
   border-radius: 15px;
   font-size: 1.1em;
 }
+
+.result_success {
+  color: green;
+}
+
+.result_fail {
+  color: red;
+}
