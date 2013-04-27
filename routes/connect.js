@@ -14,7 +14,8 @@ exports.connect = function(req, res){
   var theuser = user.getUser(req.session.username);
   var interactions = util.getInteractions(theuser.username);
   res.render('connect', {user: theuser,
-  						  interactions: interactions});
+  						  interactions: interactions,
+                wtf: util.getWhoToFollow(req.session.username)});
 };
 
 /*
@@ -31,5 +32,6 @@ exports.mentions = function(req, res){
   util.initTweets(tweet_array);
   res.render('mentions', {user: theuser,
   						  tweets: tweet_array,
-  						  timeline_header: "Mentions"});
+  						  timeline_header: "Mentions",
+                wtf: util.getWhoToFollow(req.session.username)});
 };

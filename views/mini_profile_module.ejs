@@ -4,7 +4,7 @@
 	        <div class="fullname">
 	          <%= user.fullname %><small> @<%= user.username %></small>
 	        </div>
-	        <small>
+	        <small class="mention">
 	          Visit my profile page
 	        </small>
       	</a>
@@ -12,7 +12,7 @@
     <div class="account-stats">
     	<table border="1" cellspacing=0>
 			<tr>
-			<td><%= num_tweets %> tweets</td>
+			<td id="curr_tweet_count"><%= num_tweets %> tweets</td>
 			<td><%= following.length %> following</td>
 			<td><%= followers.length %> followers</td>
 			</tr>

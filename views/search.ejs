@@ -2,11 +2,11 @@
 <html>
   <head>
     <title>Twitter / Search</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <% include global_includes %>
     <link rel='stylesheet' href='/stylesheets/profile.css' />
-    <script type="text/javascript" src="/javascript/jquery.js"></script>
+    <script src="/javascript/search.js"></script>
   </head>
-  <body>
+  <body onload="Trends.initialize('<%= user.username %>');">
     <div id="doc">
       <div>
         <% include topbar %>
@@ -16,7 +16,7 @@
           <% include who_to_follow_module %>
           <% include trends_module %>
         </div>
-        <div class="RHS">
+        <div id='RHS' class="RHS">
           <% include tweet_timeline %>
         </div>
       </div>

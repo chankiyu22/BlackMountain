@@ -1,5 +1,6 @@
 var tweets = require('../lib/tweets');
 var user = require('../lib/user');
+var hashtags = require('../lib/hashtags');
 var followers = require('../lib/followers');
 var util = require('../lib/util');
 
@@ -39,6 +40,7 @@ exports.index = function(req, res){
   					   tweets: tweet_array,
                last: 'Language: English',
                following: following_users,
-               followers: followed_by_users});
+               followers: followed_by_users,
+               wtf: util.getWhoToFollow(req.session.username)});
 };
 

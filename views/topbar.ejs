@@ -1,19 +1,17 @@
 <div class="topbar">
 	<div class="topbar_contents">
-		<a href="/"><span class="topbar-button">Home</span></a>
-		<a href="/connect"><span class="topbar-button">Connect</span></a>
-		<a href="/discover"><span class="topbar-button">Discover</span></a>
-		<a href="/<%= user.username %>"><span class="topbar-button">Me</span></a>
-		<a href="/groups"><span class="topbar-button">Groups</span></a>
-		<span class="align-right">
-			<form action="/search" method="GET">
-				<span class="searchbar">
-					<input type="text" style="width: 150px; " name="searchfor" placeholder="Search"></input>
-					<input type="submit" value="Search"></input>
-				</span>
-				<a href="/settings/profile" class=""><span class="topbar-button">Settings</span></a>
-				<a href="/logout" class=""><span class="topbar-button">Sign out</span></a>
+		<div class="topbar-left">
+			<a href="/"><span class="topbar-button">Home</span></a>
+			<a href="/connect"><span class="topbar-button">Connect</span></a>
+			<!--<a href="/discover"><span class="topbar-button">Discover</span></a>-->
+			<a href="/<%= user.username %>"><span class="topbar-button">Me</span></a>
+			<a href="/groups"><span class="topbar-button">Groups</span></a>
+		</div>
+		<input type="text" class="searchinput" id="searchfor" placeholder="Search" autocomplete="off" oninput="Search.onSearchTextInput();"></input>
+		<div class="topbar-right">
+			<!--<a href="/settings/profile" class=""><span class="topbar-button">Settings</span></a>-->
+			<a href="/logout" class=""><span class="topbar-button">Sign out</span></a>
 			</form>
-		</span>
+		</div>
 	</div>
 </div>

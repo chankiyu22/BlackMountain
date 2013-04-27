@@ -74,10 +74,10 @@ var Groups = {
 			if (result == 'success')
 			{
 				that.num_members = that.num_members + 1;
-				$('#members_tab').html(that.num_members + ' members');
-				var members_html = '<li><div>' +
+				$('#members_tab').html(that.num_members + ' Members');
+				var members_html = '<li><div class="separator">' +
 			   		'<a href="/' + username + '">' +
-			   			'<div class="separator owner">' +
+			   			'<div class="owner">' +
 			   				that.fullname +
 			   				'<small> @' + username + '</small>' +
 			   			'</div>' +

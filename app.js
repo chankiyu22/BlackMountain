@@ -12,6 +12,7 @@ var express = require('express')
   , profile = require('./routes/profile')
   , settings = require('./routes/settings')
   , signup = require('./routes/signup')
+  , trends = require('./routes/trends')
   , user = require('./routes/user')
   , tweets = require('./routes/tweets')
   , search = require('./routes/search')
@@ -54,6 +55,7 @@ app.post('/login/captcha', login.captcha);
 app.get('/signup', signup.index);
 app.post('/signup', signup.index);
 app.post('/signup/addUser', signup.createUser);
+app.post('/signup/checkUsername', signup.checkUsername);
 app.post('/follow', user.follow);
 app.post('/publish_tweet', tweets.publish_tweet);
 app.get('/connect', connect.connect);
@@ -69,10 +71,12 @@ app.get('/:username', profile.profile);
 app.get('/:username/following', profile.following);
 app.get('/:username/followers', profile.followers);
 app.get('/:username/favorites', profile.favorites);
+app.get('/trends', trends.get_trends);
 app.get('/settings/profile', settings.profile);
 app.get('/settings/account', settings.account);
 app.get('/settings/password', settings.password);
 app.get('/search', search.search);
+app.get('/search/getModule', search.getModule);
 
 var server = http.createServer(app);
 

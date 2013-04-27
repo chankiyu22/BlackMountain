@@ -2,12 +2,10 @@
 <html>
   <head>
     <title>Twitter / Groups</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script type="text/javascript" src="/javascript/jquery.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
+    <% include global_includes %>
     <script src="/javascript/groups.js"></script>
   </head>
-  <body onload="Groups.initialize(0, '<%= user.fullname %>', '<%= user.username %>');">
+  <body onload="Groups.initialize(0, '<%= user.fullname %>', '<%= user.username %>'); Trends.initialize('<%= user.username %>');">
     <div id="doc">
       <div>
         <% include topbar %>
@@ -18,7 +16,7 @@
           <% include who_to_follow_module %>
           <% include trends_module %>
         </div>
-        <div class="RHS">
+        <div id='RHS' class="RHS">
           <% include tweet_timeline %>
         </div>
       </div>

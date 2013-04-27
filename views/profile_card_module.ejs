@@ -12,8 +12,12 @@
 			<td id="followers_tab"><%= followers.length %> followers</td>
 			</tr>
 		</table>
-		<div>
-			<input id="follow_btn" onclick="Profile.follow_user('<%= user.username %>', '<%= profile.username %>');" type="submit" value="Follow" />
+		<div style="padding-top: 5px;">
+		<% if(!isFollowing) { %>
+			<input class="join_btn" id="follow_btn" onclick="Profile.follow_user('<%= user.username %>', '<%= profile.username %>');" type="submit" value="Follow" />
+		<% } else { %>
+			<input class="join_btn" id="follow_btn" type="submit" value="Followed" disabled />
+		<% } %>
 		</div>
 	</div>
 </div>

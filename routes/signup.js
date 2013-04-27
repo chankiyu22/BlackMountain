@@ -50,3 +50,16 @@ exports.createUser = function(req, res) {
   });
   //res.send('success');
 }
+
+//  ## POST /signup/checkUsername <br>
+// Checks if a username is available
+exports.checkUsername = function(req, res){
+  if (users.getUser(req.body.username) == undefined)
+  {
+    res.send('Available');
+  }
+  else
+  {
+    res.send('Unavailable')
+  }
+};
