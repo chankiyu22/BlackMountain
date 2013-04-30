@@ -29,11 +29,12 @@ exports.connect = function(req, res){
  */
 exports.mentions = function(req, res){
   user.getUser(req.session.username, function(err, theuser) {
-    var tweet_array = tweets.getTweetsThatMention(theuser.username);
-    util.initTweets(tweet_array);
-    res.render('mentions', {user: theuser,
-    						  tweets: tweet_array,
-    						  timeline_header: "Mentions",
+    var tweet_array = tweets.getTweetsThatMention(theuser.username, function(err, tweet_array) {
+      util.initTweets(tweet_array);
+      res.render('mentions', {user: theuser,
+                  tweets: tweet_array,
+                  timeline_header: "Mentions",
                   wtf: util.getWhoToFollow(req.session.username)});
+    });
   });
 };

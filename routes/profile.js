@@ -37,19 +37,23 @@ exports.profile = function(req, res, next){
     else
     {
       var tweet_array = undefined;
-      tweet_array = tweets.getTweetsByUser(username, -1);
-      util.initTweets(tweet_array);
-      var following_users = followers.getFollowedUsers(username);
-      var followed_by_users = followers.getUsersFollowing(username);
-      user.getUser(req.session.username, function(err, userdata) {
-        res.render('profile', {profile: profile,
-                    user: userdata,
-                    num_tweets: tweets.getTweetCountByUser(username),
-                    tweets: tweet_array,
-                    following: following_users,
-                    followers: followed_by_users,
-                    isFollowing: followers.isFollowing(req.session.username, username),
-                    wtf: util.getWhoToFollow(req.session.username)});
+      tweets.getTweetsByUser(username, -1, function(err, tweet_array) {
+        tweets.getTweetCountByUser(username, function(err, num_tweets) {
+          console.log(tweet_array);
+          util.initTweets(tweet_array);
+          var following_users = followers.getFollowedUsers(username);
+          var followed_by_users = followers.getUsersFollowing(username);
+          user.getUser(req.session.username, function(err, userdata) {
+          res.render('profile', {profile: profile,
+                        user: userdata,
+                        num_tweets: num_tweets.count,
+                        tweets: tweet_array,
+                        following: following_users,
+                        followers: followed_by_users,
+                        isFollowing: followers.isFollowing(req.session.username, username),
+                        wtf: util.getWhoToFollow(req.session.username)});
+          });
+        });
       });
     }
   });
@@ -71,18 +75,20 @@ exports.following = function(req, res){
   for (var i=0; i<following_users.length; i++)
   {
     //following_user_data.push(user.getUser(following_users[i]));
-    following_user_data.push({username: 'test', fullname: 'tmp'});
+    following_user_data.push({username: following_users[i], fullname: 'tmp'});
   }
   user.getUser(username, function(err, profile) {
     user.getUser(req.session.username, function(err, userdata) {
-      res.render('following', {profile: profile,
-                user: userdata,
-               	num_tweets: tweets.getTweetCountByUser(req.session.username),
-  				      tweets: [],
-                following: following_user_data,
-                followers: followed_by_users,
-                isFollowing: followers.isFollowing(req.session.username, username),
-                wtf: util.getWhoToFollow(req.session.username)});
+      tweets.getTweetCountByUser(username, function(err, num_tweets) {
+        res.render('following', {profile: profile,
+                  user: userdata,
+                 	num_tweets: num_tweets.count,
+    				      tweets: [],
+                  following: following_user_data,
+                  followers: followed_by_users,
+                  isFollowing: followers.isFollowing(req.session.username, username),
+                  wtf: util.getWhoToFollow(req.session.username)});
+      });
     });
   });
 };
@@ -103,18 +109,20 @@ exports.followers = function(req, res){
   for (var i=0; i<followed_by_users.length; i++)
   {
     //followed_by_user_data.push(user.getUser(followed_by_users[i]));
-    followed_by_user_data.push({username: 'test', fullname: 'tmp'});
+    followed_by_user_data.push({username: followed_by_users[i], fullname: 'tmp'});
   }
   user.getUser(username, function(err, profile) {
     user.getUser(req.session.username, function(err, userdata) {
-      res.render('followers', {profile: profile,
+      tweets.getTweetCountByUser(username, function(err, num_tweets) {
+        res.render('followers', {profile: profile,
                 user: userdata,
-               	num_tweets: tweets.getTweetCountByUser(req.session.username),
+               	num_tweets: num_tweets.count,
   				      tweets: [],
                 following: following_users,
                 followers: followed_by_user_data,
                 isFollowing: followers.isFollowing(req.session.username, username),
                 wtf: util.getWhoToFollow(req.session.username)});
+      });
     });
   });
 };
@@ -130,14 +138,16 @@ exports.favorites = function(req, res){
   var followed_by_users = followers.getUsersFollowing(username);
   user.getUser(username, function(err, profile) {
     user.getUser(req.session.username, function(err, userdata) {
-      res.render('favorites', {profile: profile,
+      tweets.getTweetCountByUser(username, function(err, num_tweets) {
+        res.render('favorites', {profile: profile,
                 user: userdata,
-               	num_tweets: tweets.getTweetCountByUser(req.session.username),
+               	num_tweets: num_tweets.count,
   				      tweets: [],
                 following: following_users,
                 followers: followed_by_users,
                 isFollowing: followers.isFollowing(req.session.username, username),
                 wtf: util.getWhoToFollow(req.session.username)});
+      });
     });
   });
 };

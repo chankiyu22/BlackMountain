@@ -7,12 +7,12 @@
     	<% } %>
     </div>
     <ul id="tweet-list">
-	<% for(var i=tweets.length-1; i>=0; i--) {%>
+	<% for(var i=0; i<tweets.length; i++) {%>
 	  	<li>
 	  		<div class="tweet">
 		   		<a href="/<%= tweets[i].owner %>">
 		   			<div class="owner">
-		   				<%= tweets[i].userdata.fullname %><small> @<%= tweets[i].owner %></small>
+		   				<%= tweets[i].fullname %><small> @<%= tweets[i].owner %></small>
 		   			</div>
 		   		</a>
 		   		<%- tweets[i].html %>

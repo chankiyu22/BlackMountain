@@ -6,13 +6,21 @@ var util = require('../lib/util');
 // Gets search page containing all the tweets containing the searchfor string
 exports.search = function(req, res){
 	var searchstring = req.query.searchfor;
-	var tweet_array = tweets.getTweetsContaining(searchstring);
-	util.initTweets(tweet_array);
-  user.getUser(req.session.username, function(err, userdata) {
-    res.render('search', {user: userdata,
-              tweets: tweet_array,
-              timeline_header: 'Search Results For ' + searchstring,
-              wtf: util.getWhoToFollow(req.session.username)});
+	tweets.getTweetsContaining(searchstring, function(err, tweet_array) {
+    if (tweet_array) 
+    {
+      util.initTweets(tweet_array);
+    }
+    else
+    {
+      tweet_array = [];
+    }
+    user.getUser(req.session.username, function(err, userdata) {
+      res.render('search', {user: userdata,
+                tweets: tweet_array,
+                timeline_header: 'Search Results For ' + searchstring,
+                wtf: util.getWhoToFollow(req.session.username)});
+    });
   });
 };
 
@@ -20,11 +28,20 @@ exports.search = function(req, res){
 // Gets the timeline for all the tweets containing the searchfor string
 exports.getModule = function(req, res){
 	var searchstring = req.query.searchfor;
-	var tweet_array = tweets.getTweetsContaining(searchstring);
-	util.initTweets(tweet_array);
-  user.getUser(req.session.username, function(err, userdata) {
-  	res.render('tweet_timeline', {user: userdata,
-  						tweets: tweet_array,
-  						timeline_header: 'Search Results For ' + searchstring});
+	tweets.getTweetsContaining(searchstring, function(err, tweet_array) {
+    console.log(tweet_array);
+  	if (tweet_array) 
+    {
+      util.initTweets(tweet_array);
+    }
+    else
+    {
+      tweet_array = [];
+    }
+    user.getUser(req.session.username, function(err, userdata) {
+    	res.render('tweet_timeline', {user: userdata,
+    						tweets: tweet_array,
+    						timeline_header: 'Search Results For ' + searchstring});
+    });
   });
 };
