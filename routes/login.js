@@ -29,12 +29,7 @@ exports.verify = function(req, res){
     }
     else
     {
-      if (error === 'captcha'){
-        res.redirect('/login/captcha?username_or_email=' + username);
-      }
-      else if (error === 'error') {
-        res.redirect('/login/error?username_or_email=' + username);
-      }
+      res.redirect('/login/captcha?username_or_email=' + username);
     }
   });
 };

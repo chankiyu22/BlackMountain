@@ -20,10 +20,12 @@ exports.groups = function(req, res){
 		groupTweets = groupTweets.concat(tweets.getTweetsThatMention(myGroups[i].username));
 	}
 	util.initTweets(groupTweets);
-  	res.render('groups', {user: user.getUser(req.session.username),
+	user.getUser(req.session.username, function(err, userdata) {
+		res.render('groups', {user: userdata,
   						tweets: groupTweets,
   						timeline_header: 'Group Mentions',
   						wtf: util.getWhoToFollow(req.session.username)});
+	});
 };
 
 /*
@@ -33,9 +35,11 @@ exports.groups = function(req, res){
  * #### Render
  */
 exports.create = function(req, res){
-  	res.render('groups_create', {user: user.getUser(req.session.username),
+	user.getUser(req.session.username, function(err, userdata) {
+  		res.render('groups_create', {user: userdata,
   						tweets: [],
   						wtf: util.getWhoToFollow(req.session.username)});
+  	});
 };
 
 /*
@@ -46,10 +50,12 @@ exports.create = function(req, res){
  * 1. All groups
  */
 exports.discover = function(req, res){
-	var theGroups = util.getInitializedGroups(req.session.username);
-  	res.render('groups_discover', {user: user.getUser(req.session.username),
-  						groups: theGroups,
-  						wtf: util.getWhoToFollow(req.session.username)});
+	user.getUser(req.session.username, function(err, userdata) {
+		var theGroups = util.getInitializedGroups(req.session.username);
+	  	res.render('groups_discover', {user: userdata,
+	  						groups: theGroups,
+	  						wtf: util.getWhoToFollow(req.session.username)});
+  });
 };
 
 /*
@@ -73,7 +79,7 @@ exports.join = function(req, res){
  */
 exports.register = function(req, res){
 	user.registerGroup(req.body.fullname, req.body.username, function(error, userobj) {
-		if (userobj !== undefined)
+		if (userobj)
 		{
 			group.addGroup(req.body.username);
 			res.send("success");

@@ -26,10 +26,10 @@ exports.createUser = function(req, res) {
 
   console.log("signup " + username + " " + pwd);
   users.signup(fullname, email, username, pwd, function(error, userobj){
+    console.log(userobj);
     // If all info is present, signup is successful and redirects to '/'
-    if (error == undefined)
+    if (userobj)
     {
-
       req.session.fullname = userobj.fullname;
       req.session.email    = userobj.email;
       req.session.username = userobj.username;
@@ -54,12 +54,14 @@ exports.createUser = function(req, res) {
 //  ## POST /signup/checkUsername <br>
 // Checks if a username is available
 exports.checkUsername = function(req, res){
-  if (users.getUser(req.body.username) == undefined)
-  {
-    res.send('Available');
-  }
-  else
-  {
-    res.send('Unavailable')
-  }
+  users.getUser(req.body.username, function(err, userdata){
+    if (userdata == undefined)
+    {
+      res.send('Available');
+    }
+    else
+    {
+      res.send('Unavailable')
+    }
+  });
 };

@@ -8,10 +8,12 @@ exports.search = function(req, res){
 	var searchstring = req.query.searchfor;
 	var tweet_array = tweets.getTweetsContaining(searchstring);
 	util.initTweets(tweet_array);
-  	res.render('search', {user: user.getUser(req.session.username),
-  						tweets: tweet_array,
-  						timeline_header: 'Search Results For ' + searchstring,
-  						wtf: util.getWhoToFollow(req.session.username)});
+  user.getUser(req.session.username, function(err, userdata) {
+    res.render('search', {user: userdata,
+              tweets: tweet_array,
+              timeline_header: 'Search Results For ' + searchstring,
+              wtf: util.getWhoToFollow(req.session.username)});
+  });
 };
 
 // ## GET /search/getModule?searchfor='string'<br>
@@ -20,7 +22,9 @@ exports.getModule = function(req, res){
 	var searchstring = req.query.searchfor;
 	var tweet_array = tweets.getTweetsContaining(searchstring);
 	util.initTweets(tweet_array);
-  	res.render('tweet_timeline', {user: user.getUser(req.session.username),
+  user.getUser(req.session.username, function(err, userdata) {
+  	res.render('tweet_timeline', {user: userdata,
   						tweets: tweet_array,
   						timeline_header: 'Search Results For ' + searchstring});
+  });
 };

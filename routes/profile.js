@@ -15,39 +15,44 @@ var groups = require('../lib/groups');
  // followed_by_users = users followed by username<br>
 exports.profile = function(req, res, next){
   var username = req.param('username');
-  var profile = user.getUser(username);
-  if (profile == undefined)
-  {
-    next();
-  }
- // If theuser is a member of a group, finds group info
-  else if (profile.isgroup)
-  {
-    var group = groups.getGroupByName(username);
-    res.render('group_profile', {profile: profile,
-                                  user: user.getUser(req.session.username),
-                                  group: group,
-                                  isMember: groups.isMember(group.id, req.session.username),
-                                  session: req.session,
-                                  members: groups.getMembersForGroup(group.id),
-                                  wtf: util.getWhoToFollow(req.session.username)});
-  }
-  else
-  {
-    var tweet_array = undefined;
-    tweet_array = tweets.getTweetsByUser(username, -1);
-    util.initTweets(tweet_array);
-    var following_users = followers.getFollowedUsers(username);
-    var followed_by_users = followers.getUsersFollowing(username);
-    res.render('profile', {profile: profile,
-                  user: user.getUser(req.session.username),
-                  num_tweets: tweets.getTweetCountByUser(username),
-                  tweets: tweet_array,
-                  following: following_users,
-                  followers: followed_by_users,
-                  isFollowing: followers.isFollowing(req.session.username, username),
-                  wtf: util.getWhoToFollow(req.session.username)});
-  }
+  user.getUser(username, function(err, profile) {
+    if (profile == undefined)
+    {
+      next();
+    }
+   // If theuser is a member of a group, finds group info
+    else if (profile.isgroup)
+    {
+      var group = groups.getGroupByName(username);
+      user.getUser(req.session.username, function(err, userdata) {
+          res.render('group_profile', {profile: profile,
+                            user: userdata,
+                            group: group,
+                            isMember: groups.isMember(group.id, req.session.username),
+                            session: req.session,
+                            members: groups.getMembersForGroup(group.id),
+                            wtf: util.getWhoToFollow(req.session.username)});
+      });
+    }
+    else
+    {
+      var tweet_array = undefined;
+      tweet_array = tweets.getTweetsByUser(username, -1);
+      util.initTweets(tweet_array);
+      var following_users = followers.getFollowedUsers(username);
+      var followed_by_users = followers.getUsersFollowing(username);
+      user.getUser(req.session.username, function(err, userdata) {
+        res.render('profile', {profile: profile,
+                    user: userdata,
+                    num_tweets: tweets.getTweetCountByUser(username),
+                    tweets: tweet_array,
+                    following: following_users,
+                    followers: followed_by_users,
+                    isFollowing: followers.isFollowing(req.session.username, username),
+                    wtf: util.getWhoToFollow(req.session.username)});
+      });
+    }
+  });
 };
 
 // ## GET /<username>/following page.<br>
@@ -65,16 +70,21 @@ exports.following = function(req, res){
 // Finds all users that username is following<br>
   for (var i=0; i<following_users.length; i++)
   {
-    following_user_data.push(user.getUser(following_users[i]));
+    //following_user_data.push(user.getUser(following_users[i]));
+    following_user_data.push({username: 'test', fullname: 'tmp'});
   }
-  res.render('following', {profile: user.getUser(username),
-                user: user.getUser(req.session.username),
+  user.getUser(username, function(err, profile) {
+    user.getUser(req.session.username, function(err, userdata) {
+      res.render('following', {profile: profile,
+                user: userdata,
                	num_tweets: tweets.getTweetCountByUser(req.session.username),
   				      tweets: [],
                 following: following_user_data,
                 followers: followed_by_users,
                 isFollowing: followers.isFollowing(req.session.username, username),
                 wtf: util.getWhoToFollow(req.session.username)});
+    });
+  });
 };
 
 // ## GET /<username>/followers page.<br>
@@ -92,16 +102,21 @@ exports.followers = function(req, res){
 // Finds all users followed by username
   for (var i=0; i<followed_by_users.length; i++)
   {
-    followed_by_user_data.push(user.getUser(followed_by_users[i]));
+    //followed_by_user_data.push(user.getUser(followed_by_users[i]));
+    followed_by_user_data.push({username: 'test', fullname: 'tmp'});
   }
-  res.render('followers', {profile: user.getUser(username),
-                user: user.getUser(req.session.username),
+  user.getUser(username, function(err, profile) {
+    user.getUser(req.session.username, function(err, userdata) {
+      res.render('followers', {profile: profile,
+                user: userdata,
                	num_tweets: tweets.getTweetCountByUser(req.session.username),
   				      tweets: [],
                 following: following_users,
                 followers: followed_by_user_data,
                 isFollowing: followers.isFollowing(req.session.username, username),
                 wtf: util.getWhoToFollow(req.session.username)});
+    });
+  });
 };
 
 // ## GET /<username>/favorites page.<br>
@@ -113,13 +128,16 @@ exports.favorites = function(req, res){
   var username = req.param('username');
   var following_users = followers.getFollowedUsers(username);
   var followed_by_users = followers.getUsersFollowing(username);
-
-  res.render('favorites', {profile: user.getUser(username),
-                user: user.getUser(req.session.username),
+  user.getUser(username, function(err, profile) {
+    user.getUser(req.session.username, function(err, userdata) {
+      res.render('favorites', {profile: profile,
+                user: userdata,
                	num_tweets: tweets.getTweetCountByUser(req.session.username),
   				      tweets: [],
                 following: following_users,
                 followers: followed_by_users,
                 isFollowing: followers.isFollowing(req.session.username, username),
                 wtf: util.getWhoToFollow(req.session.username)});
+    });
+  });
 };
