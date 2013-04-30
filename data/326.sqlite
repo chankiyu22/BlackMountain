@@ -1,116 +1,125 @@
-drop table if exists userdb;
-drop table if exists tweetdb;
-drop table if exists groupdb;
-drop table if exists groupmemberdb;
-drop table if exists followerdb;
-drop table if exists hashtagdb;
+drop table if exists users;
+drop table if exists tweets;
+drop table if exists groups;
+drop table if exists groupmembers;
+drop table if exists followers;
+drop table if exists hashtags;
 
-create table userdb (
-	fullname varchar(50) not null,
-	email varchar(80),
-	username varchar(50) not null,
-	password varchar(12),
-	isgroup int
+create table users (
+	id INTEGER PRIMARY KEY,
+	fullname VARCHAR(50) NOT NULL,
+	email VARCHAR(80),
+	username VARCHAR(50) NOT NULL UNIQUE,
+	password VARCHAR(50),
+	isgroup INTEGER 
 );
 
-create table tweetdb(
-	owner varchar(50) not null,
-	message varchar(140) not null,
-	date date
+
+create table tweets(
+	id INTEGER PRIMARY KEY,
+	owner_id INTEGER NOT NULL,
+	message VARCHAR(140) NOT NULL,
+	date DATE DEFAULT(CURRENT_TIMESTAMP)
 );
 
-create table groupdb(
-	id integer autoincrement,
-	username varchar(50)
+create table groups(
+	id INTEGER PRIMARY KEY,
+	username VARCHAR(50) NOT NULL
 );
 
-create table groupmemberdb(
-	group_id integer,
-	username varchar(50)
+create table groupmembers(
+	group_id INTEGER NOT NULL,
+	user_id INTEGER NOT NULL
 );
 
-create table followerdb(
-	follower varchar(50),
-	following varchar(50)
+create table followers(
+	follower_id INTEGER NOT NULL,
+	following_id INTEGER NOT NULL
 );
 
-create table hashtagdb(
-	message varchar(20),
-	freq integer,
-	timestamp date
+create table hashtags(
+	message VARCHAR(20) NOT NULL UNIQUE,
+	freq INTEGER NOT NULL
 );
 
-insert into userdb values
+insert into users (fullname, email, username, password, isgroup) values
 	('MC Testington', 'tester@umass.com', 'test', '123', 0),
   	('Bill Crane', 'wcrane@student.umass.edu', 'argo15', 'billz', 0),
   	('Steve Jobs', 'sjobs@apple.com', 'sjobs', 'abc', 0),
   	('John Smith', 'imjsmith@gmail.com', 'jsmith', 'password', 0),
   	('Jane Stevens', 'jane142@hotmail.com', 'jstevens', 'abc123', 0),
-  	('Bill Nye', 'bn@science.com', 'scienceguy', 'science' 0),
+  	('Bill Nye', 'bn@science.com', 'scienceguy', 'science', 0),
   	('Stacy McStace', 'staceysemail@yahoo.com', 'staceym', '2468', 0),
   	('Anonymous', 'unknown@mystery.com', 'anonymous', 'unknown', 0),
-  	('Matt Michaels', 'matt24@gmail.com', 'mattm', '1991' 0),
+  	('Matt Michaels', 'matt24@gmail.com', 'mattm', '1991', 0),
   	('Tweeters', '', 'Tweeters', '', 1),
   	('Umass Computer Science', '', 'UmassCS', '', 1),
   	('Programmers', '', 'Programmers', '', 1),
   	('Testers', '', 'Testers', '', 1),
   	('Awesome Group', '', 'AwesomeGroup', '', 1),
-  	('Bill\'s Group', '', 'bill', '', 1),
+  	("Bill's Group", '', 'bill', '', 1),
   	('Student Group', '', 'Students', '', 1),
   	('Working Class', '', 'Workers', '', 1);
 
-insert into tweetdb values
-	('test', '@argo15 This is a #test #tweet. @Tweeters', date()),
-	('test', '@UmassCS Cruel Owner Chains Bike Outside In Freezing Weather http://onion.com/XYjzYY', date()),
-	('test', '@Testers This is a #test of your emergency tweetcast system @sjobs', date()),
-	('argo15', '@Programmers I\'m #bill @test', date()),
-	('argo15', 'Tweeting @sjobs is fun @Tweeters', date()),
-	('sjobs', '@Programmers I\'m not dead @argo15', date()),
-	('sjobs', '@test Boo @UmassCS', date()),
-	('jstevens', 'Tweeting is fun! @AwesomeGroup', date()),
-	('jsmith', 'ripped the tag off my mattress #thuglife', date()),
-	('anonymous', 'Test for the @Testers find out who I am', date()),
-	('anonymous', 'I\'m a #mystery', date()),
-	('mattm', 'My first #tweet !', date()),
-	('staceym', '@Students who wants to study', date()),
-	('scienceguy', 'Doin a study for @Testers', date());
+insert into tweets (owner_id, message) values
+	(1, '@argo15 This is a #test #tweet. @Tweeters'),
+	(1, '@UmassCS Cruel Owner Chains Bike Outside In Freezing Weather http://onion.com/XYjzYY'),
+	(1, '@Testers This is a #test of your emergency tweetcast system @sjobs'),
+	(2, "@Programmers I'm #bill @test"),
+	(2, 'Tweeting @sjobs is fun @Tweeters'),
+	(3, "@Programmers I'm not dead @argo15"),
+	(3, '@test Boo @UmassCS'),
+	(5, 'Tweeting is fun! @AwesomeGroup'),
+	(4, 'ripped the tag off my mattress #thuglife'),
+	(8, 'Test for the @Testers find out who I am'),
+	(8, "I'm a #mystery"),
+	(9, 'My first #tweet !'),
+	(7, '@Students who wants to study'),
+	(8, 'Doin a study for @Testers');
 
-insert into groupdb values
-	(0, 'Tweeters'),
-	(1, 'UmassCS'),
-	(2, 'Programmers'),
-	(3, 'Testers'),
-	(4, 'bill'),
-	(5, 'AwesomeGroup'),
-	(6, 'Students'),
-	(7, 'Workers');
+insert into groups (username) values
+	('Tweeters'),
+	('UmassCS'),
+	('Programmers'),
+	('Testers'),
+	('bill'),
+	('AwesomeGroup'),
+	('Students'),
+	('Workers');
 
-insert into groupmemberdb values
-	(0, 'test'),
-	(0, 'sjobs'),
-	(0, 'argo15'),
-	(1, 'test'),
-	(1, 'argo15'),
-	(2, 'argo15'),
-	(2, 'sjobs'),
-	(3, 'test'),
-	(3, 'sjobs'),
-	(5, 'jsmith'),
-	(5, 'jstevens'),
-	(6, 'argo15'),
-	(6, 'staceym'),
-	(7, 'scienceguy'),
-	(7, 'sjobs');
+insert into groupmembers values
+	(1, 1),
+	(1, 2),
+	(1, 3),
+	(2, 1),
+	(2, 2),
+	(3, 2),
+	(3, 3),
+	(4, 1),
+	(4, 3),
+	(5, 4),
+	(5, 5),
+	(6, 2),
+	(6, 5),
+	(7, 6),
+	(7, 3);
 
-insert into followerdb values
-	('test', 'argo15'),
-	('test', 'sjobs'),
-	('test', 'staceym'),
-	('sjobs', 'test'),
-	('argo15', 'sjobs'),
-	('argo15', 'scienceguy'),
-	('jstevens', 'jsmith'),
-	('jsmith', 'anonymous'),
-	('jsmith', 'mattm'),
-	('scienceguy', 'sjobs'),
-	('sjobs', 'scienceguy');
+insert into followers values
+	(1, 2),
+	(1, 3),
+	(1, 7),
+	(3, 1),
+	(2, 3),
+	(2, 6),
+	(5, 4),
+	(4, 8),
+	(4, 9),
+	(6, 3),
+	(3, 6);
+
+insert into hashtags values
+	('#test', 2),
+	('#tweet', 2),
+	('#bill', 1),
+	('#thuglife', 1),
+	('#mystery', 1);
