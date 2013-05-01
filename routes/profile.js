@@ -41,17 +41,21 @@ exports.profile = function(req, res, next){
         tweets.getTweetCountByUser(username, function(err, num_tweets) {
           console.log(tweet_array);
           util.initTweets(tweet_array);
-          var following_users = followers.getFollowedUsers(username);
-          var followed_by_users = followers.getUsersFollowing(username);
-          user.getUser(req.session.username, function(err, userdata) {
-          res.render('profile', {profile: profile,
-                        user: userdata,
-                        num_tweets: num_tweets.count,
-                        tweets: tweet_array,
-                        following: following_users,
-                        followers: followed_by_users,
-                        isFollowing: followers.isFollowing(req.session.username, username),
-                        wtf: util.getWhoToFollow(req.session.username)});
+          followers.getFollowedUsers(username, function(err, following_users) {
+            followers.getUsersFollowing(username, function(err, followed_by_users) {
+              user.getUser(req.session.username, function(err, userdata) {
+                followers.isFollowing(req.session.username, username, function(isFollowing) {
+                  res.render('profile', {profile: profile,
+                            user: userdata,
+                            num_tweets: num_tweets.count,
+                            tweets: tweet_array,
+                            following: following_users,
+                            followers: followed_by_users,
+                            isFollowing: isFollowing,
+                            wtf: util.getWhoToFollow(req.session.username)});
+                });
+              });
+            });
           });
         });
       });
@@ -67,27 +71,23 @@ exports.profile = function(req, res, next){
 // following_user_data = users that username is following<br>
 exports.following = function(req, res){
   var username = req.param('username');
-  var following_users = followers.getFollowedUsers(username);
-  var followed_by_users = followers.getUsersFollowing(username);
-  var following_user_data = [];
-
-// Finds all users that username is following<br>
-  for (var i=0; i<following_users.length; i++)
-  {
-    //following_user_data.push(user.getUser(following_users[i]));
-    following_user_data.push({username: following_users[i], fullname: 'tmp'});
-  }
-  user.getUser(username, function(err, profile) {
-    user.getUser(req.session.username, function(err, userdata) {
-      tweets.getTweetCountByUser(username, function(err, num_tweets) {
-        res.render('following', {profile: profile,
-                  user: userdata,
-                 	num_tweets: num_tweets.count,
-    				      tweets: [],
-                  following: following_user_data,
-                  followers: followed_by_users,
-                  isFollowing: followers.isFollowing(req.session.username, username),
-                  wtf: util.getWhoToFollow(req.session.username)});
+  followers.getFollowedUsers(username, function(err, following_users) {
+    followers.getUsersFollowing(username, function(err, followed_by_users) {
+      user.getUser(username, function(err, profile) {
+        user.getUser(req.session.username, function(err, userdata) {
+          tweets.getTweetCountByUser(username, function(err, num_tweets) {
+            followers.isFollowing(req.session.username, username, function(isFollowing) {
+              res.render('following', {profile: profile,
+                      user: userdata,
+                      num_tweets: num_tweets.count,
+                      tweets: [],
+                      following: following_users,
+                      followers: followed_by_users,
+                      isFollowing: isFollowing,
+                      wtf: util.getWhoToFollow(req.session.username)});
+            });
+          });
+        });
       });
     });
   });
@@ -101,27 +101,23 @@ exports.following = function(req, res){
 // followed_by_user_data = users following username<br>
 exports.followers = function(req, res){
   var username = req.param('username');
-  var following_users = followers.getFollowedUsers(username);
-  var followed_by_users = followers.getUsersFollowing(username);
-  var followed_by_user_data = [];
-
-// Finds all users followed by username
-  for (var i=0; i<followed_by_users.length; i++)
-  {
-    //followed_by_user_data.push(user.getUser(followed_by_users[i]));
-    followed_by_user_data.push({username: followed_by_users[i], fullname: 'tmp'});
-  }
-  user.getUser(username, function(err, profile) {
-    user.getUser(req.session.username, function(err, userdata) {
-      tweets.getTweetCountByUser(username, function(err, num_tweets) {
-        res.render('followers', {profile: profile,
-                user: userdata,
-               	num_tweets: num_tweets.count,
-  				      tweets: [],
-                following: following_users,
-                followers: followed_by_user_data,
-                isFollowing: followers.isFollowing(req.session.username, username),
-                wtf: util.getWhoToFollow(req.session.username)});
+  followers.getFollowedUsers(username, function(err, following_users) {
+    followers.getUsersFollowing(username, function(err, followed_by_users) {
+      user.getUser(username, function(err, profile) {
+        user.getUser(req.session.username, function(err, userdata) {
+          tweets.getTweetCountByUser(username, function(err, num_tweets) {
+            followers.isFollowing(req.session.username, username, function(isFollowing) {
+              res.render('followers', {profile: profile,
+                    user: userdata,
+                    num_tweets: num_tweets.count,
+                    tweets: [],
+                    following: following_users,
+                    followers: followed_by_users,
+                    isFollowing: isFollowing,
+                    wtf: util.getWhoToFollow(req.session.username)});
+            });
+          });
+        });
       });
     });
   });
@@ -134,19 +130,23 @@ exports.followers = function(req, res){
 // followed_by_users = users following username<br>
 exports.favorites = function(req, res){
   var username = req.param('username');
-  var following_users = followers.getFollowedUsers(username);
-  var followed_by_users = followers.getUsersFollowing(username);
-  user.getUser(username, function(err, profile) {
-    user.getUser(req.session.username, function(err, userdata) {
-      tweets.getTweetCountByUser(username, function(err, num_tweets) {
-        res.render('favorites', {profile: profile,
-                user: userdata,
-               	num_tweets: num_tweets.count,
-  				      tweets: [],
-                following: following_users,
-                followers: followed_by_users,
-                isFollowing: followers.isFollowing(req.session.username, username),
-                wtf: util.getWhoToFollow(req.session.username)});
+  followers.getFollowedUsers(username, function(err, following_users) {
+    followers.getUsersFollowing(username, function(err, followed_by_users) {
+      user.getUser(username, function(err, profile) {
+        user.getUser(req.session.username, function(err, userdata) {
+          tweets.getTweetCountByUser(username, function(err, num_tweets) {
+            followers.isFollowing(req.session.username, username, function(isFollowing) {
+              res.render('favorites', {profile: profile,
+                    user: userdata,
+                    num_tweets: num_tweets.count,
+                    tweets: [],
+                    following: following_users,
+                    followers: followed_by_users,
+                    isFollowing: isFollowing,
+                    wtf: util.getWhoToFollow(req.session.username)});
+            });
+          });
+        });
       });
     });
   });

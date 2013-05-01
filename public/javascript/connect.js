@@ -23,8 +23,8 @@ var Connect = {
 	  	// socket recieves mention data
 	  	this.socket.on('+Mention', function (data) {
 	  		var interaction_html = '<li><div class="tweet">' +
-		   		'<a class="owner" href="/' + data.tweet.userdata.username + '">' +
-		   			'<b>' + data.tweet.userdata.fullname + '</b>' +
+		   		'<a class="owner" href="/' + data.tweet.username + '">' +
+		   			'<b>' + data.tweet.fullname + '</b>' +
 		   		'</a>' + ' mentioned you' +
 		   	'</div></li>';
 		   	$('#interaction-list').prepend(interaction_html);
@@ -32,7 +32,7 @@ var Connect = {
 		   	var tweet_html = '<div class="tweet">' +
 		   		'<a href="/' + data.tweet.owner + '">' +
 		   			'<div class="owner">' +
-		   				data.tweet.userdata.fullname + 
+		   				data.tweet.fullname + 
 		   				'<small> @' + 
 		   				data.tweet.owner +
 		   				'</small>' +

@@ -22,7 +22,7 @@ var Profile = {
 	  		var tweet_html = '<div class="tweet">' +
 		   		'<a href="/' + data.tweet.owner + '">' +
 		   			'<div class="owner">' +
-		   				data.tweet.userdata.fullname + 
+		   				data.tweet.fullname + 
 		   				'<small> @' + 
 		   				data.tweet.owner +
 		   				'</small>' +
