@@ -54,8 +54,8 @@ var Tweets = {
 		$.post("/publish_tweet", {message: message, username: username})
 		.done(function(result) {
 			that.socket.emit('+Tweet', data);
-		  that.tweetcount = that.tweetcount + 1;
-		  $('#curr_tweet_count').html(that.tweetcount + ' tweets');
+		  	that.tweetcount = that.tweetcount + 1;
+		  	$('#curr_tweet_count').html(that.tweetcount + ' tweets');
 			$('#message').val('');
 			//var tweetcount = $('#curr_tweet_count').text();
 			//$('#curr_tweet_count').text(++tweetcount);

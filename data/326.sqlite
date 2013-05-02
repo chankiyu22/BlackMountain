@@ -38,8 +38,8 @@ create table followers(
 );
 
 create table hashtags(
-	message VARCHAR(20) NOT NULL UNIQUE,
-	freq INTEGER NOT NULL
+	tag VARCHAR(20) NOT NULL UNIQUE,
+	count INTEGER NOT NULL
 );
 
 insert into users (fullname, email, username, password, isgroup) values
@@ -118,8 +118,8 @@ insert into followers values
 	(3, 6);
 
 insert into hashtags values
-	('#test', 2),
-	('#tweet', 2),
-	('#bill', 1),
-	('#thuglife', 1),
-	('#mystery', 1);
+	('test', 2),
+	('tweet', 2),
+	('bill', 1),
+	('thuglife', 1),
+	('mystery', 1);
