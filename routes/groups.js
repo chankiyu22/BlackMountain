@@ -13,14 +13,15 @@ var group = require('../lib/groups');
  * 2. Tweets of group members
  */
 exports.groups = function(req, res){
-	var myGroups = group.getGroupWithMember(req.session.username);
-	tweets.getTweetsOfGroups(req.session.username, function(err, groupTweets) {
-		util.initTweets(groupTweets);
-		user.getUser(req.session.username, function(err, userdata) {
-			res.render('groups', {user: userdata,
-  						tweets: groupTweets,
-  						timeline_header: 'Group Mentions',
-  						wtf: util.getWhoToFollow(req.session.username)});
+	group.getGroupWithMember(req.session.username, function(err, myGroups) {
+		tweets.getTweetsOfGroups(req.session.username, function(err, groupTweets) {
+			util.initTweets(groupTweets);
+			user.getUser(req.session.username, function(err, userdata) {
+				res.render('groups', {user: userdata,
+	  						tweets: groupTweets,
+	  						timeline_header: 'Group Mentions',
+	  						wtf: util.getWhoToFollow(req.session.username)});
+			});
 		});
 	});
 };

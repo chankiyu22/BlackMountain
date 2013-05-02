@@ -23,15 +23,20 @@ exports.profile = function(req, res, next){
    // If theuser is a member of a group, finds group info
     else if (profile.isgroup)
     {
-      var group = groups.getGroupByName(username);
-      user.getUser(req.session.username, function(err, userdata) {
-          res.render('group_profile', {profile: profile,
+      groups.getGroupByName(username, function(err, group) {
+        user.getUser(req.session.username, function(err, userdata) {
+          groups.isMember(group.id, req.session.username, function(isMember) {
+            groups.getMembersForGroup(group.id, function(err, members) {
+              res.render('group_profile', {profile: profile,
                             user: userdata,
                             group: group,
-                            isMember: groups.isMember(group.id, req.session.username),
+                            isMember: isMember,
                             session: req.session,
-                            members: groups.getMembersForGroup(group.id),
+                            members: members,
                             wtf: util.getWhoToFollow(req.session.username)});
+            });
+          });
+        });
       });
     }
     else
