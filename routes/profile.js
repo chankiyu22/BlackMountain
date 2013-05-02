@@ -27,13 +27,15 @@ exports.profile = function(req, res, next){
         user.getUser(req.session.username, function(err, userdata) {
           groups.isMember(group.id, req.session.username, function(isMember) {
             groups.getMembersForGroup(group.id, function(err, members) {
-              res.render('group_profile', {profile: profile,
+              util.getWhoToFollow(req.session.username, function(err, wtf) {
+                res.render('group_profile', {profile: profile,
                             user: userdata,
                             group: group,
                             isMember: isMember,
                             session: req.session,
                             members: members,
-                            wtf: util.getWhoToFollow(req.session.username)});
+                            wtf: wtf});
+              });
             });
           });
         });
@@ -50,14 +52,16 @@ exports.profile = function(req, res, next){
             followers.getUsersFollowing(username, function(err, followed_by_users) {
               user.getUser(req.session.username, function(err, userdata) {
                 followers.isFollowing(req.session.username, username, function(isFollowing) {
-                  res.render('profile', {profile: profile,
+                  util.getWhoToFollow(req.session.username, function(err, wtf) {
+                    res.render('profile', {profile: profile,
                             user: userdata,
                             num_tweets: num_tweets.count,
                             tweets: tweet_array,
                             following: following_users,
                             followers: followed_by_users,
                             isFollowing: isFollowing,
-                            wtf: util.getWhoToFollow(req.session.username)});
+                            wtf: wtf});
+                  });
                 });
               });
             });
@@ -82,14 +86,16 @@ exports.following = function(req, res){
         user.getUser(req.session.username, function(err, userdata) {
           tweets.getTweetCountByUser(username, function(err, num_tweets) {
             followers.isFollowing(req.session.username, username, function(isFollowing) {
-              res.render('following', {profile: profile,
+              util.getWhoToFollow(req.session.username, function(err, wtf) {
+                res.render('following', {profile: profile,
                       user: userdata,
                       num_tweets: num_tweets.count,
                       tweets: [],
                       following: following_users,
                       followers: followed_by_users,
                       isFollowing: isFollowing,
-                      wtf: util.getWhoToFollow(req.session.username)});
+                      wtf: wtf});
+              });
             });
           });
         });
@@ -112,14 +118,16 @@ exports.followers = function(req, res){
         user.getUser(req.session.username, function(err, userdata) {
           tweets.getTweetCountByUser(username, function(err, num_tweets) {
             followers.isFollowing(req.session.username, username, function(isFollowing) {
-              res.render('followers', {profile: profile,
+              util.getWhoToFollow(req.session.username, function(err, wtf) {
+                res.render('followers', {profile: profile,
                     user: userdata,
                     num_tweets: num_tweets.count,
                     tweets: [],
                     following: following_users,
                     followers: followed_by_users,
                     isFollowing: isFollowing,
-                    wtf: util.getWhoToFollow(req.session.username)});
+                    wtf: wtf});
+              });
             });
           });
         });
@@ -141,7 +149,8 @@ exports.favorites = function(req, res){
         user.getUser(req.session.username, function(err, userdata) {
           tweets.getTweetCountByUser(username, function(err, num_tweets) {
             followers.isFollowing(req.session.username, username, function(isFollowing) {
-              res.render('favorites', {profile: profile,
+              util.getWhoToFollow(req.session.username, function(err, wtf) {
+                res.render('favorites', {profile: profile,
                     user: userdata,
                     num_tweets: num_tweets.count,
                     tweets: [],
@@ -149,6 +158,7 @@ exports.favorites = function(req, res){
                     followers: followed_by_users,
                     isFollowing: isFollowing,
                     wtf: util.getWhoToFollow(req.session.username)});
+              });
             });
           });
         });

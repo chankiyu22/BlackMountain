@@ -12,10 +12,13 @@ var util = require('../lib/util');
  */
 exports.connect = function(req, res){
   user.getUser(req.session.username, function(err, theuser) {
-    var interactions = util.getInteractions(theuser.username);
-    res.render('connect', {user: theuser,
+    util.getInteractions(theuser.username, function(interactions) {
+      util.getWhoToFollow(req.session.username, function(err, wtf) {
+        res.render('connect', {user: theuser,
                 interactions: interactions,
-                wtf: util.getWhoToFollow(req.session.username)});
+                wtf: wtf});
+      });
+    });
   });
 };
 
@@ -31,10 +34,12 @@ exports.mentions = function(req, res){
   user.getUser(req.session.username, function(err, theuser) {
     var tweet_array = tweets.getTweetsThatMention(theuser.username, function(err, tweet_array) {
       util.initTweets(tweet_array);
-      res.render('mentions', {user: theuser,
+      util.getWhoToFollow(req.session.username, function(err, wtf) {
+        res.render('mentions', {user: theuser,
                   tweets: tweet_array,
                   timeline_header: "Mentions",
-                  wtf: util.getWhoToFollow(req.session.username)});
+                  wtf: wtf});
+      });
     });
   });
 };

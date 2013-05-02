@@ -16,7 +16,6 @@ var Trends = {
 
 	  	// socket recieves trend data
 	  	this.socket.on('+Trends', function (data) {
-	  	  	console.log('received trend data');
 		   	$('#trend_space').html(data.tags);
   		});
 

@@ -5,8 +5,10 @@ var user = require('../lib/user');
 // Renders the tweets on discover page
 exports.discover = function(req, res){
 	user.getUser(req.session.username, function(err, userdata) {
-		res.render('discover', {user: userdata,
-  							wtf: util.getWhoToFollow(req.session.username)});
+      	util.getWhoToFollow(req.session.username, function(err, wtf) {
+			res.render('discover', {user: userdata,
+  							wtf: wtf});
+		});
 	});
 };
 
@@ -14,7 +16,9 @@ exports.discover = function(req, res){
 // Renders the recent activity on activity page
 exports.activity = function(req, res){
 	user.getUser(req.session.username, function(err, userdata) {
-  		res.render('activity', {user: userdata,
-  							wtf: util.getWhoToFollow(req.session.username)});
+      	util.getWhoToFollow(req.session.username, function(err, wtf) {
+  			res.render('activity', {user: userdata,
+  							wtf: wtf});
+  		});
   	});
 };

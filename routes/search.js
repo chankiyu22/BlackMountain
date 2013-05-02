@@ -16,10 +16,12 @@ exports.search = function(req, res){
       tweet_array = [];
     }
     user.getUser(req.session.username, function(err, userdata) {
-      res.render('search', {user: userdata,
+      util.getWhoToFollow(req.session.username, function(err, wtf) {
+        res.render('search', {user: userdata,
                 tweets: tweet_array,
                 timeline_header: 'Search Results For ' + searchstring,
-                wtf: util.getWhoToFollow(req.session.username)});
+                wtf: wtf});
+      });
     });
   });
 };

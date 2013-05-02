@@ -12,9 +12,9 @@
 				    </span>
 			    </a>
 			   	<% if(groups[i].isMember == false) {%>
-	            	<button id="join_button<%= i %>" onclick="Groups.join_group(<%= groups[i].id %>, '<%= user.username %>');" class="join_group" type="button">Join</button>
+	            	<button id="join_button<%= i+1 %>" onclick="Groups.join_group(<%= groups[i].id %>, '<%= user.username %>');" class="join_group" type="button">Join</button>
 			   	<% } else { %>
-			   		<button id="join_button<%= i %>" class="join_group" type="button" disabled="true">Joined</button>
+			   		<button id="join_button<%= i+1 %>" class="join_group" type="button" disabled="true">Joined</button>
 			   	<% } %>
 		   	</div>
 	   	</li>
