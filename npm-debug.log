@@ -1,0 +1,61 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'sqlite-3' ]
+2 info using npm@1.2.15
+3 info using node@v0.10.2
+4 verbose read json C:\Users\Kevin\Documents\326\BlackMountain\package.json
+5 verbose read json C:\Users\Kevin\Documents\326\BlackMountain\node_modules\ejs\package.json
+6 verbose read json C:\Users\Kevin\Documents\326\BlackMountain\node_modules\express\package.json
+7 verbose from cache C:\Users\Kevin\Documents\326\BlackMountain\package.json
+8 verbose readDependencies using package.json deps
+9 verbose cache add [ 'sqlite-3', null ]
+10 verbose cache add name=undefined spec="sqlite-3" args=["sqlite-3",null]
+11 verbose parsed url { protocol: null,
+11 verbose parsed url   slashes: null,
+11 verbose parsed url   auth: null,
+11 verbose parsed url   host: null,
+11 verbose parsed url   port: null,
+11 verbose parsed url   hostname: null,
+11 verbose parsed url   hash: null,
+11 verbose parsed url   search: null,
+11 verbose parsed url   query: null,
+11 verbose parsed url   pathname: 'sqlite-3',
+11 verbose parsed url   path: 'sqlite-3',
+11 verbose parsed url   href: 'sqlite-3' }
+12 silly lockFile f4f3359f-sqlite-3 sqlite-3
+13 verbose lock sqlite-3 C:\Users\Kevin\AppData\Roaming\npm-cache\f4f3359f-sqlite-3.lock
+14 silly lockFile f4f3359f-sqlite-3 sqlite-3
+15 silly lockFile f4f3359f-sqlite-3 sqlite-3
+16 verbose addNamed [ 'sqlite-3', '' ]
+17 verbose addNamed [ null, '' ]
+18 silly lockFile 74f01387-sqlite-3 sqlite-3@
+19 verbose lock sqlite-3@ C:\Users\Kevin\AppData\Roaming\npm-cache\74f01387-sqlite-3.lock
+20 silly addNameRange { name: 'sqlite-3', range: '', hasData: false }
+21 verbose url raw sqlite-3
+22 verbose url resolving [ 'https://registry.npmjs.org/', './sqlite-3' ]
+23 verbose url resolved https://registry.npmjs.org/sqlite-3
+24 info trying registry request attempt 1 at 15:20:01
+25 http GET https://registry.npmjs.org/sqlite-3
+26 http 404 https://registry.npmjs.org/sqlite-3
+27 silly registry.get cb [ 404,
+27 silly registry.get   { server: 'CouchDB/1.3.0 (Erlang OTP/R15B03)',
+27 silly registry.get     date: 'Thu, 02 May 2013 19:20:00 GMT',
+27 silly registry.get     'content-type': 'application/json',
+27 silly registry.get     'content-length': '52',
+27 silly registry.get     'cache-control': 'must-revalidate' } ]
+28 silly lockFile 74f01387-sqlite-3 sqlite-3@
+29 silly lockFile 74f01387-sqlite-3 sqlite-3@
+30 error 404 'sqlite-3' is not in the npm registry.
+30 error 404 You should bug the author to publish it
+30 error 404
+30 error 404 Note that you can also install from a
+30 error 404 tarball, folder, or http url, or git url.
+31 error System Windows_NT 6.0.6002
+32 error command "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "sqlite-3"
+33 error cwd C:\Users\Kevin\Documents\326\BlackMountain
+34 error node -v v0.10.2
+35 error npm -v 1.2.15
+36 error code E404
+37 verbose exit [ 1, true ]

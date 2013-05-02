@@ -7,7 +7,8 @@ Run our app using 'node app.js'. This will open a server on port 3000.
 Additions that we made for this project:
 
 1. Database
-   - 326.sqlite: created and filled db for users, groups, tweets, followers
+   - 326.sqlite: created and filled tables for users, groups, groupmembers, tweets, followers, hashtags
+   - Modified /lib folder to incorporate the new database
 
 ## Project Assignment 4
 Additions that we made for this project:
